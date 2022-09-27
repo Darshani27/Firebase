@@ -1,0 +1,43 @@
+<div class="main-div">
+    <mat-card class="mat-card-style" [class.mat-elevation-z8]="true">
+            <mat-card-title>
+                Login
+            </mat-card-title>
+        <mat-card-content>
+            <form>
+                <p>
+                    <mat-form-field>
+                      <input type="text" matInput placeholder="Username" [(ngModel)]="email" [ngModelOptions]="{standalone:true}">
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field>
+                      <input type="password" matInput placeholder="Password" [(ngModel)]="password" [ngModelOptions]="{standalone:true}" >
+                    </mat-form-field>
+                </p>
+                <div class="btn-center">
+                    <button type="submit" mat-raised-button color="primary" (click)="login()">Login</button>
+                </div>
+                <br>
+                <div class="register">
+                    <a href="/register" style="text-decoration:none;">
+                        Need Account ?
+                        <span>
+                            Register
+                        </span>
+                    </a>
+                </div>
+                <div >
+                    <a (click)="signInWithGoogle()" style="text-decoration: none;cursor:pointer;">
+                        <mat-card [class.mat-elevation-z8]="true">
+                            <mat-card-content style="color:orange">
+                            <mat-icon style="color:black">email</mat-icon>
+                                Sign In With Google
+                            </mat-card-content>
+                        </mat-card>
+                    </a>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+    </div>
