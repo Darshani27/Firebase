@@ -7,33 +7,30 @@
             <form [formGroup]="loginform">
                 <p>
                     <mat-form-field>
-                      <input  formControlName="email" type="text" matInput placeholder="Email">
+                      <input  formControlName="email" type="text" matInput placeholder="Email" required>
+                      <mat-error *ngIf="loginform.invalid">{{getErrorMessage()}}</mat-error>
                     </mat-form-field>
-                    <!-- <span class="text-danger"
-                    *ngIf="(loginFormControl.email.touched )">
-                    Email is required
-                </span> -->
                 </p>
                 <p>
                     <mat-form-field>
-                      <input formControlName="password" type="password" matInput placeholder="Password" >
+                        <input formControlName="password" type="password" matInput placeholder="Password" >
+                        <mat-error *ngIf="loginform.invalid">{{getErrorMessage()}}</mat-error>
                     </mat-form-field>
-                    <!-- <span *ngIf="!loginform.get('password').valid && loginform.get('password').touched">Please enter First Name  
-                    </span> --->
                     
                 </p>
                 <div class="btn-center">
-                    <button type="submit" mat-raised-button color="primary" (click)="login()">Login</button>
+                    <button type="submit" mat-raised-button color="primary" (click)="login()" [disabled]="loginform.invalid && loginform.touched">Login</button>
                 </div>
                 <br>
                 <div class="register">
-                    <a href="/register" style="text-decoration:none;">
+                    <a routerLink="/register" routerLinkActive="active" style="text-decoration:none;">
                         Need Account ?
                         <span>
                             Register
                         </span>
                     </a>
                 </div>
+                <br>
                 <div >
                     <a (click)="signInWithGoogle()" style="text-decoration: none;cursor:pointer;">
                         <mat-card [class.mat-elevation-z8]="true">

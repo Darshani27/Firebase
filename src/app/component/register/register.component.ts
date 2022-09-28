@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/auth.service';
 
 @Component({
@@ -7,26 +8,37 @@ import { AuthService } from 'src/app/shared/auth.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  email : string='';
-  password:string='';
+ 
+  registerForm:FormGroup={} as any;
+
 
   constructor(private auth :AuthService) { }
 
   ngOnInit(): void {
+    this.registerForm=new FormGroup({
+      'email':new FormControl('',[Validators.email,Validators.required]),
+      'password':new FormControl('',Validators.required),
+      'FirstName':new FormControl('',Validators.required),
+      'LastName':new FormControl('',Validators.required)
+    })
   }
   register()
   {
-    if(this.email=='')
-    {
-      alert('Please enter Email');
-      return;
-    }
-    if(this.password=='')
-    {
-      alert('Please enter Password');
-      return;
-    }
-    this.auth.register(this.email,this.password);
+    const email=this.registerForm.get('email')?.value;
+    const password=this.registerForm.get('password')?.value;
+    this.auth.register(email,password);
 
+  }
+  getErrorMessage()
+  {
+    if(this.registerForm.get('email')?.value=='' && this.registerForm.get('password')?.value=='')
+    {
+      return 'Please Enter Value';
+    }
+    if(!this.registerForm.get('email')?.value?.includes('@'))
+    {
+      return 'Not a Valid Email';
+    }
+    return '';
   }
 }
