@@ -16,6 +16,8 @@ import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon'; 
+import {MatChipsModule} from '@angular/material/chips';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,10 +35,10 @@ import {MatIconModule} from '@angular/material/icon';
     AngularFireDatabaseModule,
     MatButtonModule,
     MatCardModule,
-    MatFormFieldModule,MatIconModule,MatInputModule
+    MatFormFieldModule,MatIconModule,MatInputModule,MatChipsModule,MatAutocompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent],
-  exports:[MatButtonModule,MatCardModule,MatFormFieldModule,MatIconModule,MatInputModule]
+  exports:[MatButtonModule,MatCardModule,MatFormFieldModule,MatIconModule,MatInputModule,MatChipsModule,MatAutocompleteModule]
 })
 export class AppModule { }

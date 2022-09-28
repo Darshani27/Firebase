@@ -12,8 +12,28 @@ export class DataService {
   create(user: User): any {
     const ref=this.db.list('items');
     ref.push(user).then((res)=>{
-      console.log(res);
+      // console.log(res);
       
     });
   }
+  createProductsList(product : any)
+  {
+    const productref=this.db.list('products');
+    productref.push(product).then((res)=>{
+      console.log(res);
+      alert('Product Added Successfully');
+      
+    })
+  }
+  removeProduct(key : any)
+  {
+    const productref=this.db.list('products').remove(key);
+  }
+  // removeProducts()
+  // {
+  //   const productref=this.db.list('products');
+  //   productref.remove().then((res)=>{
+  //     alert('products cleared')
+  //   });
+  // }
 }

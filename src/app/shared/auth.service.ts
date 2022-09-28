@@ -9,7 +9,7 @@ import {GoogleAuthProvider} from '@angular/fire/auth'
 export class AuthService {
 
   constructor(private fieauth : AngularFireAuth, private router:Router) { }
-  login(email:string,password:string)
+  login(email:any,password:any)
   {
     this.fieauth.signInWithEmailAndPassword(email,password).then(()=>
     {

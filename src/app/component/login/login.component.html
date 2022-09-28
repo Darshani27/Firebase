@@ -4,16 +4,23 @@
                 Login
             </mat-card-title>
         <mat-card-content>
-            <form>
+            <form [formGroup]="loginform">
                 <p>
                     <mat-form-field>
-                      <input type="text" matInput placeholder="Username" [(ngModel)]="email" [ngModelOptions]="{standalone:true}">
+                      <input  formControlName="email" type="text" matInput placeholder="Email">
                     </mat-form-field>
+                    <!-- <span class="text-danger"
+                    *ngIf="(loginFormControl.email.touched )">
+                    Email is required
+                </span> -->
                 </p>
                 <p>
                     <mat-form-field>
-                      <input type="password" matInput placeholder="Password" [(ngModel)]="password" [ngModelOptions]="{standalone:true}" >
+                      <input formControlName="password" type="password" matInput placeholder="Password" >
                     </mat-form-field>
+                    <!-- <span *ngIf="!loginform.get('password').valid && loginform.get('password').touched">Please enter First Name  
+                    </span> --->
+                    
                 </p>
                 <div class="btn-center">
                     <button type="submit" mat-raised-button color="primary" (click)="login()">Login</button>

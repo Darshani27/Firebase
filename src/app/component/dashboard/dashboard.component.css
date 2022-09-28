@@ -1,0 +1,19 @@
+.chip-list
+{
+    width :100%;
+}
+mat-card-title,
+mat-card-content {
+  display: flex;
+  justify-content: center;
+}
+:host {
+    display: flex;
+    justify-content: center;
+    margin: 700px 100px;
+  }
+  .btn-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
