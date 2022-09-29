@@ -3,25 +3,14 @@
         Add Product
     </mat-card-title>
     <mat-card-content>
-        <mat-form-field class="chip-list" appearance="fill">
-                <mat-chip-list #chipList aria-label="Products Selection">
-                    <mat-chip *ngFor="let product of products" (removed)="remove(product)">
-                        {{product.name}}
-                        <button matChipRemove>
-                            <mat-icon>cancel</mat-icon>
-                        </button>
-                    </mat-chip>
-                        <input type="text" matInput placeholder="Add Products Here..." 
-                        #productInput
-                        [formControl]="productCtrl"
-                        [matChipInputFor]="chipList"
-                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                        >
-                </mat-chip-list>
+        <mat-form-field class="chip-list" appearance="fill">  
+            <input>
+            <mat-error>
+            </mat-error>
         </mat-form-field>
     </mat-card-content>
     <div class="btn-center" >
-    <button mat-raised-button color="primary" (click)="add(productInput.value)">
+    <button mat-raised-button color="primary">
         Add 
     </button>
     </div>
