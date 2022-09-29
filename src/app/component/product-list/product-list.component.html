@@ -1,16 +1,46 @@
 <div>
-    <mat-card>
+    <mat-card [class.mat-elevation-z8]="true">
         <mat-card-title>
             Product List
         </mat-card-title>
         <mat-card-content>
             <div class="btn-center">
-                <mat-list>
-                    <mat-list-item *ngFor="let product of products; let i=index">
-                        {{product.name}}
-                    </mat-list-item>
-                </mat-list>
+                <table mat-table [dataSource]="products">
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="name">
+                      <th mat-header-cell *matHeaderCellDef> Name </th>
+                      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                    </ng-container>
+
+                    <!-- Price Column -->
+                    <ng-container matColumnDef="price">
+                      <th mat-header-cell *matHeaderCellDef> Price </th>
+                      <td mat-cell *matCellDef="let element"> {{element.price|currency}} </td>
+                    </ng-container>
+                  
+                    <!-- Category Column -->
+                    <ng-container matColumnDef="category">
+                      <th mat-header-cell *matHeaderCellDef> Category </th>
+                      <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef> Actions (Edit/Delete) </th>   
+                        <td mat-cell *matCellDef="let element">
+                            <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" color="primary">
+                                <mat-icon aria-label="Edit">edit</mat-icon>
+                              </button> 
+                          <button mat-icon-button color="warn" matTooltip="Click to Delete" >
+                            <mat-icon>delete</mat-icon>
+                          </button> 
+                        </td>
+                      </ng-container>
+                    
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  </table>
             </div>
+            <br>
             <div class="btn-center">
                 <button mat-raised-button color="accent" (click)="removeAllProducts()">
                 Remove All

@@ -1,3 +1,4 @@
+import { DataSource } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs';
 import { Product } from 'src/app/models/product.model';
@@ -12,12 +13,14 @@ type NewType = Product[];
 })
 export class ProductListComponent implements OnInit {
   products: Product[]=[];
+  displayedColumns: string[] = ['name', 'price', 'category','action'];
   
   constructor(private dataService:DataService) { }
 
   ngOnInit(): void {
     this.retrieveProducts();
   }
+
   retrieveProducts() {
    this.dataService.getAll().snapshotChanges().pipe(
     map(changes=>{
@@ -28,10 +31,10 @@ export class ProductListComponent implements OnInit {
     })
    ).subscribe((data : any)=>{
     this.products=data;
-   })
+   });
   }
 
-  removeAllProducts()
+  removeAllProducts(): void
   {
     this.dataService.deleteAll().then((res)=>{
       alert('Records Deleted Successfully');

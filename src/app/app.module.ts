@@ -20,6 +20,8 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatListModule} from '@angular/material/list';
 import { ProductListComponent } from './component/product-list/product-list.component';
+import {MatTableModule} from '@angular/material/table';
+import {MatTooltipModule} from '@angular/material/tooltip';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,10 +41,11 @@ import { ProductListComponent } from './component/product-list/product-list.comp
     MatButtonModule,
     MatListModule,
     MatCardModule,
-    MatFormFieldModule,MatIconModule,MatInputModule,MatChipsModule,MatAutocompleteModule
+    MatTooltipModule,
+    MatFormFieldModule,MatIconModule,MatInputModule,MatChipsModule,MatAutocompleteModule,MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent],
-  exports:[MatListModule,MatButtonModule,MatCardModule,MatFormFieldModule,MatIconModule,MatInputModule,MatChipsModule,MatAutocompleteModule]
+  exports:[MatTooltipModule,MatTableModule,MatListModule,MatButtonModule,MatCardModule,MatFormFieldModule,MatIconModule,MatInputModule,MatChipsModule,MatAutocompleteModule]
 })
 export class AppModule { }

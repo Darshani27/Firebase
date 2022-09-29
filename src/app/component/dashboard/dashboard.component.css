@@ -10,7 +10,7 @@ mat-card-content {
 :host {
     display: flex;
     justify-content: center;
-    margin: 700px 100px;
+    margin: 100px 0px;
   }
   .btn-center {
     display: flex;
