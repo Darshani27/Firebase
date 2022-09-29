@@ -1,0 +1,8 @@
+mat-card-title {
+  display: flex;
+  justify-content: center;
+}
+.btn-center{
+    display:flex;
+    justify-content:center;
+}

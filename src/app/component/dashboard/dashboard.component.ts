@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { FormControl } from '@angular/forms';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DataService } from 'src/app/shared/data.service';
-import { ThisReceiver } from '@angular/compiler';
 
 export class Product{
   name : string='';
@@ -16,40 +12,51 @@ export class Product{
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  // product=new Product();
-  products:Product[]=[];
-  readonly separatorKeysCodes = [ENTER, COMMA] as const;
-  productCtrl = new FormControl('');
+  product:Product={} as any;
+  submitted:boolean=false;
+  productForm:FormGroup={} as any;
   constructor(private dataService:DataService) { }
 
   ngOnInit(): void {
+    this.productForm=new FormGroup({
+      'productname': new FormControl('',Validators.required),
+      'productprice': new FormControl('',[Validators.required,Validators.pattern('[0-9]*')]),
+      'productcategory':new FormControl('',Validators.required)
+    })
   }
-  add(value:any)
+  
+  saveProduct()
   {
-    // const value=(event.value || '').trim();
-    // const val=this.products.length;
-    if(value)
-    {
-      this.products.push({name:value});
-    }
-    // event.chipInput.clear();
-    value='';
-    console.log(this.products);
-    this.dataService.createProductsList(this.products);
+    this.product={
+    name:this.productForm.value.productname,
+    price:this.productForm.value.productprice,
+    category:this.productForm.value.productcategory
+   } as any;
+  // console.log(this.productForm.value);
+
+    this.dataService.createProduct(this.product).then((res: any)=>{
+      console.log('created');
+      this.submitted=true;
+    })
   }
-  remove(product :any)
+
+  newProduct()
   {
-    const index=this.products.indexOf(product);
-    if(index >=0)
+    // this.product=new Product();
+     this.product={} as any;
+     this.submitted=false;
+  }
+
+  submittedMessage()
+  {
+    return 'You have submitted successfully !'
+  }
+  getErrorMessage()
+  {
+    if(this.productForm.value.productname=='' || this.productForm.value.productprice==''||this.productForm.value.productcategory=='')
     {
-      this.products.splice(index,1);
+      return 'Please enter value';
     }
-    // console.log(product);
-    // console.log(JSON.stringify(product));
-    
-    this.dataService.removeProduct(product.name);
-    console.log(product.name);
-    
-    // this.dataService.removeProduct(this.product.key)
+    return'';
   }
 }

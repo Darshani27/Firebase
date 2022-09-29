@@ -1,0 +1,22 @@
+<div>
+    <mat-card>
+        <mat-card-title>
+            Product List
+        </mat-card-title>
+        <mat-card-content>
+            <div class="btn-center">
+                <mat-list>
+                    <mat-list-item *ngFor="let product of products; let i=index">
+                        {{product.name}}
+                    </mat-list-item>
+                </mat-list>
+            </div>
+            <div class="btn-center">
+                <button mat-raised-button color="accent" (click)="removeAllProducts()">
+                Remove All
+              </button>
+            </div>
+        </mat-card-content>
+    
+    </mat-card>
+</div>

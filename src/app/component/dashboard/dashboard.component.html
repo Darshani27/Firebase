@@ -3,15 +3,37 @@
         Add Product
     </mat-card-title>
     <mat-card-content>
-        <mat-form-field class="chip-list" appearance="fill">  
-            <input>
-            <mat-error>
-            </mat-error>
-        </mat-form-field>
+        <form [formGroup]="productForm">
+            <p>
+                <mat-form-field>
+                    <input placeholder="Product Name" matInput type="text" formControlName="productname">
+                    <mat-error *ngIf="productForm.invalid">{{getErrorMessage()}}</mat-error>
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field>
+                    <input placeholder="Product Price" matInput type="text" formControlName="productprice">
+                    <mat-hint>Must not contain alphabets</mat-hint>
+                    <mat-error *ngIf="productForm.invalid">{{getErrorMessage()}}</mat-error>
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field>
+                    <input placeholder="Product Category" matInput type="text" formControlName="productcategory">
+                    <mat-error *ngIf="productForm.invalid">{{getErrorMessage()}}</mat-error>
+                </mat-form-field>
+            </p>
+            <div class="btn-center">
+                <button routerLink="/product-list" routerLinkActive="active" type="submit" mat-raised-button color="primary" (click)="saveProduct()" [disabled]="productForm.invalid && productForm.touched">Submit</button>
+            </div>
+            <br>
+            <div *ngIf="submitted">
+                <div>{{submittedMessage()}}</div>
+                <div class="btn-center">
+                <button style="display:flex;justify-content:center" type="submit" mat-raised-button color="primary" (click)="newProduct()">Add</button>
+                </div>
+            </div>
+        </form>
     </mat-card-content>
-    <div class="btn-center" >
-    <button mat-raised-button color="primary">
-        Add 
-    </button>
-    </div>
 </mat-card>
+

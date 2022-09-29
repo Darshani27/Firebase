@@ -18,12 +18,15 @@ import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon'; 
 import {MatChipsModule} from '@angular/material/chips';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatListModule} from '@angular/material/list';
+import { ProductListComponent } from './component/product-list/product-list.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    DashboardComponent
+    DashboardComponent,
+    ProductListComponent
   ],
   imports: [
     BrowserModule,
@@ -34,11 +37,12 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     MatButtonModule,
+    MatListModule,
     MatCardModule,
     MatFormFieldModule,MatIconModule,MatInputModule,MatChipsModule,MatAutocompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent],
-  exports:[MatButtonModule,MatCardModule,MatFormFieldModule,MatIconModule,MatInputModule,MatChipsModule,MatAutocompleteModule]
+  exports:[MatListModule,MatButtonModule,MatCardModule,MatFormFieldModule,MatIconModule,MatInputModule,MatChipsModule,MatAutocompleteModule]
 })
 export class AppModule { }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
+import { Product } from '../models/product.model';
 import { User } from '../models/user.model';
 
 @Injectable({
@@ -7,7 +8,15 @@ import { User } from '../models/user.model';
 })
 export class DataService {
 
-  constructor(private db :AngularFireDatabase) { }
+  private dbPath = '/products';
+  productRef: AngularFireList<Product>={} as any;
+
+
+  constructor(private db :AngularFireDatabase) {
+    this.productRef=db.list(this.dbPath);
+    console.log(this.productRef);
+    
+   }
 
   create(user: User): any {
     const ref=this.db.list('items');
@@ -16,24 +25,20 @@ export class DataService {
       
     });
   }
-  createProductsList(product : any)
+
+  getAll() :AngularFireList<Product>
   {
-    const productref=this.db.list('products');
-    productref.push(product).then((res)=>{
-      console.log(res);
-      alert('Product Added Successfully');
-      
-    })
+    console.log(this.productRef);
+    
+    return this.productRef;
   }
-  removeProduct(key : any)
+
+  createProduct(product:Product) : any
   {
-    const productref=this.db.list('products').remove(key);
+    return this.productRef.push(product);
   }
-  // removeProducts()
-  // {
-  //   const productref=this.db.list('products');
-  //   productref.remove().then((res)=>{
-  //     alert('products cleared')
-  //   });
-  // }
+
+  deleteAll(): Promise<void> {
+    return this.productRef.remove();
+  }
 }
