@@ -10,10 +10,14 @@ mat-card-content {
 :host {
     display: flex;
     justify-content: center;
-    margin: 100px 0px;
+    margin: 200px 0px;
   }
   .btn-center {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  .btn-align
+  {
+    margin-left: 10px;;
   }

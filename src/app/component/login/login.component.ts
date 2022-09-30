@@ -29,7 +29,6 @@ export class LoginComponent implements OnInit {
   {
     const email=this.loginform.get('email')?.value as string;
     const password=this.loginform.get('password')?.value as string;
-    // console.log(this.loginform.get('email')?.value);
     this.auth.login(email,password);
     const data : any={
       email: this.loginform.get('email')?.value,
