@@ -41,4 +41,12 @@ export class DataService {
   deleteAll(): Promise<void> {
     return this.productRef.remove();
   }
+  update(key:string,value:any)
+  {
+    return this.productRef.update(key,value);
+  }
+  delete(key:string)
+  {
+    return this.productRef.remove(key);
+  }  
 }

@@ -9,7 +9,7 @@
                     <!-- Name Column -->
                     <ng-container matColumnDef="name">
                       <th mat-header-cell *matHeaderCellDef> Name </th>
-                      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                      <td mat-cell *matCellDef="let element"> {{element.name | titlecase}} </td>
                     </ng-container>
 
                     <!-- Price Column -->
@@ -21,16 +21,16 @@
                     <!-- Category Column -->
                     <ng-container matColumnDef="category">
                       <th mat-header-cell *matHeaderCellDef> Category </th>
-                      <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+                      <td mat-cell *matCellDef="let element"> {{element.category | titlecase}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="action">
                         <th mat-header-cell *matHeaderCellDef> Actions (Edit/Delete) </th>   
                         <td mat-cell *matCellDef="let element">
-                            <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" color="primary">
+                            <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" color="primary" (click)="updateProduct(element)">
                                 <mat-icon aria-label="Edit">edit</mat-icon>
                               </button> 
-                          <button mat-icon-button color="warn" matTooltip="Click to Delete" >
+                            <button mat-icon-button color="warn" matTooltip="Click to Delete" (click)="deleteProduct(element)">
                             <mat-icon>delete</mat-icon>
                           </button> 
                         </td>
@@ -42,7 +42,7 @@
             </div>
             <br>
             <div class="btn-center">
-                <button mat-raised-button color="accent" (click)="removeAllProducts()">
+                <button mat-raised-button color="accent" (click)="removeAllProducts()" [disabled]="products.length==0">
                 Remove All
               </button>
             </div>

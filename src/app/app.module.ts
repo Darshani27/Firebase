@@ -22,13 +22,17 @@ import {MatListModule} from '@angular/material/list';
 import { ProductListComponent } from './component/product-list/product-list.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { ConfirmDialogComponent } from './component/confirm-dialog/confirm-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
     DashboardComponent,
-    ProductListComponent
+    ProductListComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -39,6 +43,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     MatButtonModule,
+    MatSnackBarModule,
+    MatDialogModule,
     MatListModule,
     MatCardModule,
     MatTooltipModule,
@@ -46,6 +52,6 @@ import {MatTooltipModule} from '@angular/material/tooltip';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  exports:[MatTooltipModule,MatTableModule,MatListModule,MatButtonModule,MatCardModule,MatFormFieldModule,MatIconModule,MatInputModule,MatChipsModule,MatAutocompleteModule]
+  exports:[MatSnackBarModule,MatDialogModule,MatTooltipModule,MatTableModule,MatListModule,MatButtonModule,MatCardModule,MatFormFieldModule,MatIconModule,MatInputModule,MatChipsModule,MatAutocompleteModule]
 })
 export class AppModule { }

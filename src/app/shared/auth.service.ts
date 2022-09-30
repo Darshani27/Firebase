@@ -17,7 +17,7 @@ export class AuthService {
       this.router.navigate(['/dashboard']);
     },
     (err)=>{
-      alert('Something Went Wrong');
+      alert('Username/Password is invalid');
       this.router.navigate(['/login']);
     });
   }

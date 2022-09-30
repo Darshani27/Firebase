@@ -1,3 +1,4 @@
+import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/auth.service';
@@ -42,14 +43,16 @@ export class LoginComponent implements OnInit {
   }
   getErrorMessage()
   {
-    if (this.loginform.get('email')?.value=='' && this.loginform.get('password')?.value=='') {
+    if ((this.loginform.value.email=='' ||this.loginform.value.password=='')) {
       return 'You must enter a value';
     }
 
-    if(!this.loginform.get('email')?.value?.includes('@'))
+    if(this.loginform.controls['email'].hasError('email'))
     {
       return 'Not a Valid Email';
     }
     return '';
+    // !this.loginform.get('email')?.value?.includes('@')
+    
   }
 }
