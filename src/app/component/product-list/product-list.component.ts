@@ -6,6 +6,7 @@ import { map } from 'rxjs';
 import { Product } from 'src/app/models/product.model';
 import { DataService } from 'src/app/shared/data.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { UpdateDetailComponent } from '../update-detail/update-detail.component';
 
 type NewType = Product[];
 
@@ -33,6 +34,7 @@ export class ProductListComponent implements OnInit {
   msg:string='Records Deleted Successfully';
   deleteMsg:string='Record Deleted !'
   action:string='OK';
+  data:any={};
 
   
   constructor(private dataService:DataService,public dialog: MatDialog,private _snackBar: MatSnackBar) { }
@@ -41,7 +43,7 @@ export class ProductListComponent implements OnInit {
     this.retrieveProducts();
   }
 
-  retrieveProducts() {
+  retrieveProducts() : any {
    this.dataService.getAll().snapshotChanges().pipe(
     map(changes=>{
       return changes.map(c=>{
@@ -50,6 +52,7 @@ export class ProductListComponent implements OnInit {
     })
    ).subscribe((data : any)=>{
     this.products=data;
+    return this.products;
    },(err)=>{
     alert(err.message);
    });
@@ -67,27 +70,24 @@ export class ProductListComponent implements OnInit {
   updateProduct(ele :any)
   {
     this.newProduct={...ele};
-    console.log(this.newProduct);
-    
-    const data={
-      name:this.newProduct.name,
-      price:this.newProduct.price,
-      category:this.newProduct.category,
-    }
-    
-    // console.log("key",this.newProduct.key);
-    // console.log("data",data);
-    
-    
-    if(this.newProduct.key)
-    {
-      this.dataService.update(this.newProduct.key,data).then(
-        (res)=>{
-          alert('Record updated Successfully');
-      }).catch((err)=>{
-        console.log(err);
-      })
-    }
+
+    const dialogRef=this.dialog.open(UpdateDetailComponent,
+      {
+        maxWidth:"900px",
+        data:this.newProduct,
+      }
+      );
+      
+      dialogRef.afterClosed().subscribe((res)=>{
+        this.data=res; 
+        this.dataService.update(this.data.key,this.data).then(
+          (res)=>{
+            alert('Record updated Successfully');
+            // this.products=this.retrieveProducts();
+        }).catch((err)=>{
+          console.log(err);
+        })     
+      });
   }
   deleteProduct(ele : any)
   {

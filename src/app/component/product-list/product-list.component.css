@@ -18,3 +18,7 @@ mat-card
 table {
   width: 100%;
 }
+.btn-align
+  {
+    margin-left: 10px;;
+  }

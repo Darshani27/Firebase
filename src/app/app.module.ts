@@ -25,6 +25,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ConfirmDialogComponent } from './component/confirm-dialog/confirm-dialog.component';
+import { UpdateDetailComponent } from './component/update-detail/update-detail.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +33,8 @@ import { ConfirmDialogComponent } from './component/confirm-dialog/confirm-dialo
     RegisterComponent,
     DashboardComponent,
     ProductListComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    UpdateDetailComponent
   ],
   imports: [
     BrowserModule,
