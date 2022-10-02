@@ -26,6 +26,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ConfirmDialogComponent } from './component/confirm-dialog/confirm-dialog.component';
 import { UpdateDetailComponent } from './component/update-detail/update-detail.component';
+import { PageNotFoundComponent } from './component/page-not-found/page-not-found.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +35,8 @@ import { UpdateDetailComponent } from './component/update-detail/update-detail.c
     DashboardComponent,
     ProductListComponent,
     ConfirmDialogComponent,
-    UpdateDetailComponent
+    UpdateDetailComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

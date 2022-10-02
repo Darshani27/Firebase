@@ -34,7 +34,7 @@ export class ProductListComponent implements OnInit {
   msg:string='Records Deleted Successfully';
   deleteMsg:string='Record Deleted !'
   action:string='OK';
-  data:any={};
+  data:Product={};
 
   
   constructor(private dataService:DataService,public dialog: MatDialog,private _snackBar: MatSnackBar) { }
@@ -80,10 +80,10 @@ export class ProductListComponent implements OnInit {
       
       dialogRef.afterClosed().subscribe((res)=>{
         this.data=res; 
-        this.dataService.update(this.data.key,this.data).then(
-          (res)=>{
-            alert('Record updated Successfully');
-            // this.products=this.retrieveProducts();
+        this.dataService.update(res.key,this.data).then(
+          ()=>{
+            this._snackBar.open('Record updated Successfully','OK');
+            this.products=this.retrieveProducts();
         }).catch((err)=>{
           console.log(err);
         })     

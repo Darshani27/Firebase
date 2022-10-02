@@ -19,15 +19,15 @@ export class UpdateDetailComponent implements OnInit {
   ngOnInit(): void {
   this.result=true;
     this.updateForm=new FormGroup({
-      'updatedproductname':new FormControl(this.incomingData.name),
-      'updatedproductprice':new FormControl(this.incomingData.price),
-      'updatedproductcategory':new FormControl(this.incomingData.category)
+      'name':new FormControl(this.incomingData.name),
+      'price':new FormControl(this.incomingData.price),
+      'category':new FormControl(this.incomingData.category)
   })
   console.log(this.incomingData);
   // console.log(this.updateForm.value);
   this.updateForm.valueChanges.subscribe((res : any)=>{
     // console.log(res);
-    this.data={...res,key:this.incomingData.key,result:this.result};
+    this.data={...res,key:this.incomingData.key};
   });
   }
   onNoClick()

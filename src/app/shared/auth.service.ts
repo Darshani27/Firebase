@@ -15,7 +15,7 @@ export class AuthService {
     this.fieauth.signInWithEmailAndPassword(email,password).then(()=>
     {
       localStorage.setItem('token','true');
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/product-list']);
     },
     (err)=>{
       this._snackbar.open('Invalid Username/Password','OK');

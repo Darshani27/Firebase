@@ -1,5 +1,5 @@
 export class Product {
-    key?: string | null;
+    key?: string;
     name?:string;
     price?:string;
     category?:string;
