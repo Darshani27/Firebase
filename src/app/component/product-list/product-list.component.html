@@ -42,7 +42,7 @@
             </div>
             <br>
             <div class="btn-center">
-                <button mat-raised-button color="accent" (click)="removeAllProducts()" [disabled]="products.length==0">
+                <button mat-raised-button color="accent" (click)="removeAllProducts()" [disabled]="products && products.length==0">
                 Remove All
               </button>
               &nbsp;

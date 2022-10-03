@@ -19,8 +19,8 @@ mat-card-content {
     justify-content: center;
     margin: 200px 0px;
   }
-  .register
+  .login
   {
-    display: flex;
+    display:flex;
     justify-content: center;
   }

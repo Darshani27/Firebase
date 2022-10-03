@@ -13,9 +13,7 @@ export class DataService {
 
 
   constructor(private db :AngularFireDatabase) {
-    this.productRef=db.list(this.dbPath);
-    console.log(this.productRef);
-    
+    this.productRef=db.list(this.dbPath);    
    }
 
   create(user: User): any {

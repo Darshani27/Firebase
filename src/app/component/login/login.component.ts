@@ -52,6 +52,7 @@ export class LoginComponent implements OnInit {
     }
     return '';
     // !this.loginform.get('email')?.value?.includes('@')
+    // kacey28882@canyona.com (verified-email)
     
   }
 }

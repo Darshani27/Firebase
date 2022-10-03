@@ -27,6 +27,10 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ConfirmDialogComponent } from './component/confirm-dialog/confirm-dialog.component';
 import { UpdateDetailComponent } from './component/update-detail/update-detail.component';
 import { PageNotFoundComponent } from './component/page-not-found/page-not-found.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptorInterceptor } from './interceptor/token-interceptor.interceptor';
+import { ForgotPaswordComponent } from './component/forgot-pasword/forgot-pasword.component';
+import { VerifyEmailComponent } from './component/verify-email/verify-email.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +40,9 @@ import { PageNotFoundComponent } from './component/page-not-found/page-not-found
     ProductListComponent,
     ConfirmDialogComponent,
     UpdateDetailComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ForgotPaswordComponent,
+    VerifyEmailComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +60,11 @@ import { PageNotFoundComponent } from './component/page-not-found/page-not-found
     MatTooltipModule,
     MatFormFieldModule,MatIconModule,MatInputModule,MatChipsModule,MatAutocompleteModule,MatTableModule
   ],
-  providers: [],
+  providers: [{
+    provide:HTTP_INTERCEPTORS,
+    useClass:TokenInterceptorInterceptor,
+    multi:true
+  }],
   bootstrap: [AppComponent],
   exports:[MatSnackBarModule,MatDialogModule,MatTooltipModule,MatTableModule,MatListModule,MatButtonModule,MatCardModule,MatFormFieldModule,MatIconModule,MatInputModule,MatChipsModule,MatAutocompleteModule]
 })
