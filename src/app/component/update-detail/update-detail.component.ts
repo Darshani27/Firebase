@@ -24,9 +24,7 @@ export class UpdateDetailComponent implements OnInit {
       'category':new FormControl(this.incomingData.category)
   })
   console.log(this.incomingData);
-  // console.log(this.updateForm.value);
   this.updateForm.valueChanges.subscribe((res : any)=>{
-    // console.log(res);
     this.data={...res,key:this.incomingData.key};
   });
   }

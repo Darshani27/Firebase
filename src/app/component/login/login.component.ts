@@ -1,4 +1,3 @@
-import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/auth.service';
@@ -51,8 +50,6 @@ export class LoginComponent implements OnInit {
       return 'Not a Valid Email';
     }
     return '';
-    // !this.loginform.get('email')?.value?.includes('@')
     // kacey28882@canyona.com (verified-email)
-    
   }
 }

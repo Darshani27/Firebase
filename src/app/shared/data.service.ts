@@ -25,9 +25,7 @@ export class DataService {
   }
 
   getAll() :AngularFireList<Product>
-  {
-    console.log(this.productRef);
-    
+  {    
     return this.productRef;
   }
 

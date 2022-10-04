@@ -42,7 +42,6 @@ export class DashboardComponent implements OnInit {
    } as any;
    if((this.productForm.value.productprice==''||this.productForm.value.productcategory=='' || this.productForm.value.productname=='')&& !this.result)
    {
-    // alert('please enter a avlue');
     this._snackbar.open('Please Enter Product Details','OK');
     this.submitted=false;
     this.router.navigate(['/dashboard']);
@@ -59,7 +58,6 @@ export class DashboardComponent implements OnInit {
 
   newProduct()
   {
-    // this.product=new Product();
      this.product={} as any;
      this.submitted=false;
   }
