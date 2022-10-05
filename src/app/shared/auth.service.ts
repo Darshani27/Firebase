@@ -4,20 +4,40 @@ import { Router } from '@angular/router';
 import {GoogleAuthProvider} from '@angular/fire/auth'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { from, Observable } from 'rxjs';
+import { DataService } from './data.service';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  users: any[]=[];
 
-  constructor(private fieauth : AngularFireAuth, private router:Router,private _snackbar:MatSnackBar) { }
+  constructor(private fieauth : AngularFireAuth, private router:Router,private _snackbar:MatSnackBar,private db:AngularFireDatabase) {
+     const ref=this.db.list('users');
+       ref.valueChanges().subscribe((res)=>{
+         this.users=res;
+       });
+       console.log(this.users);
+    
+   }
+
   login(email:any,password:any)
   {
+   
     this.fieauth.signInWithEmailAndPassword(email,password).then((res)=>
     {
       localStorage.setItem('token','true');
+      const adminEmail=this.users.find((r)=>r.isAdmin==true)?.email;
       if(res.user?.emailVerified==true)
       {
-      this.router.navigate(['/product-list']);
+        if(adminEmail == email)
+        {
+          this.router.navigate(['/product-list']);
+        }
+        else if(adminEmail!=undefined)
+        {
+          this.router.navigate(['/user-dashboard']);
+        }
       }
       else{
         this.router.navigate(['/verify-email']);

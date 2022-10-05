@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/shared/auth.service';
 import { DataService } from 'src/app/shared/data.service';
 
@@ -29,11 +30,10 @@ export class LoginComponent implements OnInit {
     const email=this.loginform.get('email')?.value as string;
     const password=this.loginform.get('password')?.value as string;
     this.auth.login(email,password);
-    const data : any={
+    const data :  User={
       email: this.loginform.get('email')?.value,
       password: this.loginform.get('password')?.value,
-    }
-    this.data.create(data);
+    };
   }
   signInWithGoogle()
   {

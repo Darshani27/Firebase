@@ -91,6 +91,7 @@ export class ProductListComponent implements OnInit {
   }
   deleteProduct(ele : any)
   {
+    this.newProduct={...ele};
     const dialogRef=this.dialog.open(ConfirmDialogComponent,
       {
         maxWidth: "400px",
@@ -98,20 +99,21 @@ export class ProductListComponent implements OnInit {
       });
       dialogRef.afterClosed().subscribe((res)=>{
         this.result=res;
-      })
-    this.newProduct={...ele};
-    if(this.newProduct.key)
-    {
-      if(this.result)
-      {
-        this.dataService.delete(this.newProduct.key).then(
-          (res)=>{
-            this._snackBar.open(this.deleteMsg,this.action);
+        if(this.newProduct.key)
+        {
+          if(this.result)
+          {
+            this.dataService.delete(this.newProduct.key).then(
+              (res)=>{
+                this._snackBar.open(this.deleteMsg,this.action);
+                this.retrieveProducts();
+              }
+            ).catch((err)=>{
+              console.log(err);
+            });
           }
-        ).catch((err)=>{
-          console.log(err);
-        });
-      }
-    }
+        }
+      })
+   
   }
 }

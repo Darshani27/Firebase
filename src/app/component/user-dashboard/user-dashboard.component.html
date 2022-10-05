@@ -1,0 +1,28 @@
+<mat-card class="card-style">
+    <mat-card-header>
+        <mat-card-title style="color:goldenrod">Products Available</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div *ngFor="let item of products" class="product-align">
+            <mat-card class="inner-card-style">
+                <mat-card-title>{{item.name | titlecase}}</mat-card-title>
+                <br>
+                <ng-container *ngIf="item.category=='Electronics'">
+                    <img mat-card-image src="assets/electronics.jpg" alt="image" style="height:70px;">
+                </ng-container>
+                <ng-container *ngIf="item.category=='Fashion'">
+                     <img mat-card-image src="assets/fashion.jpg" style="height:70px;" alt="image">
+                </ng-container>
+                <mat-card-content style="font-weight:bold;">
+                    {{item.category | titlecase}}
+                </mat-card-content>
+                <mt-card-actions>
+                    <button mat-button style="color:blue;" (click)="addToCart()">Add To Cart</button>
+                </mt-card-actions>
+            </mat-card>
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button color="accent" (click)="signOut()">Logout </button>
+    </mat-card-actions>
+</mat-card>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
+import { AngularFireDatabase, AngularFireList, AngularFireObject } from '@angular/fire/compat/database';
 import { Product } from '../models/product.model';
 import { User } from '../models/user.model';
 
@@ -9,21 +9,25 @@ import { User } from '../models/user.model';
 export class DataService {
 
   private dbPath = '/products';
+  private userPath='items';
   productRef: AngularFireList<Product>={} as any;
+  ref:AngularFireList<User>={} as any;
+  users: any[]=[];
 
 
   constructor(private db :AngularFireDatabase) {
-    this.productRef=db.list(this.dbPath);    
+    this.productRef=db.list(this.dbPath); 
+    this.ref=db.list(this.userPath);   
    }
 
   create(user: User): any {
-    const ref=this.db.list('items');
+    const ref=this.db.list('users');
     ref.push(user).then((res)=>{
-      // console.log(res);
+      console.log(res);
       
     });
   }
-
+  
   getAll() :AngularFireList<Product>
   {    
     return this.productRef;

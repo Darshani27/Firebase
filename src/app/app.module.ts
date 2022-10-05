@@ -11,19 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFireModule } from '@angular/fire/compat';
-import {MatFormFieldModule} from '@angular/material/form-field'; 
-import {MatCardModule} from '@angular/material/card';
-import {MatButtonModule} from '@angular/material/button';
-import {MatInputModule} from '@angular/material/input';
-import {MatIconModule} from '@angular/material/icon'; 
-import {MatChipsModule} from '@angular/material/chips';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatListModule} from '@angular/material/list';
 import { ProductListComponent } from './component/product-list/product-list.component';
-import {MatTableModule} from '@angular/material/table';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ConfirmDialogComponent } from './component/confirm-dialog/confirm-dialog.component';
 import { UpdateDetailComponent } from './component/update-detail/update-detail.component';
 import { PageNotFoundComponent } from './component/page-not-found/page-not-found.component';
@@ -31,6 +19,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorInterceptor } from './interceptor/token-interceptor.interceptor';
 import { ForgotPaswordComponent } from './component/forgot-pasword/forgot-pasword.component';
 import { VerifyEmailComponent } from './component/verify-email/verify-email.component';
+import { MatmoduleModule } from './shared/matmodule/matmodule.module';
+import { UserDashboardComponent } from './component/user-dashboard/user-dashboard.component';
+import { ShoppingCartComponent } from './component/shopping-cart/shopping-cart.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +33,9 @@ import { VerifyEmailComponent } from './component/verify-email/verify-email.comp
     UpdateDetailComponent,
     PageNotFoundComponent,
     ForgotPaswordComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
+    UserDashboardComponent,
+    ShoppingCartComponent
   ],
   imports: [
     BrowserModule,
@@ -52,13 +45,7 @@ import { VerifyEmailComponent } from './component/verify-email/verify-email.comp
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
-    MatButtonModule,
-    MatSnackBarModule,
-    MatDialogModule,
-    MatListModule,
-    MatCardModule,
-    MatTooltipModule,
-    MatFormFieldModule,MatIconModule,MatInputModule,MatChipsModule,MatAutocompleteModule,MatTableModule
+    MatmoduleModule
   ],
   providers: [{
     provide:HTTP_INTERCEPTORS,
@@ -66,6 +53,6 @@ import { VerifyEmailComponent } from './component/verify-email/verify-email.comp
     multi:true
   }],
   bootstrap: [AppComponent],
-  exports:[MatSnackBarModule,MatDialogModule,MatTooltipModule,MatTableModule,MatListModule,MatButtonModule,MatCardModule,MatFormFieldModule,MatIconModule,MatInputModule,MatChipsModule,MatAutocompleteModule]
+  exports:[MatmoduleModule]
 })
 export class AppModule { }
