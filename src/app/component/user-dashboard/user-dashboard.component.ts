@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Product } from 'src/app/models/product.model';
 import { AuthService } from 'src/app/shared/auth.service';
+import { CartServiceService } from 'src/app/shared/cart-service.service';
 import { DataService } from 'src/app/shared/data.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
@@ -15,7 +17,10 @@ export class UserDashboardComponent implements OnInit {
   result:boolean=false;
   message: string="Are you sure you want to logout ?";
   title: string="Confirm Action";
-  constructor(private dataService:DataService,private dialog:MatDialog,private auth:AuthService) { }
+  items:any[]=[];
+  cartQty:any;
+  itemInCart: any;
+  constructor(private dataService:DataService,private dialog:MatDialog,private auth:AuthService,private _snackbar:MatSnackBar,private cartService:CartServiceService) { }
 
   ngOnInit(): void {
     this.retrieveProducts();
@@ -26,9 +31,13 @@ export class UserDashboardComponent implements OnInit {
       this.products=res;
     });
   }
-  addToCart()
+  addToCart(item:any)
   {
-
+    this.cartService.addToCart(item);
+    this._snackbar.open('Product Added To Cart','OK');
+    this.cartQty=this.cartService.getItems();
+    this.itemInCart=this.cartQty.length;
+    
   }
   signOut()
   {
@@ -40,12 +49,11 @@ export class UserDashboardComponent implements OnInit {
       dialogRef.afterClosed().subscribe((res : any)=>{
         this.result=res;
         console.log(this.result);
-        
-      })
-    if(this.result)
-    {
-     this.auth.logout();
-    }
+        if(this.result)
+        {
+         this.auth.logout();
+        }
+      });
   }
 
 }

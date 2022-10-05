@@ -88,11 +88,11 @@ export class DashboardComponent implements OnInit {
       dialogRef.afterClosed().subscribe((res : any)=>{
         this.result=res;
         console.log(this.result);
+        if (this.result) {
+          this.auth.logout();
+        }
         
       })
-    if(this.result)
-    {
-     this.auth.logout();
-    }
+    
   }
 }

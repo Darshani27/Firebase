@@ -12,6 +12,19 @@ mat-card-content,mat-card-header,mat-card-actions,img {
   display: flex;
   justify-content: center;
 }
+.example-spacer {
+  flex: 1 1 auto;
+}
+.wrapper
+{
+  position:relative;
+}
+.wrapper span{
+ position: absolute;
+  top: -2px;
+  right:-2px;
+}
+
 /* .inner-card-style
 {
 display: flex;

@@ -1,6 +1,11 @@
 <mat-card class="card-style">
     <mat-card-header>
-        <mat-card-title style="color:goldenrod">Products Available</mat-card-title>
+        <span  class="example-spacer" style="color:goldenrod;text-align: center;font-size: medium; font-weight: bold;">Products Available
+                <button routerLink="/shopping-cart" mat-icon-button style="color:black">
+                    <mat-icon>shopping_cart</mat-icon>
+                    <span style="position: absolute;top: -2px;right:-2px;">{{itemInCart}}</span>
+                </button>
+            </span>  
     </mat-card-header>
     <mat-card-content>
         <div *ngFor="let item of products" class="product-align">
@@ -17,7 +22,7 @@
                     {{item.category | titlecase}}
                 </mat-card-content>
                 <mt-card-actions>
-                    <button mat-button style="color:blue;" (click)="addToCart()">Add To Cart</button>
+                    <button mat-button style="color:blue;" (click)="addToCart(item)">Add To Cart</button>
                 </mt-card-actions>
             </mat-card>
         </div>

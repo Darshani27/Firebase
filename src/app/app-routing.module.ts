@@ -6,6 +6,7 @@ import { LoginComponent } from './component/login/login.component';
 import { PageNotFoundComponent } from './component/page-not-found/page-not-found.component';
 import { ProductListComponent } from './component/product-list/product-list.component';
 import { RegisterComponent } from './component/register/register.component';
+import { ShoppingCartComponent } from './component/shopping-cart/shopping-cart.component';
 import { UserDashboardComponent } from './component/user-dashboard/user-dashboard.component';
 import { VerifyEmailComponent } from './component/verify-email/verify-email.component';
 
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path:'forgot-password',component:ForgotPaswordComponent},
   {path:'verify-email',component:VerifyEmailComponent},
   {path:'user-dashboard',component:UserDashboardComponent},
+  {path:'shopping-cart',component:ShoppingCartComponent},
   {path:'**',component:PageNotFoundComponent},
 ];
 
