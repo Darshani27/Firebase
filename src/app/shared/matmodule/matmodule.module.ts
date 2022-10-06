@@ -9,9 +9,11 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatListModule} from '@angular/material/list';
 import {MatTableModule} from '@angular/material/table';
-import {MatTooltip, MatTooltipModule} from '@angular/material/tooltip';
+import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 
 const modules=[
@@ -20,7 +22,7 @@ const modules=[
   MatFormFieldModule,MatInputModule,
   MatIconModule,MatListModule,
   MatTableModule,MatTooltipModule,
-  MatDialogModule,MatSnackBarModule
+  MatDialogModule,MatSnackBarModule,MatBadgeModule,MatToolbarModule
 ]
 @NgModule({
   declarations: [],

@@ -22,6 +22,7 @@ import { VerifyEmailComponent } from './component/verify-email/verify-email.comp
 import { MatmoduleModule } from './shared/matmodule/matmodule.module';
 import { UserDashboardComponent } from './component/user-dashboard/user-dashboard.component';
 import { ShoppingCartComponent } from './component/shopping-cart/shopping-cart.component';
+import { CheckoutComponent } from './component/checkout/checkout.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +36,8 @@ import { ShoppingCartComponent } from './component/shopping-cart/shopping-cart.c
     ForgotPaswordComponent,
     VerifyEmailComponent,
     UserDashboardComponent,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,

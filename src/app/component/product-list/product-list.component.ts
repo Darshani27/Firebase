@@ -6,6 +6,7 @@ import { map } from 'rxjs';
 import { Product } from 'src/app/models/product.model';
 import { DataService } from 'src/app/shared/data.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { DashboardComponent } from '../dashboard/dashboard.component';
 import { UpdateDetailComponent } from '../update-detail/update-detail.component';
 
 type NewType = Product[];
@@ -79,7 +80,7 @@ export class ProductListComponent implements OnInit {
       );
       
       dialogRef.afterClosed().subscribe((res)=>{
-        this.data=res; 
+        this.data=res || []; 
         this.dataService.update(res.key,this.data).then(
           ()=>{
             this._snackBar.open('Record updated Successfully','OK');
@@ -115,5 +116,13 @@ export class ProductListComponent implements OnInit {
         }
       })
    
+  }
+  addProduct()
+  {
+    const dialogRef=this.dialog.open(DashboardComponent,
+      );
+    dialogRef.afterClosed().subscribe((res:any)=>{
+      console.log(res);   
+    })
   }
 }

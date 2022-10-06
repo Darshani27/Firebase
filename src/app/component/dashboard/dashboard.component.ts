@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Product } from 'src/app/models/product.model';
@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
   title: string="Confirm Action";
 
 
-  constructor(private dataService:DataService,private auth:AuthService,private dialog:MatDialog,private router:Router,private _snackbar:MatSnackBar) { }
+  constructor(public dialogRef: MatDialogRef<DashboardComponent>,private dataService:DataService,private auth:AuthService,private dialog:MatDialog,private router:Router,private _snackbar:MatSnackBar) { }
 
   ngOnInit(): void {
     this.productForm=new FormGroup({
@@ -52,6 +52,7 @@ export class DashboardComponent implements OnInit {
     this.dataService.createProduct(this.product).then((res: any)=>{
       this.submitted=true;
       this._snackbar.open('Product Added Successfully','OK');
+      this.dialogRef.close(true);
     })
    }
   }
@@ -95,4 +96,5 @@ export class DashboardComponent implements OnInit {
       })
     
   }
+ 
 }

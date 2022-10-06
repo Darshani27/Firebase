@@ -10,11 +10,16 @@ import { CartServiceService } from 'src/app/shared/cart-service.service';
 })
 export class ShoppingCartComponent implements OnInit {
   items:Product[]=[];
-  displayedColumns: string[] = ['name', 'price', 'category'];
+  displayedColumns: string[] = ['name', 'price', 'category','quantity','action'];
 
   constructor(private cartService:CartServiceService,private router:Router) { }
 
   ngOnInit(): void {
+    this.retrieveItems();
+    
+  }
+  retrieveItems()
+  {
     this.items=this.cartService.getItems();
   }
   clearCart()
@@ -22,4 +27,12 @@ export class ShoppingCartComponent implements OnInit {
     this.cartService.clearCart();
     this.router.navigate(['/user-dashboard']);
   }
+  deleteProduct(item:any)
+  {
+    this.cartService.removeItem(item);
+    this.retrieveItems();
+  }
+    getTotalCost() {
+      return this.items.map(t => parseInt(t.price as any)).reduce((acc, value) => acc + value, 0);
+    }
 }

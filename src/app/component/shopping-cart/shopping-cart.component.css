@@ -15,3 +15,6 @@ mat-card
 table {
   width: 100%;
 }
+tr.mat-footer-row {
+  font-weight: bold;
+}

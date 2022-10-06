@@ -2,8 +2,7 @@
     <mat-card-header>
         <span  class="example-spacer" style="color:goldenrod;text-align: center;font-size: medium; font-weight: bold;">Products Available
                 <button routerLink="/shopping-cart" mat-icon-button style="color:black">
-                    <mat-icon>shopping_cart</mat-icon>
-                    <span style="position: absolute;top: -2px;right:-2px;">{{itemInCart}}</span>
+                    <mat-icon matBadge="{{itemInCart}}" matBadgeColor="warn">shopping_cart</mat-icon>
                 </button>
             </span>  
     </mat-card-header>

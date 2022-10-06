@@ -34,8 +34,6 @@ export class RegisterComponent implements OnInit {
       password:password
     }
     this.data.create(data);
-
-
   }
   getErrorMessage()
   {
