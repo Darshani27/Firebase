@@ -29,6 +29,7 @@ export class UserDashboardComponent implements OnInit {
   retrieveProducts() {
     this.dataService.getAll().valueChanges().subscribe((res)=>{
       this.products=res;
+      this.items=res.map(r=>({...r,quantity:1}));
     });
   }
   addToCart(item:any)

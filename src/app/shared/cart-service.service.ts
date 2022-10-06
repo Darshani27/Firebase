@@ -1,4 +1,3 @@
-import { ThisReceiver } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { Product } from '../models/product.model';
 
@@ -6,11 +5,23 @@ import { Product } from '../models/product.model';
   providedIn: 'root'
 })
 export class CartServiceService {
-  items:Product[]=[];
-  quantity:any;
+  items:any[]=[];
+  quantity:number=0;
   constructor() { }
-  addToCart(product: Product) {
+  addToCart(product: any) {
+    let found=false;
+    this.items=this.items.map((r)=>{
+      if(r.name==product.name)
+      {
+        r.quantity++;
+        found=true;
+      }
+      return r;
+    });
+    if(!found)
+    {
     this.items.push(product);
+    }
   }
 
   getItems() {
@@ -24,7 +35,25 @@ export class CartServiceService {
   removeItem(item:any):any
   {
     const element=this.items.indexOf(item);
-    this.items.splice(element,1);
+    let removeFromCart=false;
+    if(element >-1)
+    {
+      this.items = this.items.map((r) => {
+        if(item)
+        {
+          r.quantity = r.quantity - 1;
+          if(r.quantity==0)
+          {
+            removeFromCart=true;
+          }
+        }
+        return r;
+      });
+      if(removeFromCart)
+      {
+         this.items.splice(element, 1);
+      }
+    }
     this.items=[...this.items];
   }
 }
