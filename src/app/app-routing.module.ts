@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminguardGuard } from './authGuard/adminguard.guard';
 import { CheckoutComponent } from './component/checkout/checkout.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { ForgotPaswordComponent } from './component/forgot-pasword/forgot-pasword.component';
@@ -9,6 +10,7 @@ import { ProductListComponent } from './component/product-list/product-list.comp
 import { RegisterComponent } from './component/register/register.component';
 import { ShoppingCartComponent } from './component/shopping-cart/shopping-cart.component';
 import { UserDashboardComponent } from './component/user-dashboard/user-dashboard.component';
+import { UserProfileComponent } from './component/user-profile/user-profile.component';
 import { VerifyEmailComponent } from './component/verify-email/verify-email.component';
 
 const routes: Routes = [
@@ -16,12 +18,13 @@ const routes: Routes = [
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent},
   {path:'dashboard',component:DashboardComponent},
-  {path:'product-list',component:ProductListComponent},
+  {path:'product-list',component:ProductListComponent ,canActivate:[AdminguardGuard]},
   {path:'forgot-password',component:ForgotPaswordComponent},
   {path:'verify-email',component:VerifyEmailComponent},
   {path:'user-dashboard',component:UserDashboardComponent},
   {path:'shopping-cart',component:ShoppingCartComponent},
   {path:'checkout',component:CheckoutComponent},
+  {path:'user-profile',component:UserProfileComponent},
   {path:'**',component:PageNotFoundComponent},
 ];
 

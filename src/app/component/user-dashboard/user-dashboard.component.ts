@@ -40,21 +40,5 @@ export class UserDashboardComponent implements OnInit {
     this.itemInCart=this.cartQty.length;
     
   }
-  signOut()
-  {
-    const dialogRef=this.dialog.open(ConfirmDialogComponent,
-      {
-        maxWidth: "400px",
-        data:{title:this.title,message:this.message}
-      });
-      dialogRef.afterClosed().subscribe((res : any)=>{
-        this.result=res;
-        console.log(this.result);
-        if(this.result)
-        {
-         this.auth.logout();
-        }
-      });
-  }
   // https://javascript.plainenglish.io/develop-an-online-shop-with-angular-11-and-net-core-5-f0ed1ac0aeeb
 }

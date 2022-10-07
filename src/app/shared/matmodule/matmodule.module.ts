@@ -12,17 +12,20 @@ import {MatTableModule} from '@angular/material/table';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatSelectModule} from '@angular/material/select';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatToolbarModule} from '@angular/material/toolbar';
-
-
+import {MatRadioModule} from '@angular/material/radio';
+import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatDividerModule} from '@angular/material/divider';
 const modules=[
-  MatAutocompleteModule,MatButtonModule
+  MatAutocompleteModule,MatButtonModule,MatBottomSheetModule,MatMenuModule
   ,MatCardModule,MatChipsModule,
-  MatFormFieldModule,MatInputModule,
+  MatFormFieldModule,MatInputModule,MatDividerModule,
   MatIconModule,MatListModule,
   MatTableModule,MatTooltipModule,
-  MatDialogModule,MatSnackBarModule,MatBadgeModule,MatToolbarModule
+  MatDialogModule,MatSnackBarModule,MatBadgeModule,MatToolbarModule,MatSelectModule,MatRadioModule
 ]
 @NgModule({
   declarations: [],

@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
       email: this.loginform.get('email')?.value,
       password: this.loginform.get('password')?.value,
     };
-  }
+  } 
   signInWithGoogle()
   {
     this.auth.googleSignIn();

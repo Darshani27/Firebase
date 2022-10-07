@@ -26,10 +26,6 @@
             </p>
             <div class="btn-align">
                 <button routerLink="/product-list" routerLinkActive="active" type="submit" mat-raised-button color="primary" (click)="saveProduct()" [disabled]="productForm.invalid && productForm.touched">Submit</button>
-                &nbsp;
-                <button  type="submit" mat-raised-button color="accent" (click)="signOut()">
-                    LogOut
-                </button>
             </div>
         </form>
     </mat-card-content>

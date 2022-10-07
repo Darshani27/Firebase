@@ -1,0 +1,39 @@
+
+
+<p>
+    <mat-toolbar>
+     <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>home</mat-icon>
+    </button>
+    <span>My App</span>
+    <span class="example-spacer"></span>
+    <span *ngIf="!hasRoute('login')">
+    <button mat-raised-button color="accent" (click)="signOut()">Logout </button>
+    </span>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+     <mat-icon>share</mat-icon>
+   </button>
+   <button mat-icon-button class="example-icon" [matMenuTriggerFor]="menu" aria-label="Example icon-button with share icon">
+    <mat-icon>perm_identity</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu" yPosition="below">
+    <div  style="width: 200px; height:140px;border-radius:6px;">
+        <p style="text-align:center;font-size:medium;color:darkslategray;font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">Signed In as</p>
+        <mat-divider></mat-divider>
+        <p style="font-size:medium;font-weight:bold;text-align:center">{{currentUser}}</p>
+        <mat-divider></mat-divider>
+        <p style="font-size:medium;text-align:center">
+            Edit Your Profile
+            <button mat-icon-button routerLink="/user-profile">
+                <mat-icon>edit</mat-icon>
+            </button>
+        </p>
+        <mat-divider></mat-divider>
+        <br>
+        <p style="font-size:medium;text-align:center;color:darkslategray">
+            Privacy Policy
+        </p>
+    </div>
+  </mat-menu>
+  </mat-toolbar>
+  </p>

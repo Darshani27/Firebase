@@ -27,6 +27,15 @@ export class CartServiceService {
   getItems() {
     return this.items;
   }
+  removeItemFromCart(item:any)
+  {
+    const element=this.items.indexOf(item);
+    if(element>-1)
+    {
+      this.items.splice(element,1);
+    }
+    this.items=[...this.items];
+  }
 
   clearCart() {
     this.items = [];
@@ -35,24 +44,20 @@ export class CartServiceService {
   removeItem(item:any):any
   {
     const element=this.items.indexOf(item);
-    let removeFromCart=false;
-    if(element >-1)
-    {
-      this.items = this.items.map((r) => {
-        if(item)
+    let elementToRemove :boolean=false;
+    this.items=this.items.map(
+      (r)=>{
+        if(r.name==item.name && item.quantity>=1)
         {
-          r.quantity = r.quantity - 1;
-          if(r.quantity==0)
-          {
-            removeFromCart=true;
-          }
+          item.quantity=item.quantity-1;
+          elementToRemove=true;
         }
         return r;
-      });
-      if(removeFromCart)
-      {
-         this.items.splice(element, 1);
       }
+    )
+    if(elementToRemove && item.quantity==0)
+    {
+     this.items.splice(element,1);
     }
     this.items=[...this.items];
   }

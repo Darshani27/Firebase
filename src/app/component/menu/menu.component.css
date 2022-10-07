@@ -1,0 +1,8 @@
+.example-spacer {
+    flex: 1 1 auto;
+  }
+  ::ng-deep .menu
+  {
+    width:400px;
+    height:500px;
+  }

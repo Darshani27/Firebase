@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { PaymentComponent } from '../payment/payment.component';
 
 @Component({
   selector: 'app-checkout',
@@ -8,7 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class CheckoutComponent implements OnInit {
   checkoutForm:FormGroup={} as any;
-  constructor() { }
+  constructor(private dialog:MatDialog) { }
 
   ngOnInit(): void {
     this.checkoutForm=new FormGroup({
@@ -34,5 +36,21 @@ export class CheckoutComponent implements OnInit {
       return 'Not a Valid Pin';
     }
     return '';
+  }
+  OnCheckout()
+  {
+    if(!this.checkoutForm.untouched)
+    {
+      const dialogRef=this.dialog.open(PaymentComponent,
+        {
+          width:"600px",
+          maxHeight:"700px"
+        }
+      );
+      dialogRef.afterClosed().subscribe((res)=>{
+        console.log(res);
+        
+      });
+    }
   }
 }

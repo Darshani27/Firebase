@@ -23,6 +23,9 @@ import { MatmoduleModule } from './shared/matmodule/matmodule.module';
 import { UserDashboardComponent } from './component/user-dashboard/user-dashboard.component';
 import { ShoppingCartComponent } from './component/shopping-cart/shopping-cart.component';
 import { CheckoutComponent } from './component/checkout/checkout.component';
+import { PaymentComponent } from './component/payment/payment.component';
+import { MenuComponent } from './component/menu/menu.component';
+import { UserProfileComponent } from './component/user-profile/user-profile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +40,10 @@ import { CheckoutComponent } from './component/checkout/checkout.component';
     VerifyEmailComponent,
     UserDashboardComponent,
     ShoppingCartComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    PaymentComponent,
+    MenuComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,

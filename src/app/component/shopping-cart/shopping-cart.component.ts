@@ -29,11 +29,18 @@ export class ShoppingCartComponent implements OnInit {
   }
   deleteProduct(item:any)
   {
-    console.log(item);
-    this.cartService.removeItem(item);
+    this.cartService.removeItemFromCart(item);
     this.retrieveItems();
   }
     getTotalCost() {
       return this.items.map(t => parseInt(t.price as any)*(t.quantity as any)).reduce((acc: any, value: any) => acc + value, 0);
+    }
+    increaseQuantity(item:any)
+    {
+      this.cartService.addToCart(item);      
+    }
+    decreaseQuantity(item:any)
+    {
+      this.cartService.removeItem(item);
     }
 }

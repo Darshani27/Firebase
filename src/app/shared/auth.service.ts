@@ -3,14 +3,17 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import {GoogleAuthProvider} from '@angular/fire/auth'
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { from, Observable } from 'rxjs';
-import { DataService } from './data.service';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { BehaviorSubject, Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   users: any[]=[];
+  adminEmail:string='';
+  currentUser:any=new BehaviorSubject('');
+  adminEmailId:any=new BehaviorSubject('');
+  
 
   constructor(private fieauth : AngularFireAuth, private router:Router,private _snackbar:MatSnackBar,private db:AngularFireDatabase) {
      const ref=this.db.list('users');
@@ -23,18 +26,18 @@ export class AuthService {
 
   login(email:any,password:any)
   {
-   
     this.fieauth.signInWithEmailAndPassword(email,password).then((res)=>
     {
-      localStorage.setItem('token','true');
-      const adminEmail=this.users.find((r)=>r.isAdmin==true)?.email;
+      sessionStorage.setItem('token','true');
+      this.adminEmail=this.users.find((r)=>r.role=="admin")?.email;
       if(res.user?.emailVerified==true)
       {
-        if(adminEmail == email)
+        if(this.adminEmail == email)
         {
+          sessionStorage.setItem("user", "admin");
           this.router.navigate(['/product-list']);
         }
-        else if(adminEmail!=undefined)
+        else if(this.adminEmail!=undefined)
         {
           this.router.navigate(['/user-dashboard']);
         }
@@ -47,6 +50,8 @@ export class AuthService {
       this._snackbar.open('Invalid Username/Password','OK');
       this.router.navigate(['/login']);
     });
+    this.currentUser.next(email);
+    this.adminEmailId.next(this.adminEmail);
   }
 
   register(email:string,password:string)
@@ -65,17 +70,18 @@ export class AuthService {
   logout()
   {
     this.fieauth.signOut().then(()=>{
-      localStorage.removeItem('token');
+      sessionStorage.removeItem('token');
       this.router.navigate(['/login']);
     },(err)=>{
       alert(err.message);
     });
+    this.currentUser.next('');
   }
   googleSignIn()
   {
     return this.fieauth.signInWithPopup(new GoogleAuthProvider).then((res)=>{
       this.router.navigate(['/dashboard']);
-      localStorage.setItem('token',JSON.stringify(res.user?.uid));
+      sessionStorage.setItem('token',JSON.stringify(res.user?.uid));
     },
     (err)=>{
       alert(err.message)
@@ -98,5 +104,13 @@ export class AuthService {
     (err :any)=>{
       alert(err.message)
     })
+  }
+  getCurrentUser()
+  {
+    return this.currentUser;
+  }
+  getAdminEmailId()
+  {
+    return this.adminEmailId;
   }
 }
