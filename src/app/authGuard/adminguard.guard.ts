@@ -10,15 +10,32 @@ export class AdminguardGuard implements CanActivate {
   currentUserEmail:string='';
   adminEmailId:string='';
   users: any[]=[];
-  constructor(private auth:AuthService,private router:Router,private db:AngularFireDatabase)
+  constructor(private auth:AuthService,private router:Router)
   {
    
   }
   canActivate(
-    route: ActivatedRouteSnapshot,
+    next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean {
+   let url:string=state.url;
+   return this.checkUser(next,url);
     
+  }
+  checkUser(route: ActivatedRouteSnapshot, url: string): boolean {
+    const userRole=this.auth.getRole();
+    if(this.auth.isLoggedIn())
+    {
+      if(route.data['role'] && route.data['role'].indexOf(userRole)===-1)
+    {
+      this.router.navigate(['/page-not-found']);
+      return false;
+    }
     return true;
+    }
+    
+    this.router.navigate(['/login']);
+    return false;
+ 
   }
   
 }

@@ -9,7 +9,7 @@ import { User } from '../models/user.model';
 export class DataService {
 
   private dbPath = '/products';
-  private userPath='items';
+  private userPath='/users';
   productRef: AngularFireList<Product>={} as any;
   ref:AngularFireList<User>={} as any;
   users: any[]=[];
@@ -32,6 +32,10 @@ export class DataService {
   {    
     return this.productRef;
   }
+  getAllUsers():AngularFireList<User>
+  {
+    return this.ref;
+  }
 
   createProduct(product:Product) : any
   {
@@ -48,5 +52,9 @@ export class DataService {
   delete(key:string)
   {
     return this.productRef.remove(key);
-  }  
+  } 
+  updateEmail(key:string,value:any)
+  {
+    return this.ref.update(key,value);
+  } 
 }

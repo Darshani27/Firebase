@@ -13,6 +13,8 @@ export class AuthService {
   adminEmail:string='';
   currentUser:any=new BehaviorSubject('');
   adminEmailId:any=new BehaviorSubject('');
+  roleAs: any;
+  isLogin: boolean=false;
   
 
   constructor(private fieauth : AngularFireAuth, private router:Router,private _snackbar:MatSnackBar,private db:AngularFireDatabase) {
@@ -34,7 +36,7 @@ export class AuthService {
       {
         if(this.adminEmail == email)
         {
-          sessionStorage.setItem("user", "admin");
+          sessionStorage.setItem("role", "admin");
           this.router.navigate(['/product-list']);
         }
         else if(this.adminEmail!=undefined)
@@ -71,6 +73,7 @@ export class AuthService {
   {
     this.fieauth.signOut().then(()=>{
       sessionStorage.removeItem('token');
+      sessionStorage.removeItem('user');
       this.router.navigate(['/login']);
     },(err)=>{
       alert(err.message);
@@ -112,5 +115,17 @@ export class AuthService {
   getAdminEmailId()
   {
     return this.adminEmailId;
+  }
+  getRole() {
+    this.roleAs = sessionStorage.getItem('role');
+    return this.roleAs;
+  }
+  isLoggedIn() {
+    const loggedIn = sessionStorage.getItem('token');
+    if (loggedIn == 'true')
+      this.isLogin = true;
+    else
+      this.isLogin = false;
+    return this.isLogin;
   }
 }

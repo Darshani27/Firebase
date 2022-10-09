@@ -18,7 +18,9 @@ const routes: Routes = [
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent},
   {path:'dashboard',component:DashboardComponent},
-  {path:'product-list',component:ProductListComponent ,canActivate:[AdminguardGuard]},
+  {path:'product-list',component:ProductListComponent ,canActivate:[AdminguardGuard],  data: {
+    role: 'role_admin'
+  }},
   {path:'forgot-password',component:ForgotPaswordComponent},
   {path:'verify-email',component:VerifyEmailComponent},
   {path:'user-dashboard',component:UserDashboardComponent},
