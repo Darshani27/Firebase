@@ -64,4 +64,9 @@ export class MenuComponent implements OnInit {
       });
   }
 
+  homeRedirect()
+  {
+    this.route.navigate(['/login']);
+  }
+
 }

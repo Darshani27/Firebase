@@ -53,7 +53,7 @@ import { UserProfileComponent } from './component/user-profile/user-profile.comp
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
-    MatmoduleModule
+    MatmoduleModule,
   ],
   providers: [{
     provide:HTTP_INTERCEPTORS,

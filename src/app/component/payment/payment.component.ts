@@ -4,8 +4,11 @@ import { MatRadioChange } from '@angular/material/radio';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Product } from 'src/app/models/product.model';
+import { AuthService } from 'src/app/shared/auth.service';
 import { CartServiceService } from 'src/app/shared/cart-service.service';
 
+
+//  var stripeCheckout:StripeCheckoutStatic;
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
@@ -13,13 +16,38 @@ import { CartServiceService } from 'src/app/shared/cart-service.service';
 })
 export class PaymentComponent implements OnInit {
   items:Product[]=[];
-  displayedColumns: string[] = ['name', 'price', 'category','quantity'];
+  displayedColumns: string[] = ['name', 'category','quantity','price'];
   paymentMethods:any[]=['Stripe','Cash on Delivery','EMI'];
+  // handler:StripeCheckoutHandler={} as any;
+  confirmation:any;
+  
+  loading:boolean=false;
+  handler: any;
 
-  constructor(private _snackbar:MatSnackBar,public dialogRef: MatDialogRef<PaymentComponent>,private router:Router,private cartService:CartServiceService) { }
+  constructor(private _snackbar:MatSnackBar,public dialogRef: MatDialogRef<PaymentComponent>,private router:Router,private cartService:CartServiceService,private authService:AuthService) { }
 
   ngOnInit(): void {
     this.items=this.cartService.getItems();
+    this.loadStripe();
+  }
+  loadStripe() {
+    if(!window.document.getElementById('stripe-script'))
+    {
+      var s=window.document.createElement('script');
+      s.id="stripe-script";
+      s.type="text/javascript";
+      s.src="https://checkout.stripe.com/checkout.js";
+      s.onload=()=>{
+        this.handler=(<any>window).StripeCheckout.configure({
+          key:'pk_test_51LrGnISHrWttatwHd9sbrrMhEWHZ5hwZJMsmyWcIp6xlE1zST8MZqxITXwdPdShyrZNylSaDTtycmQoBajC4s47s00lu3d26xs',
+          locale:'auto',
+          token:function(token :any){
+            console.log(token);
+            alert('payment success');
+          }
+        });
+      }
+    }
   }
   orderPlaced()
   {
@@ -34,13 +62,21 @@ export class PaymentComponent implements OnInit {
   getTotalCost() {
     return this.items.map(t => parseInt(t.price as any)*(t.quantity as any)).reduce((acc: any, value: any) => acc + value, 0);
   }
-  stripeCheckout(event:MatRadioChange)
+  makePayment()
   {
-    // console.log(event);
-    if(event.value=='Stripe')
-    {
-      
-    }
-    
+     var handler=(<any>window).StripeCheckout.configure({
+      key:'pk_test_51LrGnISHrWttatwHd9sbrrMhEWHZ5hwZJMsmyWcIp6xlE1zST8MZqxITXwdPdShyrZNylSaDTtycmQoBajC4s47s00lu3d26xs',
+      image:'',
+      locale:'auto',
+      token: function(token :any)
+      {
+        console.log(token);
+      }
+    });
+    handler.open({
+      name:'hi',
+      description:'hola',
+      amount:this.getTotalCost() *100,
+    });
   }
 }

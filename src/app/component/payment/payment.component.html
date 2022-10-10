@@ -10,14 +10,7 @@
               <td mat-footer-cell *matFooterCellDef> Amount Payable </td>
             </ng-container>
 
-            <!-- Price Column -->
-            <ng-container matColumnDef="price">
-              <th mat-header-cell *matHeaderCellDef> Price </th>
-              <td mat-cell *matCellDef="let element"> {{element.price|currency}} </td>
-              <td mat-footer-cell *matFooterCellDef> </td>
-            </ng-container>
-          
-            <!-- Category Column -->
+             <!-- Category Column -->
             <ng-container matColumnDef="category">
               <th mat-header-cell *matHeaderCellDef> Category </th>
               <td mat-cell *matCellDef="let element"> {{element.category | titlecase}} </td>
@@ -28,6 +21,13 @@
             <ng-container matColumnDef="quantity">
               <th mat-header-cell *matHeaderCellDef> Quantity </th>
               <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+              <td mat-footer-cell *matFooterCellDef> </td>
+            </ng-container>
+            
+            <!-- Price Column -->
+            <ng-container matColumnDef="price">
+              <th mat-header-cell *matHeaderCellDef> Price </th>
+              <td mat-cell *matCellDef="let element"> {{element.price|currency}} </td>
               <td mat-footer-cell *matFooterCellDef>{{getTotalCost()|currency}} </td>
             </ng-container>
 
@@ -35,15 +35,19 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
           </table>
-          <div>
-            <h4 style="font-size:medium;text-align:left;color: darkgray;">
+          <br>
+          <div class="btn-center">
+            <!-- <h4 style="font-size:medium;text-align:left;color: darkgray;">
                 Select Payment Method
             </h4>
             <mat-radio-group class="example-radio-group">
                 <mat-radio-button (change)="stripeCheckout($event)" class="example-radio-button" *ngFor="let method of paymentMethods" [value]="method">
                     {{method}}
                 </mat-radio-button>
-            </mat-radio-group>
+            </mat-radio-group> -->
+            <button mat-raised-button color="accent" (click)="makePayment()">
+              Pay {{getTotalCost()|currency}}
+            </button>
           </div>
 </div>
 <div mat-dialog-actions class="btn-center">

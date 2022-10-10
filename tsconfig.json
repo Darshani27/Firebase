@@ -4,6 +4,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
+    "types":["stripe-v3"],
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,
