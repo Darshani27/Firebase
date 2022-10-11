@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { Product } from '../models/product.model';
 
 @Injectable({
@@ -7,6 +8,9 @@ import { Product } from '../models/product.model';
 export class CartServiceService {
   items:any[]=[];
   quantity:number=0;
+  itemInCart=new BehaviorSubject(0);
+
+  
   constructor() { }
   addToCart(product: any) {
     let found=false;
@@ -22,6 +26,7 @@ export class CartServiceService {
     {
     this.items.push(product);
     }
+    this.itemInCart.next(this.items.length);
   }
 
   getItems() {
@@ -57,8 +62,13 @@ export class CartServiceService {
     )
     if(elementToRemove && item.quantity==0)
     {
-     this.items.splice(element,1);
+    //  this.items.splice(element,1);
+    this.removeItemFromCart(item);
     }
     this.items=[...this.items];
+  }
+  getItemInCart()
+  {
+    return this.itemInCart;
   }
 }

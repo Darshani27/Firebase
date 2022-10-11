@@ -4,6 +4,7 @@ import { AdminguardGuard } from './authGuard/adminguard.guard';
 import { CheckoutComponent } from './component/checkout/checkout.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { ForgotPaswordComponent } from './component/forgot-pasword/forgot-pasword.component';
+import { HomeComponent } from './component/home/home.component';
 import { LoginComponent } from './component/login/login.component';
 import { PageNotFoundComponent } from './component/page-not-found/page-not-found.component';
 import { ProductListComponent } from './component/product-list/product-list.component';
@@ -27,6 +28,7 @@ const routes: Routes = [
   {path:'shopping-cart',component:ShoppingCartComponent},
   {path:'checkout',component:CheckoutComponent},
   {path:'user-profile',component:UserProfileComponent},
+  {path:'home',component:HomeComponent},
   {path:'**',component:PageNotFoundComponent},
 ];
 

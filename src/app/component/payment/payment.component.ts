@@ -1,3 +1,4 @@
+import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatRadioChange } from '@angular/material/radio';
@@ -6,9 +7,9 @@ import { Router } from '@angular/router';
 import { Product } from 'src/app/models/product.model';
 import { AuthService } from 'src/app/shared/auth.service';
 import { CartServiceService } from 'src/app/shared/cart-service.service';
+import { DataService } from 'src/app/shared/data.service';
 
 
-//  var stripeCheckout:StripeCheckoutStatic;
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
@@ -18,13 +19,11 @@ export class PaymentComponent implements OnInit {
   items:Product[]=[];
   displayedColumns: string[] = ['name', 'category','quantity','price'];
   paymentMethods:any[]=['Stripe','Cash on Delivery','EMI'];
-  // handler:StripeCheckoutHandler={} as any;
   confirmation:any;
-  
   loading:boolean=false;
   handler: any;
 
-  constructor(private _snackbar:MatSnackBar,public dialogRef: MatDialogRef<PaymentComponent>,private router:Router,private cartService:CartServiceService,private authService:AuthService) { }
+  constructor(private dataService:DataService,private _snackbar:MatSnackBar,public dialogRef: MatDialogRef<PaymentComponent>,private router:Router,private cartService:CartServiceService,private authService:AuthService) { }
 
   ngOnInit(): void {
     this.items=this.cartService.getItems();
@@ -57,6 +56,7 @@ export class PaymentComponent implements OnInit {
       this._snackbar.open('Order Placed SuucessFully', 'OK');
     }
     this.dialogRef.close(true);
+    this.dataService.createOrders(this.items);
     this.router.navigate(['/user-dashboard']);
   }
   getTotalCost() {

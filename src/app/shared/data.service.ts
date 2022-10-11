@@ -10,14 +10,17 @@ export class DataService {
 
   private dbPath = '/products';
   private userPath='/users';
+  private ordersPath='/orders';
   productRef: AngularFireList<Product>={} as any;
   ref:AngularFireList<User>={} as any;
+  orderRef:AngularFireList<any>={} as any;
   users: any[]=[];
 
 
   constructor(private db :AngularFireDatabase) {
     this.productRef=db.list(this.dbPath); 
     this.ref=db.list(this.userPath);   
+    this.orderRef=db.list(this.ordersPath);
    }
 
   create(user: User): any {
@@ -40,6 +43,10 @@ export class DataService {
   createProduct(product:Product) : any
   {
     return this.productRef.push(product);
+  }
+  createOrders(item :any):any
+  {
+    return this.orderRef.push(item);
   }
 
   deleteAll(): Promise<void> {

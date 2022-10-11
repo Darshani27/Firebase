@@ -26,6 +26,8 @@ import { CheckoutComponent } from './component/checkout/checkout.component';
 import { PaymentComponent } from './component/payment/payment.component';
 import { MenuComponent } from './component/menu/menu.component';
 import { UserProfileComponent } from './component/user-profile/user-profile.component';
+import { HomeComponent } from './component/home/home.component';
+import { OrderHistoryComponent } from './component/order-history/order-history.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +45,9 @@ import { UserProfileComponent } from './component/user-profile/user-profile.comp
     CheckoutComponent,
     PaymentComponent,
     MenuComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    HomeComponent,
+    OrderHistoryComponent
   ],
   imports: [
     BrowserModule,

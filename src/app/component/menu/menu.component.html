@@ -1,5 +1,4 @@
 
-
 <p>
     <mat-toolbar>
      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="homeRedirect()">
@@ -7,15 +6,38 @@
     </button>
     <span>My App</span>
     <span class="example-spacer"></span>
-    <span *ngIf="!(hasRoute('login') || hasRoute('register'))">
+    <span *ngIf="!(hasRoute('login') || hasRoute('register') || hasRoute('home'))">
     <button mat-raised-button color="accent" (click)="signOut()">Logout </button>
     </span>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+    <span *ngIf="hasRoute('home') && !currentUser">
+      <button mat-raised-button color="primary" routerLink="/login">
+        Login
+      </button>
+    </span>
+    <span *ngIf="currentUser">
+      <button routerLink="/shopping-cart" mat-icon-button style="color:black">
+          <mat-icon matBadge="{{itemInCart}}" matBadgeColor="warn">shopping_cart</mat-icon>
+      </button>
+  </span> 
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" [matMenuTriggerFor]="share">
      <mat-icon>share</mat-icon>
    </button>
-   <button mat-icon-button class="example-icon" [matMenuTriggerFor]="menu" aria-label="Example icon-button with share icon">
-    <mat-icon>perm_identity</mat-icon>
-  </button>
+   <mat-menu #share="matMenu" yPosition="below">
+    <button mat-menu-item>
+      <mat-icon>email</mat-icon>
+      <span>Via Email</span>
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item>
+      <mat-icon> chat</mat-icon>
+      <span>Via WhatsApp</span>
+    </button>
+   </mat-menu>
+   <span *ngIf="currentUser" >
+    <button mat-icon-button class="example-icon" [matMenuTriggerFor]="menu" aria-label="Example icon-button with share icon">
+      <mat-icon>perm_identity</mat-icon>
+    </button>
+   </span>
   <mat-menu #menu="matMenu" yPosition="below">
     <div  style="width: 200px; height:140px;border-radius:6px;">
         <p style="text-align:center;font-size:medium;color:darkslategray;font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">Signed In as</p>
@@ -24,7 +46,7 @@
         <mat-divider></mat-divider>
         <p style="font-size:medium;text-align:center">
             Edit Your Profile
-            <button mat-icon-button routerLink="/user-profile">
+            <button mat-icon-button routerLink="/user-profile" [disabled]="!currentUser">
                 <mat-icon>edit</mat-icon>
             </button>
         </p>

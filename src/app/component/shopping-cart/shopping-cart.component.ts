@@ -16,7 +16,6 @@ export class ShoppingCartComponent implements OnInit {
 
   ngOnInit(): void {
     this.retrieveItems();
-    
   }
   retrieveItems()
   {
@@ -32,15 +31,16 @@ export class ShoppingCartComponent implements OnInit {
     this.cartService.removeItemFromCart(item);
     this.retrieveItems();
   }
-    getTotalCost() {
+  getTotalCost() {
       return this.items.map(t => parseInt(t.price as any)*(t.quantity as any)).reduce((acc: any, value: any) => acc + value, 0);
     }
-    increaseQuantity(item:any)
+  increaseQuantity(item:any)
     {
       this.cartService.addToCart(item);      
     }
-    decreaseQuantity(item:any)
+  decreaseQuantity(item:any)
     {
       this.cartService.removeItem(item);
+      this.retrieveItems();
     }
 }

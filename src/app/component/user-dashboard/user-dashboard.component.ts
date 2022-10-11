@@ -24,7 +24,7 @@ export class UserDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.retrieveProducts();
-
+    this.auth.preventBackButton();
   }
   retrieveProducts() {
     this.dataService.getAll().valueChanges().subscribe((res)=>{

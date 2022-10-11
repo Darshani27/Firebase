@@ -5,6 +5,7 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/auth.service';
+import { CartServiceService } from 'src/app/shared/cart-service.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
 
@@ -21,9 +22,11 @@ export class MenuComponent implements OnInit {
   router:string='';
   users: any[]=[];
   currentUser: string='';
+  itemInCart:any;
+  cartQty: any;
 
  
-  constructor(private bootomsheet:MatBottomSheet,private dialog:MatDialog,private auth:AuthService,private route:Router,private url:LocationStrategy,private db:AngularFireDatabase){
+  constructor(private cartService:CartServiceService,private bootomsheet:MatBottomSheet,private dialog:MatDialog,private auth:AuthService,private route:Router,private url:LocationStrategy,private db:AngularFireDatabase){
     const ref=this.db.list('users');
     ref.valueChanges().subscribe((res)=>{
       this.users=res;
@@ -40,7 +43,9 @@ export class MenuComponent implements OnInit {
     this.currentUser=res;
    }
     );
-   
+    this.cartService.getItemInCart().subscribe((res:any)=>{
+      this.itemInCart=res;
+    })
   }
   openProfile()
   {
@@ -66,7 +71,7 @@ export class MenuComponent implements OnInit {
 
   homeRedirect()
   {
-    this.route.navigate(['/login']);
+    this.route.navigate(['/home']);
   }
 
 }

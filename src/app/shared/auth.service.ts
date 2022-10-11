@@ -5,6 +5,7 @@ import {GoogleAuthProvider} from '@angular/fire/auth'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { LocationStrategy } from '@angular/common';
 @Injectable({
   providedIn: 'root'
 })
@@ -17,7 +18,7 @@ export class AuthService {
   isLogin: boolean=false;
   
 
-  constructor(private fieauth : AngularFireAuth, private router:Router,private _snackbar:MatSnackBar,private db:AngularFireDatabase) {
+  constructor(private locationStrategy:LocationStrategy,private fieauth : AngularFireAuth, private router:Router,private _snackbar:MatSnackBar,private db:AngularFireDatabase) {
      const ref=this.db.list('users');
        ref.valueChanges().subscribe((res)=>{
          this.users=res;
@@ -127,5 +128,11 @@ export class AuthService {
     else
       this.isLogin = false;
     return this.isLogin;
+  }
+  preventBackButton() {
+    history.pushState(null, '', location.href);
+    this.locationStrategy.onPopState(() => {
+      return history.pushState(null, '', location.href);
+    })
   }
 }

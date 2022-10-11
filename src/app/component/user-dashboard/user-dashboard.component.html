@@ -1,10 +1,6 @@
 <mat-card class="card-style">
     <mat-card-header>
-        <span  class="example-spacer" style="color:goldenrod;text-align: center;font-size: medium; font-weight: bold;">Products Available
-                <button routerLink="/shopping-cart" mat-icon-button style="color:black">
-                    <mat-icon matBadge="{{itemInCart}}" matBadgeColor="warn">shopping_cart</mat-icon>
-                </button>
-            </span>  
+         
     </mat-card-header>
     <mat-card-content>
         <div *ngFor="let item of items" class="product-align">
