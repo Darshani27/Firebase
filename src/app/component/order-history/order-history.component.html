@@ -4,10 +4,10 @@
     </mat-card-title>
     <mat-card-content>
         <table mat-table
-       [dataSource]="list" multiTemplateDataRows
+       [dataSource]="mylist" multiTemplateDataRows
        class="mat-elevation-z8">
   <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
-    <th mat-header-cell *matHeaderCellDef> {{column}} &nbsp;</th>
+    <th mat-header-cell *matHeaderCellDef> {{column}} &nbsp; &nbsp;</th>
     <td mat-cell *matCellDef="let element"> {{element[column]}} &nbsp;</td>
   </ng-container>
   <ng-container matColumnDef="expand">
@@ -25,14 +25,14 @@
     <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
       <div class="example-element-detail"
            [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-        <!-- <div class="example-element-diagram">
+        <div class="example-element-diagram">
           <div class="example-element-position"> {{element.price}} </div>
-          <div class="example-element-symbol"> {{element.category}} </div>
-          <div class="example-element-name"> {{element.name}} </div>
-        </div> -->
-        <div class="example-element-description">
-          {{getTotalCost()|currency}}
+          <!-- <div class="example-element-symbol"> {{element.category}} </div> -->
+          <!-- <div class="example-element-name"> {{element.name}} </div> -->
         </div>
+        <!-- <div class="example-element-description">
+          {{getTotalCost()|currency}}
+        </div> -->
       </div>
     </td>
   </ng-container>

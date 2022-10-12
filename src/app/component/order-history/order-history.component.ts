@@ -1,7 +1,9 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { isNgTemplate } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { map } from 'rxjs';
 import { DataService } from 'src/app/shared/data.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
@@ -23,17 +25,37 @@ export class OrderHistoryComponent implements OnInit {
   result: boolean=false;
   orders: any[]=[];
   list:any[]=[];
-  columnsToDisplay=['name','category','quantity','price'];
+  mylist:any[]=[];
+  a:any[]=[];
+
+  columnsToDisplay=['description','price'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
+  modifiedList: any;
   constructor(private dialog:MatDialog,private router:Router,private dataService:DataService) { }
 
   ngOnInit(): void {
     this.dataService.getAllOrders().valueChanges().subscribe((res)=>{
       this.orders=res.map((item)=>{return item.products});
-      this.list=this.orders.flat(1);
+      const elements=this.orders.map((r)=>{return r.length});
+      const totalCost=this.getTotalCost(this.orders);
+      for(var i=0 ,j=0;i<elements.length;i++)
+      {
+        this.list.push({description:'Your Previous Orders item No.:' +elements[i],price:totalCost[i]});
+        if(elements[i]==this.orders[i].length)
+        {
+          this.list.concat(this.orders[i]);
+        }
+      }
+      this.mylist=this.list;
+      // for(var i=0;i<this.orders.length;i++)
+      // {
+      //   this.a.push(this.orders[i].map((r: any)=>{
+      //     return {name:r.name,category:r.category,price:r.price};
+      //   }));
+      // }
+      console.log(this.mylist);
     });
-
-  }
+     }
   onClose()
   {
     const ref=this.dialog.open(ConfirmDialogComponent,{
@@ -49,7 +71,12 @@ export class OrderHistoryComponent implements OnInit {
       }      
     });
   }
-  getTotalCost() {
+  getTotalCost(orders:any) {
+    return orders.map((item:any)=>{
+      return item.map((t :any)=>{
+        return parseInt(t.price) *t.quantity
+      }).reduce((acc:any,value:any)=>acc+value,0);
+    });
     // return this.list.map(t => parseInt(t.price as any)*(t.quantity as any)).reduce((acc: any, value: any) => acc + value, 0);
   }
 }
