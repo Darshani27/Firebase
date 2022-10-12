@@ -57,6 +57,8 @@ export class ProductListComponent implements OnInit {
    },(err)=>{
     alert(err.message);
    });
+   console.log(this.products);
+   
   }
 
   removeAllProducts(): void

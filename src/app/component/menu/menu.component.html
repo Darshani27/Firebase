@@ -13,6 +13,12 @@
       <button mat-raised-button color="primary" routerLink="/login">
         Login
       </button>
+    </span> 
+      &nbsp;
+    <span *ngIf="currentUser && !hasRoute('order-history')">
+      <button mat-raised-button color="accent" routerLink="/order-history">
+        Order History
+      </button>
     </span>
     <span *ngIf="currentUser">
       <button routerLink="/shopping-cart" mat-icon-button style="color:black">

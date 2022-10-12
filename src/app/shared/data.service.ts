@@ -64,4 +64,8 @@ export class DataService {
   {
     return this.ref.update(key,value);
   } 
+  getAllOrders()
+  {
+    return this.orderRef;
+  }
 }

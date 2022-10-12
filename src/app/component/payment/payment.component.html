@@ -37,14 +37,6 @@
           </table>
           <br>
           <div class="btn-center">
-            <!-- <h4 style="font-size:medium;text-align:left;color: darkgray;">
-                Select Payment Method
-            </h4>
-            <mat-radio-group class="example-radio-group">
-                <mat-radio-button (change)="stripeCheckout($event)" class="example-radio-button" *ngFor="let method of paymentMethods" [value]="method">
-                    {{method}}
-                </mat-radio-button>
-            </mat-radio-group> -->
             <button mat-raised-button color="accent" (click)="makePayment()">
               Pay {{getTotalCost()|currency}}
             </button>
