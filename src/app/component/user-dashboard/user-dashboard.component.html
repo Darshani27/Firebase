@@ -1,25 +1,22 @@
-<mat-card class="card-style">
-    <mat-card-header>
-         
-    </mat-card-header>
-    <mat-card-content>
-        <div *ngFor="let item of items" class="product-align">
-            <mat-card class="inner-card-style">
-                <mat-card-title>{{item.name | titlecase}}</mat-card-title>
-                <br>
-                <ng-container *ngIf="item.category=='Electronics'">
-                    <img mat-card-image src="assets/electronics.jpg" alt="image" style="height:70px;">
-                </ng-container>
-                <ng-container *ngIf="item.category=='Fashion'">
-                     <img mat-card-image src="assets/fashion.jpg" style="height:70px;" alt="image">
-                </ng-container>
-                <mat-card-content style="font-weight:bold;">
-                    {{item.category | titlecase}}
-                </mat-card-content>
-                <mt-card-actions>
-                    <button mat-button style="color:blue;" (click)="addToCart(item)">Add To Cart</button>
-                </mt-card-actions>
-            </mat-card>
+<div class="content">
+        <div fxLayout="row wrap" fxLayoutGap="16px grid">
+            <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let item of items" class="product-align">
+                <mat-card class="mat-elevation-z4">
+                    <mat-card-title>{{item.name | titlecase}}</mat-card-title>
+                    <br>
+                    <ng-container *ngIf="item.category=='Electronics'">
+                        <img mat-card-image src="assets/electronics.jpg" alt="image" style="height:70px;">
+                    </ng-container>
+                    <ng-container *ngIf="item.category=='Fashion'">
+                         <img mat-card-image src="assets/fashion.jpg" style="height:70px;" alt="image">
+                    </ng-container>
+                    <mat-card-content style="font-weight:bold;">
+                        {{item.category | titlecase}}
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-button style="color:blue;" (click)="addToCart(item)">Add To Cart</button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
         </div>
-    </mat-card-content>
-</mat-card>
+</div>

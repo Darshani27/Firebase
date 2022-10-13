@@ -28,6 +28,7 @@ import { MenuComponent } from './component/menu/menu.component';
 import { UserProfileComponent } from './component/user-profile/user-profile.component';
 import { HomeComponent } from './component/home/home.component';
 import { OrderHistoryComponent } from './component/order-history/order-history.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,6 +59,7 @@ import { OrderHistoryComponent } from './component/order-history/order-history.c
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     MatmoduleModule,
+    FlexLayoutModule
   ],
   providers: [{
     provide:HTTP_INTERCEPTORS,

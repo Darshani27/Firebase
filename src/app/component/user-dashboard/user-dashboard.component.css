@@ -1,36 +1,13 @@
-.card-style
-{
-    width: 100%;
-}
-:host {
-    display: flex;
-    justify-content: center;
-    margin: 100px 0px;
-  }
+
 mat-card-title,
 mat-card-content,mat-card-header,mat-card-actions,img {
   display: flex;
   justify-content: center;
 }
-.example-spacer {
-  flex: 1 1 auto;
-}
-.wrapper
-{
-  position:relative;
-}
-.wrapper span{
- position: absolute;
-  top: -2px;
-  right:-2px;
+.content {
+  padding: 16px;
 }
 
-/* .inner-card-style
-{
-display: flex;
-justify-content: space-between;
-} */
-.product-align
-{
-    margin-inline-start: 10px;
+.content > mat-card {
+  width: 200px;
 }
