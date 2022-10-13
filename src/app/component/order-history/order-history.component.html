@@ -7,8 +7,8 @@
        [dataSource]="mylist" multiTemplateDataRows
        class="mat-elevation-z8">
   <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
-    <th mat-header-cell *matHeaderCellDef> {{column}} &nbsp; &nbsp;</th>
-    <td mat-cell *matCellDef="let element"> {{element[column]}} &nbsp;</td>
+    <th mat-header-cell *matHeaderCellDef> &nbsp;{{column | titlecase}} &nbsp; &nbsp;</th>
+    <td mat-cell *matCellDef="let element"> &nbsp;{{element[column]}} &nbsp; &nbsp;</td>
   </ng-container>
   <ng-container matColumnDef="expand">
     <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
@@ -26,13 +26,33 @@
       <div class="example-element-detail"
            [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
         <div class="example-element-diagram">
-          <div class="example-element-position"> {{element.price}} </div>
-          <!-- <div class="example-element-symbol"> {{element.category}} </div> -->
-          <!-- <div class="example-element-name"> {{element.name}} </div> -->
+            <table mat-table [dataSource]="element.products">
+
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Name &nbsp; &nbsp; </th>
+                <td mat-cell *matCellDef="let item"> {{item.name | titlecase}} &nbsp;</td>
+              </ng-container>
+
+               <!-- Price Column -->
+            <ng-container matColumnDef="price">
+              <th mat-header-cell *matHeaderCellDef> Price </th>
+              <td mat-cell *matCellDef="let item"> {{item.price|currency}}</td>
+            </ng-container>
+          
+            <!-- Category Column -->
+            <ng-container matColumnDef="category">
+              <th mat-header-cell *matHeaderCellDef> Category </th>
+              <td mat-cell *matCellDef="let item"> {{item.category | titlecase}} &nbsp; &nbsp;</td>
+            </ng-container>
+            <!-- Quantity Column -->
+            <ng-container matColumnDef="quantity">
+              <th mat-header-cell *matHeaderCellDef> Quantity &nbsp; &nbsp;</th>
+              <td mat-cell *matCellDef="let item">&nbsp; &nbsp;{{item.quantity}} &nbsp;</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
         </div>
-        <!-- <div class="example-element-description">
-          {{getTotalCost()|currency}}
-        </div> -->
       </div>
     </td>
   </ng-container>

@@ -44,12 +44,12 @@ export class CheckoutComponent implements OnInit {
       const dialogRef=this.dialog.open(PaymentComponent,
         {
           width:"600px",
-          maxHeight:"700px"
+          maxHeight:"700px",
+          data:this.checkoutForm.value.address
         }
       );
       dialogRef.afterClosed().subscribe((res)=>{
-        console.log(res);
-        
+        console.log(res);  
       });
     }
   }

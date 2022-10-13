@@ -14,7 +14,7 @@ mat-card-content {
     margin: 100px 0px;
   }
   table {
-    width: auto;
+    width: 100%;
   }
   
   tr.example-detail-row {
@@ -46,6 +46,10 @@ mat-card-content {
     margin: 8px 0;
     height: 104px;
   } */
+  .example-element-diagram
+  {
+    width:100%;
+  }
   
   /* .example-element-symbol {
     font-weight: bold;
