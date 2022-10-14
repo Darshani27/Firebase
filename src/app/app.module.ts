@@ -29,6 +29,7 @@ import { UserProfileComponent } from './component/user-profile/user-profile.comp
 import { HomeComponent } from './component/home/home.component';
 import { OrderHistoryComponent } from './component/order-history/order-history.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +60,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     MatmoduleModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    GooglePlaceModule
   ],
   providers: [{
     provide:HTTP_INTERCEPTORS,

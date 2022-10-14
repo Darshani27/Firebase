@@ -21,7 +21,7 @@
             </p>
             <p>
                 <mat-form-field>
-                  <input  id="location" formControlName="address" type="text" matInput placeholder="Address" required>
+                  <input ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)" formControlName="address" type="text" matInput placeholder="Address" required>
                   <mat-error *ngIf="checkoutForm.invalid">{{getErrorMessage()}}</mat-error>
                 </mat-form-field>
             </p>
