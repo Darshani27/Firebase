@@ -62,7 +62,6 @@ export class CartServiceService {
     )
     if(elementToRemove && item.quantity==0)
     {
-    //  this.items.splice(element,1);
     this.removeItemFromCart(item);
     }
     this.items=[...this.items];

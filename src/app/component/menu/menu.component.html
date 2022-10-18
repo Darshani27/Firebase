@@ -20,6 +20,11 @@
         Order History
       </button>
     </span>
+    <span *ngIf="currentUser && currentUser==adminKey">
+      <button mat-button routerLink="/users-list">
+        Users List
+      </button>
+    </span>
     <span *ngIf="currentUser">
       <button routerLink="/shopping-cart" mat-icon-button style="color:black">
           <mat-icon matBadge="{{itemInCart}}" matBadgeColor="warn">shopping_cart</mat-icon>

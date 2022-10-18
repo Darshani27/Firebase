@@ -30,6 +30,7 @@ import { HomeComponent } from './component/home/home.component';
 import { OrderHistoryComponent } from './component/order-history/order-history.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
+import { UsersListComponent } from './component/users-list/users-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +50,8 @@ import { GooglePlaceModule } from "ngx-google-places-autocomplete";
     MenuComponent,
     UserProfileComponent,
     HomeComponent,
-    OrderHistoryComponent
+    OrderHistoryComponent,
+    UsersListComponent
   ],
   imports: [
     BrowserModule,

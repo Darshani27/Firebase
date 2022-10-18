@@ -1,10 +1,8 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 import { Address } from 'ngx-google-places-autocomplete/objects/address';
 import { PaymentComponent } from '../payment/payment.component';
-// import {} from 'googlemaps';
 
 @Component({
   selector: 'app-checkout',
@@ -12,14 +10,9 @@ import { PaymentComponent } from '../payment/payment.component';
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit ,  AfterViewInit{
-  // @ViewChild('map',{ static: true }) mapElement: any;
-  // map: google.maps.Map={} as any;
-  options={} as any;
-  @ViewChild("placesRef",{static:false}) placesRef : GooglePlaceDirective={} as any;
-    
+
   public handleAddressChange(address: Address) {
     console.log(address);
-  // Do some stuff
 }
   checkoutForm:FormGroup={} as any;
   constructor(private dialog:MatDialog) { }
@@ -37,19 +30,6 @@ export class CheckoutComponent implements OnInit ,  AfterViewInit{
       'postalPin':new FormControl('',[Validators.required,Validators.pattern('[0-9]*')]),
     });
     }
-  //   const mapProperties = {
-  //     center: new google.maps.LatLng(22.7196,  75.8577),
-  //     zoom: 15,
-  //     mapTypeId: google.maps.MapTypeId.ROADMAP
-  //   };
-  //   google.maps.event.addDomListener(window, 'load', this.initialize);
-  //   this.map = new google.maps.Map(this.mapElement.nativeElement, mapProperties);
-  // }
-  // initialize()
-  // {
-  //   var input = document.getElementById('location') as any;
-  //   var autocomplete = new google.maps.places.Autocomplete(input);
-  // }
   getErrorMessage()
   {
     if(this.checkoutForm.value.email==''||this.checkoutForm.value.fullName==''||this.checkoutForm.value.address==''||this.checkoutForm.value.city==''||this.checkoutForm.value.postalPin=='')

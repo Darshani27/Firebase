@@ -2,9 +2,6 @@
     <mat-card-title>
         <div style="text-align:center;">Enter Shipping Details</div>
     </mat-card-title>
-    <mat-card-subtitle>
-        <div #map style="width:100%;height:200px"></div>
-    </mat-card-subtitle>
     <mat-card-content>
         <form [formGroup]="checkoutForm">
             <p>
@@ -21,7 +18,7 @@
             </p>
             <p>
                 <mat-form-field>
-                  <input ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)" formControlName="address" type="text" matInput placeholder="Address" required>
+                  <input  formControlName="address" type="text" matInput placeholder="Address" required>
                   <mat-error *ngIf="checkoutForm.invalid">{{getErrorMessage()}}</mat-error>
                 </mat-form-field>
             </p>

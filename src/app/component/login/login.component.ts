@@ -50,6 +50,5 @@ export class LoginComponent implements OnInit {
       return 'Not a Valid Email';
     }
     return '';
-    // kacey28882@canyona.com (verified-email)
   }
 }

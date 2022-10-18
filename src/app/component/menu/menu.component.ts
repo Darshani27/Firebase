@@ -1,11 +1,14 @@
+import { getMultipleValuesInSingleSelectionError } from '@angular/cdk/collections';
 import { LocationStrategy } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { map } from 'rxjs/operators';
 import { AuthService } from 'src/app/shared/auth.service';
 import { CartServiceService } from 'src/app/shared/cart-service.service';
+import { DataService } from 'src/app/shared/data.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
 
@@ -24,9 +27,11 @@ export class MenuComponent implements OnInit {
   currentUser: string='';
   itemInCart:any;
   cartQty: any;
+  keyOfuser: any;
+  adminKey: any;
 
  
-  constructor(private cartService:CartServiceService,private bootomsheet:MatBottomSheet,private dialog:MatDialog,private auth:AuthService,private route:Router,private url:LocationStrategy,private db:AngularFireDatabase){
+  constructor(private dataService:DataService,private cartService:CartServiceService,private bootomsheet:MatBottomSheet,private dialog:MatDialog,private auth:AuthService,private route:Router,private url:LocationStrategy,private db:AngularFireDatabase){
     const ref=this.db.list('users');
     ref.valueChanges().subscribe((res)=>{
       this.users=res;
@@ -45,7 +50,24 @@ export class MenuComponent implements OnInit {
     );
     this.cartService.getItemInCart().subscribe((res:any)=>{
       this.itemInCart=res;
-    })
+    });
+    this.getUsers();
+  }
+  getUsers() {
+    this.dataService.getAllUsers().snapshotChanges().pipe(map((changes: any) => {
+      return changes.map((c: any) => {
+        return { key: c.key, ...c.payload.val() };
+      });
+    }
+    )).subscribe((res: any) => {
+      this.users = res;
+     this.keyOfuser=this.users.find((r :any)=>{return r.email==this.currentUser})?.key;
+     this.adminKey= this.users.find((r:any)=>r.role=="admin")?.email;
+    },
+      (err :any) => {
+        console.log(err);
+      });
+
   }
   openProfile()
   {

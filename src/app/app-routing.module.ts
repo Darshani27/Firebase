@@ -13,6 +13,7 @@ import { RegisterComponent } from './component/register/register.component';
 import { ShoppingCartComponent } from './component/shopping-cart/shopping-cart.component';
 import { UserDashboardComponent } from './component/user-dashboard/user-dashboard.component';
 import { UserProfileComponent } from './component/user-profile/user-profile.component';
+import { UsersListComponent } from './component/users-list/users-list.component';
 import { VerifyEmailComponent } from './component/verify-email/verify-email.component';
 
 const routes: Routes = [
@@ -31,6 +32,7 @@ const routes: Routes = [
   {path:'user-profile',component:UserProfileComponent},
   {path:'home',component:HomeComponent},
   {path:'order-history',component:OrderHistoryComponent},
+  {path:'users-list',component:UsersListComponent},
   {path:'**',component:PageNotFoundComponent},
 ];
 

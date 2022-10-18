@@ -68,4 +68,8 @@ export class DataService {
   {
     return this.orderRef;
   }
+  deleteUser(key:string)
+  {
+    return this.ref.remove(key);
+  }
 }

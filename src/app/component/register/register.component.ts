@@ -29,9 +29,10 @@ export class RegisterComponent implements OnInit {
     const email=this.registerForm.get('email')?.value;
     const password=this.registerForm.get('password')?.value;
     this.auth.register(email,password);
-    const data : User={
+    const data : any={
       email:email,
-      password:password
+      password:password,
+      firstName:this.registerForm.value.FirstName,
     }
     this.data.create(data);
   }
