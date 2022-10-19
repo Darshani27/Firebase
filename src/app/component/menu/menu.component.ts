@@ -1,10 +1,9 @@
-import { getMultipleValuesInSingleSelectionError } from '@angular/cdk/collections';
 import { LocationStrategy } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { AuthService } from 'src/app/shared/auth.service';
 import { CartServiceService } from 'src/app/shared/cart-service.service';
@@ -27,8 +26,10 @@ export class MenuComponent implements OnInit {
   currentUser: string='';
   itemInCart:any;
   cartQty: any;
-  keyOfuser: any;
   adminKey: any;
+  inActiveMembers: any[]=[];
+  inactiveEmails: any[]=[];
+  isInactive: boolean=false;
 
  
   constructor(private dataService:DataService,private cartService:CartServiceService,private bootomsheet:MatBottomSheet,private dialog:MatDialog,private auth:AuthService,private route:Router,private url:LocationStrategy,private db:AngularFireDatabase){
@@ -43,15 +44,27 @@ export class MenuComponent implements OnInit {
     return this.route.url.includes(route);
   }
   ngOnInit(): void {
-   this.auth.getCurrentUser().subscribe((res :any)=>
-   {
-    this.currentUser=res;
-   }
-    );
+   
     this.cartService.getItemInCart().subscribe((res:any)=>{
       this.itemInCart=res;
     });
     this.getUsers();
+    this.auth.getCurrentUser().subscribe((res :any)=>
+   {
+    this.inActiveMembers=this.users.filter((r:any)=>r.isActive==false);
+    this.inactiveEmails=this.inActiveMembers.map((r:any)=>{
+       return r.email;
+     });
+     if(this.inactiveEmails.includes(res))
+     {
+      this.currentUser='';
+     }
+     else
+     {
+      this.currentUser=res;
+     }
+   }
+    );
   }
   getUsers() {
     this.dataService.getAllUsers().snapshotChanges().pipe(map((changes: any) => {
@@ -61,7 +74,6 @@ export class MenuComponent implements OnInit {
     }
     )).subscribe((res: any) => {
       this.users = res;
-     this.keyOfuser=this.users.find((r :any)=>{return r.email==this.currentUser})?.key;
      this.adminKey= this.users.find((r:any)=>r.role=="admin")?.email;
     },
       (err :any) => {

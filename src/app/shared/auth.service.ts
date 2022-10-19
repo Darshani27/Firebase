@@ -16,6 +16,9 @@ export class AuthService {
   adminEmailId:any=new BehaviorSubject('');
   roleAs: any;
   isLogin: boolean=false;
+  inactiveEmail: any;
+  inActiveMembers:any[]=[];
+  inactiveEmails: any;
   
 
   constructor(private locationStrategy:LocationStrategy,private fieauth : AngularFireAuth, private router:Router,private _snackbar:MatSnackBar,private db:AngularFireDatabase) {
@@ -33,6 +36,10 @@ export class AuthService {
     {
       sessionStorage.setItem('token','true');
       this.adminEmail=this.users.find((r)=>r.role=="admin")?.email;
+      this.inActiveMembers=this.users.filter((r:any)=>r.isActive==false);
+      this.inactiveEmails=this.inActiveMembers.map((r:any)=>{
+        return r.email;
+      })
       if(res.user?.emailVerified==true)
       {
         if(this.adminEmail == email)
@@ -40,7 +47,7 @@ export class AuthService {
           sessionStorage.setItem("role", "admin");
           this.router.navigate(['/product-list']);
         }
-        else if(this.adminEmail!=undefined)
+        else if(this.adminEmail!=undefined && !(this.inactiveEmails.includes(email)))
         {
           this.router.navigate(['/user-dashboard']);
         }
@@ -136,3 +143,4 @@ export class AuthService {
     })
   }
 }
+// vuriwe@cyclelove.cc

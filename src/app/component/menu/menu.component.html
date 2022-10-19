@@ -15,7 +15,7 @@
       </button>
     </span> 
       &nbsp;
-    <span *ngIf="currentUser && !hasRoute('order-history')">
+    <span *ngIf="currentUser && !hasRoute('order-history') && !isInactive">
       <button mat-raised-button color="accent" routerLink="/order-history">
         Order History
       </button>

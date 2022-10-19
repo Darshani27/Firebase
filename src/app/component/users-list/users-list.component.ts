@@ -56,13 +56,15 @@ export class UsersListComponent implements OnInit {
       dialogRef.afterClosed().subscribe((res :any)=>
       {
         this.result=res;
-        // if(this.result)
-        // {
-        //   this.dataService.deleteUser(item.key).then((res)=>{
-        //       this._snackBar.open('User Disabled Successfully','OK');
-        //       this.getUsers();
-        //   });
-        // }
+        if(this.result)
+        {
+              item.isActive=false;
+              const data={...item,isActive:false};
+              this.dataService.updateUser(item.key,data).then((res)=>{
+              this._snackBar.open('User Disabled Successfully','OK');
+              this.getUsers();
+              }); 
+        }
       });
   }
 }
