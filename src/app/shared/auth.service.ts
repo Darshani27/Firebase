@@ -51,6 +51,10 @@ export class AuthService {
         {
           this.router.navigate(['/user-dashboard']);
         }
+        else if(this.inactiveEmails && this.inactiveEmails.includes(email))
+        {
+          this._snackbar.open('You have been blocked by the admin','OK');
+        }
       }
       else{
         this.router.navigate(['/verify-email']);

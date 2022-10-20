@@ -17,11 +17,9 @@
             </ng-container>
 
             <ng-container matColumnDef="action">
-                <th mat-header-cell *matHeaderCellDef> Actions</th>   
+                <th mat-header-cell *matHeaderCellDef> Enable/Disable</th>   
                 <td mat-cell *matCellDef="let element">
-                    <button mat-button  class="iconbutton" color="primary" (click)="enableDisable(element)">
-                        Disable
-                      </button> 
+                  <mat-slide-toggle (change)="enableDisable(element)" [checked]="element.isActive"></mat-slide-toggle>
                 </td>
               </ng-container>
             

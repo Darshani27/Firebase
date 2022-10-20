@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminguardGuard } from './authGuard/adminguard.guard';
+import { ChangePasswordComponent } from './component/change-password/change-password.component';
 import { CheckoutComponent } from './component/checkout/checkout.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { ForgotPaswordComponent } from './component/forgot-pasword/forgot-pasword.component';
@@ -33,6 +34,7 @@ const routes: Routes = [
   {path:'home',component:HomeComponent},
   {path:'order-history',component:OrderHistoryComponent},
   {path:'users-list',component:UsersListComponent},
+  {path:'change-password',component:ChangePasswordComponent},
   {path:'**',component:PageNotFoundComponent},
 ];
 

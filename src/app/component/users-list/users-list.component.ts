@@ -20,6 +20,8 @@ export class UsersListComponent implements OnInit {
   title:string="Confirm Action";
   message:string="Are you sure you want to disable ?";
   result: boolean=false;
+  btnDisable: boolean=false;
+  // checked:boolean=true;
 
   constructor(private dataService:DataService,private dialog:MatDialog,private _snackBar:MatSnackBar) { }
 
@@ -38,6 +40,9 @@ export class UsersListComponent implements OnInit {
      this.users = res || [];
      this.keyOfuser=this.users.find((r :any)=>{return r.email==this.currentUser})?.key;
      this.adminKey= this.users.find((r:any)=>r.role=="admin")?.key;
+    //  this.users.filter((r:any)=>{
+    //   r.isActive==false
+    //  });
    },
      (err) => {
        console.log(err);
@@ -46,25 +51,48 @@ export class UsersListComponent implements OnInit {
 
   enableDisable(item:any)
   {
-    console.log(item);
-    
-    const dialogRef=this.dialog.open(ConfirmDialogComponent,
-      {
-        maxWidth: "400px",
-        data:{title:this.title,message:this.message}
-      });
-      dialogRef.afterClosed().subscribe((res :any)=>
-      {
-        this.result=res;
-        if(this.result)
+    if(item.isActive==true)
+    {
+      const dialogRef=this.dialog.open(ConfirmDialogComponent,
         {
-              item.isActive=false;
-              const data={...item,isActive:false};
-              this.dataService.updateUser(item.key,data).then((res)=>{
-              this._snackBar.open('User Disabled Successfully','OK');
-              this.getUsers();
-              }); 
-        }
-      });
+          maxWidth: "400px",
+          data:{title:this.title,message:this.message}
+        });
+        dialogRef.afterClosed().subscribe((res :any)=>
+        {
+          this.result=res;
+          if(this.result)
+          {
+                item.isActive=false;
+                const data={...item,isActive:false};
+                this.dataService.updateUser(item.key,data).then((res)=>{
+                this._snackBar.open('User Disabled Successfully','OK');
+                this.getUsers();
+                }); 
+          }
+        });
+    }
+    else if(item.isActive==false){
+      const dialogRef=this.dialog.open(ConfirmDialogComponent,
+        {
+          maxWidth: "400px",
+          data:{title:this.title,message:'Are You Sure You Want to Enable ?'}
+        });
+        dialogRef.afterClosed().subscribe((res :any)=>
+        {
+          this.result=res;
+          if(this.result)
+          {
+                item.isActive=true;
+                const data={...item,isActive:true};
+                this.dataService.updateUser(item.key,data).then((res)=>{
+                this._snackBar.open('User Enabled Successfully','OK');
+                this.getUsers();
+                }); 
+          }
+        });
+
+    }
+   
   }
 }

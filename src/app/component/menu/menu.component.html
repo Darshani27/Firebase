@@ -56,13 +56,17 @@
         <p style="font-size:medium;font-weight:bold;text-align:center">{{currentUser}}</p>
         <mat-divider></mat-divider>
         <p style="font-size:medium;text-align:center">
-           <span> Edit Your Profile</span> 
+           <span> &nbsp;&nbsp; &nbsp;&nbsp;Edit Your Profile</span> 
             <button mat-icon-button routerLink="/user-profile" [disabled]="!currentUser">
                 <mat-icon>edit</mat-icon>
             </button>
         </p>
         <mat-divider></mat-divider>
-        <br>
+        <p style="text-align:center;font-size:medium">
+          <a routerLink="/change-password" style="text-decoration:none;color:blue">Change Password</a>
+        </p>
+        <mat-divider></mat-divider>
+       
         <p style="font-size:medium;text-align:center;color:darkslategray">
             Privacy Policy
         </p>

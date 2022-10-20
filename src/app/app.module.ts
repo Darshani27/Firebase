@@ -31,6 +31,7 @@ import { OrderHistoryComponent } from './component/order-history/order-history.c
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import { UsersListComponent } from './component/users-list/users-list.component';
+import { ChangePasswordComponent } from './component/change-password/change-password.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,7 +52,8 @@ import { UsersListComponent } from './component/users-list/users-list.component'
     UserProfileComponent,
     HomeComponent,
     OrderHistoryComponent,
-    UsersListComponent
+    UsersListComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,
