@@ -5,7 +5,8 @@
     <mat-card-content>
         <form [formGroup]="userForm">
             <p style="display:flex;justify-content:center;">
-                <mat-icon>account_circle</mat-icon>
+                <!-- <mat-icon>account_circle</mat-icon> -->
+                <input type="file" (change)="upload($event)" accept=".png,.jpg" />
             </p>
             <p>
                 <mat-form-field>

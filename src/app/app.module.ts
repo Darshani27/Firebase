@@ -29,6 +29,7 @@ import { UserProfileComponent } from './component/user-profile/user-profile.comp
 import { HomeComponent } from './component/home/home.component';
 import { OrderHistoryComponent } from './component/order-history/order-history.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import { UsersListComponent } from './component/users-list/users-list.component';
 import { ChangePasswordComponent } from './component/change-password/change-password.component';
@@ -65,7 +66,8 @@ import { ChangePasswordComponent } from './component/change-password/change-pass
     AngularFireDatabaseModule,
     MatmoduleModule,
     FlexLayoutModule,
-    GooglePlaceModule
+    GooglePlaceModule,
+    AngularFireStorageModule
   ],
   providers: [{
     provide:HTTP_INTERCEPTORS,

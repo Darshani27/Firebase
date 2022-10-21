@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { map } from 'rxjs/operators';
@@ -13,10 +14,10 @@ import { DataService } from 'src/app/shared/data.service';
 })
 export class ChangePasswordComponent implements OnInit {
   changePasswordForm:FormGroup={} as any;
-  users: any[]=[           ];
+  users: any[]=[];
   currentUser: any;
   keyOfUser: any;
-  constructor(private _snackBar:MatSnackBar,private dataService:DataService,private auth:AuthService) { }
+  constructor(private fieauth:AngularFireAuth,private _snackBar:MatSnackBar,private dataService:DataService,private auth:AuthService) { }
 
   ngOnInit(): void {
     this.changePasswordForm=new FormGroup(
@@ -40,6 +41,8 @@ export class ChangePasswordComponent implements OnInit {
     }
     )).subscribe((res: any) => {
       this.users = res;
+      this.keyOfUser=this.users.find((r:any)=>{ return r.email==this.currentUser })?.key
+
     },
       (err :any) => {
         console.log(err);
@@ -52,17 +55,30 @@ export class ChangePasswordComponent implements OnInit {
   }
   submit()
   {
-    this.keyOfUser=this.users.find((r:any)=>{r.email==this.currentUser })?.key
     const data={password:this.changePasswordForm.value.confirmpassword};
     if(this.changePasswordForm.value.confirmpassword !='')
     {
       this.dataService.updatePassword(this.keyOfUser,data).then((res:any)=>{
         this._snackBar.open('Password Changed SuccessFully','OK');
+        this.resetForm();
+        this.sendResetPasswordEmail(this.currentUser);
         this.getUsers();
       });
     }
     
     }
+  sendResetPasswordEmail(userEmail:any) {
+    this.fieauth.sendPasswordResetEmail(userEmail).then((res:any)=>
+    {
+      this._snackBar.open('Pasword Reset Email Sent on Registered Email','OK');
+    });
+    
+  }
+  resetForm() {
+    this.changePasswordForm.value.newpassword='';
+    this.changePasswordForm.value.currentpassword='';
+    this.changePasswordForm.value.confirmpassword='';
+  }
 
   getErrorMessage()
   {

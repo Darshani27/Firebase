@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from '@angular/fire/compat/storage';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { map } from 'rxjs';
-import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/shared/auth.service';
 import { DataService } from 'src/app/shared/data.service';
 
@@ -18,8 +18,10 @@ export class UserProfileComponent implements OnInit {
   users:any[]=[];
   data: any={} as any;
   keyOfUser: any;
+  ref: AngularFireStorageReference={} as any;
+  task: AngularFireUploadTask={} as any;
 
-  constructor(private auth:AuthService,private db:AngularFireDatabase,private dataService:DataService,private _snackbar:MatSnackBar) {
+  constructor(private afStorage:AngularFireStorage,private auth:AuthService,private db:AngularFireDatabase,private dataService:DataService,private _snackbar:MatSnackBar) {
    
   }
     
@@ -31,7 +33,6 @@ export class UserProfileComponent implements OnInit {
     });
     this.userForm=new FormGroup({
       'email':new FormControl(this.currentUser),
-      // 'nickName':new FormControl('')
     }); 
 
      this.userForm.valueChanges.subscribe((res:any)=>{
@@ -59,5 +60,9 @@ getUsers()
   (err)=>{
     console.log(err);
   });
+}
+upload(event:any)
+{
+
 }
 }

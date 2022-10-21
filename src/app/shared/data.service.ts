@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from '@angular/fire/compat/database';
 import { Product } from '../models/product.model';
 import { User } from '../models/user.model';
@@ -17,7 +18,7 @@ export class DataService {
   users: any[]=[];
 
 
-  constructor(private db :AngularFireDatabase) {
+  constructor(private db :AngularFireDatabase,private fieauth:AngularFireAuth) {
     this.productRef=db.list(this.dbPath); 
     this.ref=db.list(this.userPath);   
     this.orderRef=db.list(this.ordersPath);
