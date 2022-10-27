@@ -1,9 +1,10 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from '@angular/fire/compat/storage';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { finalize, from, map, Observable } from 'rxjs';
+import { catchError, finalize, from, map, Observable, throwError } from 'rxjs';
 import { AuthService } from 'src/app/shared/auth.service';
 import { DataService } from 'src/app/shared/data.service';
 
@@ -22,7 +23,7 @@ export class UserProfileComponent implements OnInit {
   task: AngularFireUploadTask={} as any;
   uploadProgress: Observable<number>|undefined;
   downloadURL!: Observable<String>;
-  path: string | undefined;
+  path: AngularFireStorageReference={}  as any;
   result: boolean=false;
  
   constructor(private afStorage:AngularFireStorage,private auth:AuthService,private db:AngularFireDatabase,private dataService:DataService,private _snackbar:MatSnackBar) {
@@ -43,11 +44,22 @@ export class UserProfileComponent implements OnInit {
      this.userForm.valueChanges.subscribe((res:any)=>{
      this.data={...res};
    });
-  //  console.log(this.downloadURL);
+   this.path=this.afStorage.ref('/images/' + this.currentUser);
+   if(this.path !=undefined)
+   {
+    this.path.getDownloadURL().subscribe((res:any)=>{
+      this.downloadURL=res;
+     },(error)=>{
+      console.log(error.message);
+      this.afStorage.ref('/default/images.jpg').getDownloadURL().subscribe((res:any)=>{
+        this.downloadURL=res;
+      })
+      alert('Please upload image');
+     });
+   }
    
-  this.downloadURL = this.afStorage.ref(`/images/${this.currentUser}`).getDownloadURL();
-
   }
+ 
   update()
   { 
     this.keyOfUser=this.users.find((r)=>{return r.email==this.currentUser})?.key;
@@ -79,6 +91,7 @@ upload(event:any)
     this.task.snapshotChanges().pipe(
       finalize(() => this.downloadURL = this.ref.getDownloadURL())
     ).subscribe((res:any)=>{
+      console.log(res); 
     });
 }
 }

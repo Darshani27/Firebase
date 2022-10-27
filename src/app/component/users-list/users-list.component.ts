@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { map } from 'rxjs/operators';
 import { DataService } from 'src/app/shared/data.service';
@@ -49,7 +50,7 @@ export class UsersListComponent implements OnInit {
      });
   }
 
-  enableDisable(item:any)
+  enableDisable(item:any,event:MatSlideToggleChange)
   {
     if(item.isActive==true)
     {
@@ -69,6 +70,15 @@ export class UsersListComponent implements OnInit {
                 this._snackBar.open('User Disabled Successfully','OK');
                 this.getUsers();
                 }); 
+                this.btnDisable=false;
+          }
+          else{
+            item.isActive=true;
+            event.source.checked=true;
+            // this.btnDisable=event.checked;
+            // event.checked=true;
+            this.btnDisable=true;
+
           }
         });
     }
@@ -88,7 +98,12 @@ export class UsersListComponent implements OnInit {
                 this.dataService.updateUser(item.key,data).then((res)=>{
                 this._snackBar.open('User Enabled Successfully','OK');
                 this.getUsers();
-                }); 
+                });
+          }
+          else
+          {
+            item.isActive=false;
+            event.source.checked=false;
           }
         });
 

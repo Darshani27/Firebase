@@ -5,14 +5,14 @@
     <mat-card-content>
         <form [formGroup]="userForm">
             <div class="profile-image">
-                <div *ngIf="!ref">
+                <div *ngIf="!downloadURL;">
                     <img width="150" height="150" src="assets/image-placeholder.jpg" />
                 </div>
                 <button mat-mini-fab (click)="inputField.click()">
                     <mat-icon>edit</mat-icon>
                 </button>
-                <div *ngIf="downloadURL | async; let url" >
-                    <img style="border-radius:100%; object-fit: cover; object-position: center;" width="150" height="150" [src]="url" alt="Image from AngularFireStorage">
+                <div *ngIf="downloadURL" >
+                    <img style="border-radius:100%; object-fit: cover; object-position: center;" width="150" height="150" [src]="downloadURL" alt="assets/image-placeholder" onError="this.src='assets/image-placeholder.jpg'">
                 </div>
             </div>
             <input formControlName="userImage" #inputField type="file" hidden (change)="upload($event)" accept=".png,.jpg" />
