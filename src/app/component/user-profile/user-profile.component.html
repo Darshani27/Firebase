@@ -4,10 +4,19 @@
     </mat-card-title>
     <mat-card-content>
         <form [formGroup]="userForm">
-            <p style="display:flex;justify-content:center;">
-                <!-- <mat-icon>account_circle</mat-icon> -->
-                <input type="file" (change)="upload($event)" accept=".png,.jpg" />
-            </p>
+            <div class="profile-image">
+                <div *ngIf="!ref">
+                    <img width="150" height="150" src="assets/image-placeholder.jpg" />
+                </div>
+                <button mat-mini-fab (click)="inputField.click()">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <div *ngIf="downloadURL | async; let url" >
+                    <img style="border-radius:100%; object-fit: cover; object-position: center;" width="150" height="150" [src]="url" alt="Image from AngularFireStorage">
+                </div>
+            </div>
+            <input formControlName="userImage" #inputField type="file" hidden (change)="upload($event)" accept=".png,.jpg" />
+
             <p>
                 <mat-form-field>
                     <p>
@@ -31,7 +40,7 @@
                         <button mat-icon-button (click)="update()">
                             <mat-icon>edit</mat-icon>
                         </button>
-                    </div>
+                </div>
         </form>
     </mat-card-content>
     <mat-card-actions>

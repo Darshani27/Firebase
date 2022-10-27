@@ -140,6 +140,10 @@ export class AuthService {
       this.isLogin = false;
     return this.isLogin;
   }
+  // uploadProfile()
+  // {
+  //   const user=
+  // }
   preventBackButton() {
     history.pushState(null, '', location.href);
     this.locationStrategy.onPopState(() => {

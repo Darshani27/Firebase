@@ -3,7 +3,7 @@ import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from '@angular/fire/compat/storage';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { map } from 'rxjs';
+import { finalize, from, map, Observable } from 'rxjs';
 import { AuthService } from 'src/app/shared/auth.service';
 import { DataService } from 'src/app/shared/data.service';
 
@@ -20,7 +20,11 @@ export class UserProfileComponent implements OnInit {
   keyOfUser: any;
   ref: AngularFireStorageReference={} as any;
   task: AngularFireUploadTask={} as any;
-
+  uploadProgress: Observable<number>|undefined;
+  downloadURL!: Observable<String>;
+  path: string | undefined;
+  result: boolean=false;
+ 
   constructor(private afStorage:AngularFireStorage,private auth:AuthService,private db:AngularFireDatabase,private dataService:DataService,private _snackbar:MatSnackBar) {
    
   }
@@ -33,11 +37,16 @@ export class UserProfileComponent implements OnInit {
     });
     this.userForm=new FormGroup({
       'email':new FormControl(this.currentUser),
+      'userImage':new FormControl('')
     }); 
 
      this.userForm.valueChanges.subscribe((res:any)=>{
      this.data={...res};
    });
+  //  console.log(this.downloadURL);
+   
+  this.downloadURL = this.afStorage.ref(`/images/${this.currentUser}`).getDownloadURL();
+
   }
   update()
   { 
@@ -56,6 +65,8 @@ getUsers()
   }
   )).subscribe((res:any)=>{
     this.users=res;
+    this.keyOfUser=this.users.find((r)=>{return r.email==this.currentUser})?.key;
+
   },
   (err)=>{
     console.log(err);
@@ -63,6 +74,11 @@ getUsers()
 }
 upload(event:any)
 {
-
+  this.ref = this.afStorage.ref('/images/' + this.currentUser);
+  this.task = this.ref.put(event.target.files[0]);
+    this.task.snapshotChanges().pipe(
+      finalize(() => this.downloadURL = this.ref.getDownloadURL())
+    ).subscribe((res:any)=>{
+    });
 }
 }
