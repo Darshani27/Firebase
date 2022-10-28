@@ -51,10 +51,11 @@ export class UserProfileComponent implements OnInit {
       this.downloadURL=res;
      },(error)=>{
       console.log(error.message);
-      this.afStorage.ref('/default/images.jpg').getDownloadURL().subscribe((res:any)=>{
+      this.afStorage.ref('/images/').getDownloadURL().subscribe((res:any)=>{
         this.downloadURL=res;
       })
-      alert('Please upload image');
+      // alert('Please upload image');
+      this._snackbar.open('Please upload profile image','OK');
      });
    }
    
