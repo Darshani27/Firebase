@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { LocationStrategy } from '@angular/common';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,6 +15,7 @@ export class AuthService {
   adminEmail:string='';
   currentUser:any=new BehaviorSubject('');
   adminEmailId:any=new BehaviorSubject('');
+  downloadurl:any=new BehaviorSubject('');
   roleAs: any;
   isLogin: boolean=false;
   inactiveEmail: any;
@@ -21,7 +23,7 @@ export class AuthService {
   inactiveEmails: any;
   
 
-  constructor(private locationStrategy:LocationStrategy,private fieauth : AngularFireAuth, private router:Router,private _snackbar:MatSnackBar,private db:AngularFireDatabase) {
+  constructor(private afStorage:AngularFireStorage,private locationStrategy:LocationStrategy,private fieauth : AngularFireAuth, private router:Router,private _snackbar:MatSnackBar,private db:AngularFireDatabase) {
      const ref=this.db.list('users');
        ref.valueChanges().subscribe((res)=>{
          this.users=res;
@@ -66,6 +68,9 @@ export class AuthService {
     });
     this.currentUser.next(email);
     this.adminEmailId.next(this.adminEmail);
+    this.afStorage.ref('/images/' + email).getDownloadURL().subscribe((res:any)=>{
+      this.setdownloadurl(res);
+    })
   }
 
   register(email:string,password:string)
@@ -140,15 +145,19 @@ export class AuthService {
       this.isLogin = false;
     return this.isLogin;
   }
-  // uploadProfile()
-  // {
-  //   const user=
-  // }
   preventBackButton() {
     history.pushState(null, '', location.href);
     this.locationStrategy.onPopState(() => {
       return history.pushState(null, '', location.href);
     })
+  }
+  setdownloadurl(data:any)
+  {
+    this.downloadurl.next(data);
+  }
+  getdownloadurl()
+  {
+    return this.downloadurl;
   }
 }
 // vuriwe@cyclelove.cc

@@ -43,6 +43,9 @@ export class MenuComponent implements OnInit {
       this.users=res;
     });
     console.log(this.users);
+    this.auth.getdownloadurl().subscribe((res:any)=>{
+      this.downloadURL=res;
+    })
  
   }
   hasRoute(route: string) {
@@ -71,7 +74,12 @@ export class MenuComponent implements OnInit {
      }
    }
     );
+    // this.getProfileImage();
   }
+  // getProfileImage() {
+  //   this.afStorage.ref('/images/' + this.currentUser).getDownloadURL().subscribe((res:any)=>{
+  //     this.downloadURL=res;
+  //   })}
   getUsers() {
     this.dataService.getAllUsers().snapshotChanges().pipe(map((changes: any) => {
       return changes.map((c: any) => {
