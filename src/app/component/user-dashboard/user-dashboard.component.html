@@ -5,10 +5,10 @@
                     <mat-card-title>{{item.name | titlecase}}</mat-card-title>
                     <br>
                     <ng-container *ngIf="item.category=='Electronics'">
-                        <img mat-card-image src="assets/electronics.jpg" alt="image" style="height:70px;">
+                        <img mat-card-image [src]="downloadURL" alt="image" style="height:70px;">
                     </ng-container>
                     <ng-container *ngIf="item.category=='Fashion'">
-                         <img mat-card-image src="assets/fashion.jpg" style="height:70px;" alt="image">
+                         <img mat-card-image [src]="fashionDownloadURL" style="height:70px;" alt="image">
                     </ng-container>
                     <mat-card-content style="font-weight:bold;">
                         {{item.category | titlecase}}

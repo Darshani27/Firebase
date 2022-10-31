@@ -1,9 +1,11 @@
 import { LocationStrategy } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from '@angular/fire/compat/storage';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from 'src/app/shared/auth.service';
 import { CartServiceService } from 'src/app/shared/cart-service.service';
@@ -30,9 +32,12 @@ export class MenuComponent implements OnInit {
   inActiveMembers: any[]=[];
   inactiveEmails: any[]=[];
   isInactive: boolean=false;
+  ref: AngularFireStorageReference={} as any;
+  task: AngularFireUploadTask={} as any;
+  downloadURL!: Observable<String>;
 
  
-  constructor(private dataService:DataService,private cartService:CartServiceService,private bootomsheet:MatBottomSheet,private dialog:MatDialog,private auth:AuthService,private route:Router,private url:LocationStrategy,private db:AngularFireDatabase){
+  constructor(private afStorage:AngularFireStorage,private dataService:DataService,private cartService:CartServiceService,private bootomsheet:MatBottomSheet,private dialog:MatDialog,private auth:AuthService,private route:Router,private url:LocationStrategy,private db:AngularFireDatabase){
     const ref=this.db.list('users');
     ref.valueChanges().subscribe((res)=>{
       this.users=res;
@@ -44,6 +49,7 @@ export class MenuComponent implements OnInit {
     return this.route.url.includes(route);
   }
   ngOnInit(): void {
+
    
     this.cartService.getItemInCart().subscribe((res:any)=>{
       this.itemInCart=res;

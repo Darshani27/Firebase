@@ -1,10 +1,9 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from '@angular/fire/compat/storage';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { catchError, finalize, from, map, Observable, throwError } from 'rxjs';
+import { finalize,  map, Observable } from 'rxjs';
 import { AuthService } from 'src/app/shared/auth.service';
 import { DataService } from 'src/app/shared/data.service';
 
@@ -54,7 +53,6 @@ export class UserProfileComponent implements OnInit {
       this.afStorage.ref('/images/').getDownloadURL().subscribe((res:any)=>{
         this.downloadURL=res;
       })
-      // alert('Please upload image');
       this._snackbar.open('Please upload profile image','OK');
      });
    }
