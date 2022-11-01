@@ -49,6 +49,6 @@
     </mat-card-content>
     <mat-card-actions>
         <button mat-button (click)="clearCart()">Clear Cart</button>
-        <button routerLink="/checkout" mat-raised-button color="primary">Checkout</button>
+        <button routerLink="/checkout" mat-raised-button color="primary" [disabled]="items && items.length==0">Checkout</button>
     </mat-card-actions>
 </mat-card>

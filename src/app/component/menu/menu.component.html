@@ -20,6 +20,15 @@
         Order History
       </button>
     </span>
+    &nbsp;
+    <span *ngIf="currentUser && hasRoute('user-dashboard')  && !isInactive && currentUser!=adminKey">
+      <select style="height: 20px; width:120px;" id="sort-by" (change)="sort($event)">
+        <option value="" selected disabled hidden>Sort By</option>
+        <option value="Category">Category</option>
+        <option value="Low"> Price Low to High</option>
+        <option value="High">Price High to Low </option>
+    </select>
+    </span>
     <span *ngIf="currentUser && currentUser==adminKey">
       <button mat-button routerLink="/users-list">
         Users List

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from '@angular/fire/compat/database';
-import { from, Observable, switchMap } from 'rxjs';
+import { BehaviorSubject, from, Observable, switchMap } from 'rxjs';
 import { Product } from '../models/product.model';
 import { User } from '../models/user.model';
 
@@ -17,7 +17,7 @@ export class DataService {
   ref:AngularFireList<User>={} as any;
   orderRef:AngularFireList<any>={} as any;
   users: any[]=[];
-
+  prodData:any=new BehaviorSubject([]);
 
   constructor(private db :AngularFireDatabase,private fieauth:AngularFireAuth) {
     this.productRef=db.list(this.dbPath); 
@@ -90,4 +90,12 @@ export class DataService {
 //       switchMap((result)=>getDownloadURL(result.ref)));
 
 //   }
+setprodData(data:any)
+{
+  this.prodData.next(data);
+}
+getprodData()
+{
+  return this.prodData;
+}
 }

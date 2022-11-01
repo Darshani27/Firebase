@@ -4,4 +4,5 @@ export class Product {
     price?:string;
     category?:string;
     quantity?:number=0;
+    units?:number=1;
 }

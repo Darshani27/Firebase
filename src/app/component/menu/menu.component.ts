@@ -35,8 +35,9 @@ export class MenuComponent implements OnInit {
   ref: AngularFireStorageReference={} as any;
   task: AngularFireUploadTask={} as any;
   downloadURL!: Observable<String>;
-
- 
+  products:any[]=[];
+  items:any[]=[];
+  ProdData: any;
   constructor(private afStorage:AngularFireStorage,private dataService:DataService,private cartService:CartServiceService,private bootomsheet:MatBottomSheet,private dialog:MatDialog,private auth:AuthService,private route:Router,private url:LocationStrategy,private db:AngularFireDatabase){
     const ref=this.db.list('users');
     ref.valueChanges().subscribe((res)=>{
@@ -52,8 +53,11 @@ export class MenuComponent implements OnInit {
     return this.route.url.includes(route);
   }
   ngOnInit(): void {
-
-   
+    this.dataService.getprodData().subscribe((res:any)=>{
+      this.ProdData=res;
+    });
+    console.log(this.ProdData);
+    
     this.cartService.getItemInCart().subscribe((res:any)=>{
       this.itemInCart=res;
     });
@@ -74,12 +78,7 @@ export class MenuComponent implements OnInit {
      }
    }
     );
-    // this.getProfileImage();
   }
-  // getProfileImage() {
-  //   this.afStorage.ref('/images/' + this.currentUser).getDownloadURL().subscribe((res:any)=>{
-  //     this.downloadURL=res;
-  //   })}
   getUsers() {
     this.dataService.getAllUsers().snapshotChanges().pipe(map((changes: any) => {
       return changes.map((c: any) => {
@@ -120,6 +119,52 @@ export class MenuComponent implements OnInit {
   homeRedirect()
   {
     this.route.navigate(['/home']);
+  }
+
+  sort(event: any) {
+    switch (event.target.value) {
+      case "Low":
+        {
+          this.ProdData = this.ProdData.sort((low: { price: number; }, high: { price: number; }) => low.price - high.price);
+          break;
+        }
+
+      case "High":
+        {
+          this.ProdData = this.ProdData.sort((low: { price: number; }, high: { price: number; }) => high.price - low.price);
+          break;
+        }
+
+      case "Category":
+        {
+          this.ProdData = this.ProdData.sort(function (low: {
+            category
+            : string  }, high: {
+            category
+            : string; }) {
+            if (low.category
+              < high.category) {
+              return -1;
+            }
+            else if (low.category> high.category) {
+              return 1;
+            }
+            else {
+              return 0;
+            }
+          })
+          break;
+        }
+
+      default: {
+        this.ProdData = this.ProdData.sort((low: { price: number; }, high: { price: number; }) => low.price - high.price);
+        break;
+      }
+    }
+    this.dataService.setprodData(this.ProdData);
+    return this.ProdData;
+
+
   }
 
 }

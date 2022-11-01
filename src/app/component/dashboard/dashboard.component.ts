@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { map } from 'rxjs';
 import { Product } from 'src/app/models/product.model';
 import { AuthService } from 'src/app/shared/auth.service';
 import { DataService } from 'src/app/shared/data.service';
@@ -21,6 +22,8 @@ export class DashboardComponent implements OnInit {
   result:boolean=false;
   message: string="Are you sure you want to logout ?";
   title: string="Confirm Action";
+  products: any[]=[];
+  productNames: any[]=[];
 
 
   constructor(public dialogRef: MatDialogRef<DashboardComponent>,private dataService:DataService,private auth:AuthService,private dialog:MatDialog,private router:Router,private _snackbar:MatSnackBar) { }
@@ -30,30 +33,68 @@ export class DashboardComponent implements OnInit {
       'productname': new FormControl('',Validators.required),
       'productprice': new FormControl('',[Validators.required,Validators.pattern('[0-9]*')]),
       'productcategory':new FormControl('',Validators.required)
-    })
+    });
+    this.retrieveProducts();
   }
-  
+
+  retrieveProducts() : any {
+    this.dataService.getAll().snapshotChanges().pipe(
+     map((changes: any[])=>{
+       return changes.map(c=>{
+         return {key:c.key,...c.payload.val()};
+       })   
+     })
+    ).subscribe((data : any)=>{
+     this.products=data;
+     return this.products;
+    },(err)=>{
+     alert(err.message);
+    });
+    console.log(this.products);
+    
+   }
   saveProduct()
   {
     this.product={
     name:this.productForm.value.productname,
     price:this.productForm.value.productprice,
-    category:this.productForm.value.productcategory
+    category:this.productForm.value.productcategory,
+    units:1
    } as any;
    if((this.productForm.value.productprice==''||this.productForm.value.productcategory=='' || this.productForm.value.productname=='')&& !this.result)
    {
     this._snackbar.open('Please Enter Product Details','OK');
     this.submitted=false;
     this.router.navigate(['/dashboard']);
-
    }
    if((this.productForm.value.productprice!=''||this.productForm.value.productcategory!='' || this.productForm.value.productname!='') || this.result)
    {
-    this.dataService.createProduct(this.product).then((res: any)=>{
-      this.submitted=true;
-      this._snackbar.open('Product Added Successfully','OK');
-      this.dialogRef.close(true);
-    })
+    this.productNames=this.products.map((r:any)=>{return r.name});
+    if(!(this.productNames.includes(this.productForm.value.productname)))
+    {
+      this.dataService.createProduct(this.product).then((res: any)=>{
+        this.submitted=true;
+        this._snackbar.open('Product Added Successfully','OK');
+        this.dialogRef.close(true);
+      });
+    }
+    else
+    {
+      this.products=this.products.map((r:any)=>{
+        if (r.name == this.productForm.value.productname) {
+          r.units++;
+          var temp = r;
+          const key = temp?.key;
+          const data = { units: r.units };
+          this.dataService.update(key, data).then((res: any) => {
+            this._snackbar.open('Products units has been inceased', 'OK');
+          });
+        }else
+        {
+          return;
+        }
+      });
+    }
    }
   }
 
@@ -92,8 +133,7 @@ export class DashboardComponent implements OnInit {
         if (this.result) {
           this.auth.logout();
         }
-        
-      })
+      });
     
   }
  
