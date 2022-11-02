@@ -50,7 +50,6 @@ export class DashboardComponent implements OnInit {
     },(err)=>{
      alert(err.message);
     });
-    console.log(this.products);
     
    }
   saveProduct()

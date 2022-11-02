@@ -28,7 +28,6 @@ export class AuthService {
        ref.valueChanges().subscribe((res)=>{
          this.users=res;
        });
-       console.log(this.users);
     
    }
 

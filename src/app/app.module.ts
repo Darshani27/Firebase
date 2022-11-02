@@ -33,6 +33,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import { UsersListComponent } from './component/users-list/users-list.component';
 import { ChangePasswordComponent } from './component/change-password/change-password.component';
+import { CategoryPageComponent } from './component/category-page/category-page.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +55,8 @@ import { ChangePasswordComponent } from './component/change-password/change-pass
     HomeComponent,
     OrderHistoryComponent,
     UsersListComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    CategoryPageComponent
   ],
   imports: [
     BrowserModule,

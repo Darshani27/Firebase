@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminguardGuard } from './authGuard/adminguard.guard';
+import { CategoryPageComponent } from './component/category-page/category-page.component';
 import { ChangePasswordComponent } from './component/change-password/change-password.component';
 import { CheckoutComponent } from './component/checkout/checkout.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
@@ -35,6 +36,7 @@ const routes: Routes = [
   {path:'order-history',component:OrderHistoryComponent},
   {path:'users-list',component:UsersListComponent},
   {path:'change-password',component:ChangePasswordComponent},
+  {path:'category-page',component:CategoryPageComponent},
   {path:'**',component:PageNotFoundComponent},
 ];
 

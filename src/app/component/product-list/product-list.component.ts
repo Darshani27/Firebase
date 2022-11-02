@@ -1,4 +1,3 @@
-import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -24,7 +23,7 @@ export interface DialogData
 export class ProductListComponent implements OnInit {
   result:string='';
   products: Product[]=[];
-  displayedColumns: string[] = ['name', 'price', 'category','action'];
+  displayedColumns: string[] = ['name', 'price', 'category','units','action'];
   newProduct:Product={
     name:'',
     price:'',
@@ -57,7 +56,6 @@ export class ProductListComponent implements OnInit {
    },(err)=>{
     alert(err.message);
    });
-   console.log(this.products);
    
   }
 
@@ -83,13 +81,16 @@ export class ProductListComponent implements OnInit {
       
       dialogRef.afterClosed().subscribe((res)=>{
         this.data=res || []; 
-        this.dataService.update(res.key,this.data).then(
-          ()=>{
-            this._snackBar.open('Record updated Successfully','OK');
-            this.products=this.retrieveProducts();
-        }).catch((err)=>{
-          console.log(err);
-        })     
+        if(this.data != this.newProduct)
+        {
+          this.dataService.update(res.key,this.data).then(
+            ()=>{
+              this._snackBar.open('Record updated Successfully','OK');
+              this.products=this.retrieveProducts();
+          }).catch((err)=>{
+            console.log(err);
+          }); 
+        }    
       });
   }
   deleteProduct(ele : any)
@@ -106,14 +107,27 @@ export class ProductListComponent implements OnInit {
         {
           if(this.result)
           {
-            this.dataService.delete(this.newProduct.key).then(
-              (res)=>{
-                this._snackBar.open(this.deleteMsg,this.action);
+            if(ele.units>1)
+            {
+               ele.units--;
+               this.dataService.update(this.newProduct.key,{units:ele.units}).then((res:any)=>{
+                this._snackBar.open('Units updated successfully',this.action);
                 this.retrieveProducts();
-              }
-            ).catch((err)=>{
-              console.log(err);
-            });
+               });
+               if(ele.units==0)
+               {
+                this.dataService.delete(this.newProduct.key).then(
+                  (res)=>{
+                    this._snackBar.open(this.deleteMsg,this.action);
+                    this.retrieveProducts();
+                  }
+                ).catch((err)=>{
+                  console.log(err);
+                });
+               }
+              
+            }
+            
           }
         }
       })

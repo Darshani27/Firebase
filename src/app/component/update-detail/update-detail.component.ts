@@ -23,13 +23,12 @@ export class UpdateDetailComponent implements OnInit {
       'price':new FormControl(this.incomingData.price),
       'category':new FormControl(this.incomingData.category)
   })
-  console.log(this.incomingData);
   this.updateForm.valueChanges.subscribe((res : any)=>{
     this.data={...res,key:this.incomingData.key};
   });
   }
   onNoClick()
   {
-    this.dialogRef.close();
+    this.dialogRef.close(this.incomingData);
   }
 }

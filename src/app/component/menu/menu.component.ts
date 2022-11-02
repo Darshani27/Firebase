@@ -43,7 +43,6 @@ export class MenuComponent implements OnInit {
     ref.valueChanges().subscribe((res)=>{
       this.users=res;
     });
-    console.log(this.users);
     this.auth.getdownloadurl().subscribe((res:any)=>{
       this.downloadURL=res;
     })
@@ -56,7 +55,6 @@ export class MenuComponent implements OnInit {
     this.dataService.getprodData().subscribe((res:any)=>{
       this.ProdData=res;
     });
-    console.log(this.ProdData);
     
     this.cartService.getItemInCart().subscribe((res:any)=>{
       this.itemInCart=res;
@@ -108,7 +106,6 @@ export class MenuComponent implements OnInit {
       });
       dialogRef.afterClosed().subscribe((res : any)=>{
         this.result=res;
-        console.log(this.result);
         if(this.result)
         {
          this.auth.logout();

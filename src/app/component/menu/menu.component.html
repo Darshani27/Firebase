@@ -55,8 +55,7 @@
    </mat-menu>
    <span *ngIf="currentUser" >
     <button mat-icon-button class="example-icon" [matMenuTriggerFor]="menu" aria-label="Example icon-button with share icon">
-      <!-- <mat-icon>perm_identity</mat-icon> -->
-        <img width="50" height="50" [src]="downloadURL" alt="assets/image-placeholder" onError="this.src='assets/image-placeholder.jpg'">
+        <img width="40" height="40" style="border-radius: 100%;" [src]="downloadURL" alt="assets/image-placeholder" onError="this.src='assets/image-placeholder.jpg'">
     </button>
    </span>
   <mat-menu #menu="matMenu" yPosition="below">
