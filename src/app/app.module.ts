@@ -34,6 +34,7 @@ import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import { UsersListComponent } from './component/users-list/users-list.component';
 import { ChangePasswordComponent } from './component/change-password/change-password.component';
 import { CategoryPageComponent } from './component/category-page/category-page.component';
+import { AddCategoryComponent } from './component/add-category/add-category.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +57,8 @@ import { CategoryPageComponent } from './component/category-page/category-page.c
     OrderHistoryComponent,
     UsersListComponent,
     ChangePasswordComponent,
-    CategoryPageComponent
+    CategoryPageComponent,
+    AddCategoryComponent
   ],
   imports: [
     BrowserModule,

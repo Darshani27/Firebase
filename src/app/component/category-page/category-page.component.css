@@ -1,5 +1,5 @@
 mat-card-title,
-mat-card-content {
+mat-card-content,mat-card-actions {
   display: flex;
   justify-content: center;
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Optional } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -26,13 +26,20 @@ export class DashboardComponent implements OnInit {
   productNames: any[]=[];
 
 
-  constructor(public dialogRef: MatDialogRef<DashboardComponent>,private dataService:DataService,private auth:AuthService,private dialog:MatDialog,private router:Router,private _snackbar:MatSnackBar) { }
+  constructor( @Optional()public dialogRef: MatDialogRef<DashboardComponent>,private dataService:DataService,private auth:AuthService,private dialog:MatDialog,private router:Router,private _snackbar:MatSnackBar) { }
 
   ngOnInit(): void {
     this.productForm=new FormGroup({
       'productname': new FormControl('',Validators.required),
       'productprice': new FormControl('',[Validators.required,Validators.pattern('[0-9]*')]),
       'productcategory':new FormControl('',Validators.required)
+    });
+    this.dataService.getcategoryData().subscribe((res:any)=>{
+      console.log(res);
+      if(res!=undefined)
+      {
+       this.productForm.controls['productcategory'].setValue(res?.category);
+      }
     });
     this.retrieveProducts();
   }
@@ -74,7 +81,7 @@ export class DashboardComponent implements OnInit {
       this.dataService.createProduct(this.product).then((res: any)=>{
         this.submitted=true;
         this._snackbar.open('Product Added Successfully','OK');
-        this.dialogRef.close(true);
+        this.dialogRef?.close(true);
       });
     }
     else

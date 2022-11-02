@@ -126,6 +126,17 @@ export class ProductListComponent implements OnInit {
                 });
                }
               
+            }else if(ele.units==1)
+            {
+              this.dataService.delete(this.newProduct.key).then(
+                (res)=>{
+                  this._snackBar.open(this.deleteMsg,this.action);
+                  this.retrieveProducts();
+                }
+              ).catch((err)=>{
+                console.log(err);
+              });
+
             }
             
           }

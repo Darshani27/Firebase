@@ -18,6 +18,7 @@ export class DataService {
   orderRef:AngularFireList<any>={} as any;
   users: any[]=[];
   prodData:any=new BehaviorSubject([]);
+  categoryData:any= new BehaviorSubject('');
 
   constructor(private db :AngularFireDatabase,private fieauth:AngularFireAuth) {
     this.productRef=db.list(this.dbPath); 
@@ -97,5 +98,13 @@ setprodData(data:any)
 getprodData()
 {
   return this.prodData;
+}
+setcategoryData(data:any)
+{
+  this.categoryData.next(data);
+}
+getcategoryData()
+{
+  return this.categoryData;
 }
 }
