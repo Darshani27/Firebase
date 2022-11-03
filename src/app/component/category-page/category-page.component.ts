@@ -1,8 +1,11 @@
+import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { map } from 'rxjs';
 import { DataService } from 'src/app/shared/data.service';
 import { AddCategoryComponent } from '../add-category/add-category.component';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-category-page',
@@ -13,8 +16,10 @@ export class CategoryPageComponent implements OnInit {
   products:any[]=[];
   displayedColumns: string[] = ['category','action'];
   items: any;
+  title:string='Confirm Action';
+  message:string='Are You Sure You Want to Delete ?';
 
-  constructor(private dataService:DataService,private dialog:MatDialog) { }
+  constructor(private dataService:DataService,private dialog:MatDialog,private _snackBar:MatSnackBar) { }
 
   ngOnInit(): void {
     this.retrieveProducts();
@@ -40,6 +45,33 @@ export class CategoryPageComponent implements OnInit {
 
   deleteCategory(ele:any)
   {
+    const dialogRef=this.dialog.open(ConfirmDialogComponent,
+      {
+        data:{title:this.title,message:this.message}
+      });
+    dialogRef.afterClosed().subscribe((res:any)=>
+    {
+      // console.log(res);
+      if(res)
+      {
+        const element=this.items.indexOf(ele);
+        if(element>-1)
+        {
+          this.items.splice(element,1);
+          this._snackBar.open('Category Deleted!','OK');
+          this.items=[...this.items];
+          this.products=this.products.map((r:any)=>{
+            if(r.category==ele)
+            {
+              this.dataService.delete(r.key).then((res:any)=>{
+                console.log(res);
+                this.retrieveProducts();
+              });
+            }
+          })
+        }
+      }
+    });
     console.log(ele);
     
   }
