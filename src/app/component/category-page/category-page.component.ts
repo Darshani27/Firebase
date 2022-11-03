@@ -23,6 +23,21 @@ export class CategoryPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.retrieveProducts();
+    this.retrieveCategories();
+  }
+  retrieveCategories() {
+    this.dataService.getCategories().snapshotChanges().pipe(
+      map((changes: any[])=>{
+        return changes.map(c=>{
+          return {key:c.key,...c.payload.val()};
+        })   
+      })
+     ).subscribe((data : any)=>{
+      this.items=data;
+     },(err)=>{
+      alert(err.message);
+     });
+    
   }
   retrieveProducts() {
     this.dataService.getAll().snapshotChanges().pipe(
@@ -33,10 +48,6 @@ export class CategoryPageComponent implements OnInit {
       })
      ).subscribe((data : any)=>{
       this.products=data;
-      this.items=this.products.map((r:any)=>{
-        return r.category;
-      });
-      this.items=[...new Set(this.items)];
      },(err)=>{
       alert(err.message);
      });
@@ -57,18 +68,20 @@ export class CategoryPageComponent implements OnInit {
         const element=this.items.indexOf(ele);
         if(element>-1)
         {
-          this.items.splice(element,1);
-          this._snackBar.open('Category Deleted!','OK');
-          this.items=[...this.items];
-          this.products=this.products.map((r:any)=>{
-            if(r.category==ele)
+          this.items.splice(element, 1);
+          this.dataService.deleteCategory(ele?.key).then((res: any) => {
+            this._snackBar.open('Category Deleted!', 'OK');
+          });
+          this.products.map((r:any)=>{
+            if(r.category==ele.category)
             {
-              this.dataService.delete(r.key).then((res:any)=>{
+              this.dataService.delete(r?.key).then((res:any)=>{
                 console.log(res);
-                this.retrieveProducts();
               });
             }
-          })
+          });
+          this.items=[...this.items];
+          
         }
       }
     });
@@ -78,10 +91,39 @@ export class CategoryPageComponent implements OnInit {
 
   addCategory()
   {
-    const dialogRef=this.dialog.open(AddCategoryComponent);
+    const dialogRef=this.dialog.open(AddCategoryComponent,{
+      data:{add:true,
+      category:''}
+    });
     dialogRef.afterClosed().subscribe((res:any)=>{
-      this.dataService.setcategoryData(res);
+      if(res!=undefined)
+      {
+        this.dataService.createCategory({category:res.category}).then((res:any)=>{
+          this._snackBar.open('Category Added','OK');
+          this.retrieveCategories();
+          });
+      }
+      
     });
   }
 
+  updateCategory(item:any)
+  {
+    console.log(item);
+    const dialogRef=this.dialog.open(AddCategoryComponent,{
+      data:{add:false,
+      category:item.category}
+    });
+    dialogRef.afterClosed().subscribe((res:any)=>{
+      console.log(res);
+      if(res!=undefined)
+      {
+        this.dataService.updateCategory(item.key,{category:res.category}).then((res:any)=>{
+          this._snackBar.open('Category Updated Successfully','OK');
+        });
+      }
+      
+    })
+    
+  }
 }

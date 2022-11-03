@@ -1,5 +1,8 @@
-<h1 mat-dialog-title>
+<h1 mat-dialog-title *ngIf="addDialog">
     {{title |titlecase}}
+  </h1>
+  <h1 mat-dialog-title *ngIf="!addDialog">
+    Edit Category
   </h1>
   
   <div mat-dialog-content>
@@ -15,5 +18,5 @@
     <button mat-button (click)="onDismiss()">
         No Thanks
     </button>
-    <button mat-raised-button color="primary" routerLink="/dashboard" [mat-dialog-close]="data" cdkFocusInitial>OK</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="data" cdkFocusInitia [disabled]="categoryForm.invalid">OK</button>
   </div>

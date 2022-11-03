@@ -20,8 +20,16 @@
             </p>
             <p>
                 <mat-form-field>
-                    <input placeholder="Product Category" matInput type="text" formControlName="productcategory">
-                    <mat-error *ngIf="productForm.invalid">{{getErrorMessage()}}</mat-error>
+                    <!-- <input placeholder="Product Category" matInput type="text" formControlName="productcategory"> -->
+                    <!-- <mat-error *ngIf="productForm.invalid">{{getErrorMessage()}}</mat-error> -->
+                    <select matNativeControl formControlName="productcategory" (change)="changeCategory($event)">
+                        <option value="" disabled hidden>Choose Category
+                        </option>
+                        <option *ngFor="let category of categories" [value]="category">
+                            {{category}}
+                        </option>
+                    </select>
+                    <mat-error *ngIf="productForm.controls['productcategory'].hasError('required')">You must make a selection</mat-error>
                 </mat-form-field>
             </p>
             <div class="btn-align">

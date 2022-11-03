@@ -35,6 +35,7 @@ import { UsersListComponent } from './component/users-list/users-list.component'
 import { ChangePasswordComponent } from './component/change-password/change-password.component';
 import { CategoryPageComponent } from './component/category-page/category-page.component';
 import { AddCategoryComponent } from './component/add-category/add-category.component';
+import { ManageAddressComponent } from './component/manage-address/manage-address.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +59,8 @@ import { AddCategoryComponent } from './component/add-category/add-category.comp
     UsersListComponent,
     ChangePasswordComponent,
     CategoryPageComponent,
-    AddCategoryComponent
+    AddCategoryComponent,
+    ManageAddressComponent
   ],
   imports: [
     BrowserModule,

@@ -24,6 +24,7 @@ export class DashboardComponent implements OnInit {
   title: string="Confirm Action";
   products: any[]=[];
   productNames: any[]=[];
+  categories: any[]=[];
 
 
   constructor( @Optional()public dialogRef: MatDialogRef<DashboardComponent>,private dataService:DataService,private auth:AuthService,private dialog:MatDialog,private router:Router,private _snackbar:MatSnackBar) { }
@@ -34,14 +35,28 @@ export class DashboardComponent implements OnInit {
       'productprice': new FormControl('',[Validators.required,Validators.pattern('[0-9]*')]),
       'productcategory':new FormControl('',Validators.required)
     });
-    this.dataService.getcategoryData().subscribe((res:any)=>{
-      console.log(res);
-      if(res!=undefined)
-      {
-       this.productForm.controls['productcategory'].setValue(res?.category);
-      }
-    });
     this.retrieveProducts();
+    this.retrieveCategories();
+  }
+  changeCategory(event:any)
+  {
+    console.log(event.target.value);
+    this.productForm.controls['productcategory'].setValue(event.target.value);
+    
+  }
+  retrieveCategories() {
+    this.dataService.getCategories().snapshotChanges().pipe(
+      map((changes: any[])=>{
+        return changes.map(c=>{
+          return {key:c.key,...c.payload.val()};
+        })   
+      })
+     ).subscribe((data : any)=>{
+      this.categories=data.map((r:any)=>{ return r.category});
+     },(err)=>{
+      alert(err.message);
+     });
+    
   }
 
   retrieveProducts() : any {
@@ -53,7 +68,6 @@ export class DashboardComponent implements OnInit {
      })
     ).subscribe((data : any)=>{
      this.products=data;
-     return this.products;
     },(err)=>{
      alert(err.message);
     });

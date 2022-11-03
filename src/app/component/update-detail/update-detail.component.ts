@@ -17,12 +17,14 @@ export class UpdateDetailComponent implements OnInit {
  
 
   ngOnInit(): void {
+    this.data={...this.incomingData};
   this.result=true;
     this.updateForm=new FormGroup({
       'name':new FormControl(this.incomingData.name),
       'price':new FormControl(this.incomingData.price),
-      'category':new FormControl(this.incomingData.category)
-  })
+      'category':new FormControl(this.incomingData.category),
+      'units':new FormControl(this.incomingData.units)
+  });
   this.updateForm.valueChanges.subscribe((res : any)=>{
     this.data={...res,key:this.incomingData.key};
   });

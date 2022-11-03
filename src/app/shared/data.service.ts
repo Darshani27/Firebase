@@ -13,8 +13,10 @@ export class DataService {
   private dbPath = '/products';
   private userPath='/users';
   private ordersPath='/orders';
+  private categoriesPath='/categories';
   productRef: AngularFireList<Product>={} as any;
   ref:AngularFireList<User>={} as any;
+  categoryRef:AngularFireList<any>={} as any;
   orderRef:AngularFireList<any>={} as any;
   users: any[]=[];
   prodData:any=new BehaviorSubject([]);
@@ -24,6 +26,7 @@ export class DataService {
     this.productRef=db.list(this.dbPath); 
     this.ref=db.list(this.userPath);   
     this.orderRef=db.list(this.ordersPath);
+    this.categoryRef=db.list(this.categoriesPath);
    }
 
   create(user: User): any {
@@ -34,6 +37,14 @@ export class DataService {
     });
   }
   
+  createCategory(category:any)
+  {
+    return this.categoryRef.push(category);
+  }
+  getCategories():AngularFireList<any>
+  {
+    return this.categoryRef;
+  }
   getAll() :AngularFireList<Product>
   {    
     return this.productRef;
@@ -59,10 +70,18 @@ export class DataService {
   {
     return this.productRef.update(key,value);
   }
+  updateCategory(key:string,value:any)
+  {
+    return this.categoryRef.update(key,value);
+  }
   delete(key:string)
   {
     return this.productRef.remove(key);
   } 
+  deleteCategory(key:string)
+  {
+    return this.categoryRef.remove(key);
+  }
   updateEmail(key:string,value:any)
   {
     return this.ref.update(key,value);
@@ -83,14 +102,7 @@ export class DataService {
   {
     return this.ref.remove(key);
   }
-//   uploadImage(image:File,path:string) :Observable<string>
-//   {
-//     const storageRef=ref(this.storage,path);
-//     const uploadTask=from (uploadBytes(storageRef,image));
-//     return uploadTask.pipe(
-//       switchMap((result)=>getDownloadURL(result.ref)));
 
-//   }
 setprodData(data:any)
 {
   this.prodData.next(data);

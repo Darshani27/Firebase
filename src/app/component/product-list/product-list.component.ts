@@ -81,7 +81,7 @@ export class ProductListComponent implements OnInit {
       
       dialogRef.afterClosed().subscribe((res)=>{
         this.data=res || []; 
-        if(this.data != this.newProduct)
+        if(this.data.name != this.newProduct.name && this.data.category!=this.newProduct.category && this.data.price!=this.newProduct.price && this.data.units!=this.newProduct.units)
         {
           this.dataService.update(res.key,this.data).then(
             ()=>{
@@ -105,40 +105,15 @@ export class ProductListComponent implements OnInit {
         this.result=res;
         if(this.newProduct.key)
         {
-          if(this.result)
-          {
-            if(ele.units>1)
-            {
-               ele.units--;
-               this.dataService.update(this.newProduct.key,{units:ele.units}).then((res:any)=>{
-                this._snackBar.open('Units updated successfully',this.action);
+          if (this.result) {
+            this.dataService.delete(this.newProduct.key).then(
+              (res) => {
+                this._snackBar.open(this.deleteMsg, this.action);
                 this.retrieveProducts();
-               });
-               if(ele.units==0)
-               {
-                this.dataService.delete(this.newProduct.key).then(
-                  (res)=>{
-                    this._snackBar.open(this.deleteMsg,this.action);
-                    this.retrieveProducts();
-                  }
-                ).catch((err)=>{
-                  console.log(err);
-                });
-               }
-              
-            }else if(ele.units==1)
-            {
-              this.dataService.delete(this.newProduct.key).then(
-                (res)=>{
-                  this._snackBar.open(this.deleteMsg,this.action);
-                  this.retrieveProducts();
-                }
-              ).catch((err)=>{
-                console.log(err);
-              });
-
-            }
-            
+              }
+            ).catch((err) => {
+              console.log(err);
+            });
           }
         }
       })

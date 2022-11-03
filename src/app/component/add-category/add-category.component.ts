@@ -14,16 +14,20 @@ export class AddCategoryComponent implements OnInit {
   title:string="Add Category";
   categoryForm:FormGroup={} as any;
   data:any;
-  constructor(private _snackBar:MatSnackBar,private router:Router, @Optional() public dialogRef: MatDialogRef<AddCategoryComponent>) { }
+  addDialog:boolean=false;
+  constructor(private _snackBar:MatSnackBar,private router:Router, @Optional() public dialogRef: MatDialogRef<AddCategoryComponent>,@Inject(MAT_DIALOG_DATA) public incomingData:any)
+ { }
 
 
   ngOnInit(): void {
     this.categoryForm=new FormGroup({
-      'category':new FormControl('',Validators.required)
+      'category':new FormControl(this.incomingData.category,Validators.required)
     });
      this.categoryForm.valueChanges.subscribe((res:any)=>{
       this.data=res;
     }); 
+    this.addDialog=this.incomingData.add;
+   console.log(this.incomingData);
    
   }
   getErrorMessage()

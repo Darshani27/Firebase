@@ -88,7 +88,10 @@ upload(event:any)
   this.ref = this.afStorage.ref('/images/' + this.currentUser);
   this.task = this.ref.put(event.target.files[0]);
     this.task.snapshotChanges().pipe(
-      finalize(() => this.downloadURL = this.ref.getDownloadURL())
+      finalize(() =>  this.ref.getDownloadURL().subscribe((res:any)=>{
+        this.downloadURL=res;
+        this.auth.setdownloadurl(res);
+      }))
     ).subscribe((res:any)=>{
       console.log(res); 
     });
