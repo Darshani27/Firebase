@@ -71,6 +71,13 @@
             </button>
         </p>
         <mat-divider></mat-divider>
+        <p style="font-size:medium;text-align:center">
+          <span> &nbsp;&nbsp; &nbsp;&nbsp;Manage Addresses</span>
+          <button mat-icon-button routerLink="/manage-address" [disabled]="!currentUser">
+            <mat-icon>edit</mat-icon>
+        </button>
+        </p>
+        <mat-divider></mat-divider>
         <p style="text-align:center;font-size:medium">
           <a routerLink="/change-password" style="text-decoration:none;color:blue">Change Password</a>
         </p>

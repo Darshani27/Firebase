@@ -8,6 +8,7 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { ForgotPaswordComponent } from './component/forgot-pasword/forgot-pasword.component';
 import { HomeComponent } from './component/home/home.component';
 import { LoginComponent } from './component/login/login.component';
+import { ManageAddressComponent } from './component/manage-address/manage-address.component';
 import { OrderHistoryComponent } from './component/order-history/order-history.component';
 import { PageNotFoundComponent } from './component/page-not-found/page-not-found.component';
 import { ProductListComponent } from './component/product-list/product-list.component';
@@ -37,6 +38,7 @@ const routes: Routes = [
   {path:'users-list',component:UsersListComponent},
   {path:'change-password',component:ChangePasswordComponent},
   {path:'category-page',component:CategoryPageComponent},
+  {path:'manage-address',component:ManageAddressComponent},
   {path:'**',component:PageNotFoundComponent},
 ];
 

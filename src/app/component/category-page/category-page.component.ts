@@ -18,6 +18,7 @@ export class CategoryPageComponent implements OnInit {
   items: any;
   title:string='Confirm Action';
   message:string='Are You Sure You Want to Delete ?';
+  categories: any[]=[];
 
   constructor(private dataService:DataService,private dialog:MatDialog,private _snackBar:MatSnackBar) { }
 
@@ -91,19 +92,21 @@ export class CategoryPageComponent implements OnInit {
 
   addCategory()
   {
+    this.categories=this.items.map((r:any)=>{
+      return r.category;
+    })
     const dialogRef=this.dialog.open(AddCategoryComponent,{
       data:{add:true,
       category:''}
     });
     dialogRef.afterClosed().subscribe((res:any)=>{
-      if(res!=undefined)
+      if(res!=undefined && this.categories.indexOf(res.category)==-1)
       {
         this.dataService.createCategory({category:res.category}).then((res:any)=>{
           this._snackBar.open('Category Added','OK');
           this.retrieveCategories();
           });
       }
-      
     });
   }
 
