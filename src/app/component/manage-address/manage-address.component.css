@@ -7,10 +7,10 @@
     display: flex;
     justify-content: center;
   }
-  mat-card
-  {
-    width:100%;
+  .content {
+    padding: 16px;
   }
+  
   mat-form-field
   {
     width:100%;

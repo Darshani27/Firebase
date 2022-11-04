@@ -1,68 +1,83 @@
 <div>
-    <h1 class="btn-cnter">
+    <h1 style="text-align:center; margin-top:10px">
         Manage Address
         </h1>
         <div class="btn-center">
-            <button mat-raised-button color="primary" (click)="addAddress()" [disabled]="manageAddressForm.invalid">
+            <button mat-raised-button color="primary" (click)="addAddress()" [disabled]="manageAddressForm?.invalid">
                 <mat-icon>add_circle</mat-icon>
                 <span>Add Address</span>
             </button>
         </div>
         <br>
-    <form [formGroup]="manageAddressForm">
-        <mat-card class="mat-elevation-z4">
-            <p>
-                <mat-form-field>
-                    <input matInput type="text" placeholder="Enter Area" formControlName="area">
-                </mat-form-field>
-            </p>
-            <p>
-                <mat-form-field>
-                    <input matInput type="text" placeholder="Enter Landmark" formControlName="landmark">
-                </mat-form-field>
-            </p>
-            <p>
-                <mat-form-field>
-                    <input matInput type="text" placeholder="Enter City" formControlName="city">
-                </mat-form-field>
-            </p>
-            <p>
-                <mat-form-field>
-                    <input matInput type="text" placeholder="Enter PinCode" formControlName="pincode">
-                </mat-form-field>
-              </p>
-        </mat-card>
-        <br>
-                    <div formArrayName="address" *ngFor="let addresses of address.controls; let i=index;">
+        <div fxLayout="row wrap" fxLayoutGap="16px grid">
+            <form [formGroup]="manageAddressForm">
+            <h4 style="text-align:center">Default Address</h4>
                 <mat-card class="mat-elevation-z4">
-                            
-                        <ng-container [formGroup]="addresses">
-                                <mat-form-field >
-                                    <input matInput type="text"
-                                           formControlName="area"
-                                           placeholder="Enter Area">
-                                </mat-form-field>
-                        <p>
-                            <mat-form-field>
-                                <input type="text" matInput placeholder="Enter Landmark" formControlName="landmark">
-                            </mat-form-field>
-                        </p>
-                        <p>
-                            <mat-form-field>
-                                <input type="text" matInput placeholder="Enter City" formControlName="city">
-                            </mat-form-field>
-                        </p>
-                        <p>
-                            <mat-form-field>
-                                <input type="text" matInput placeholder="Enter PinCode" formControlName="pincode">
-                            </mat-form-field>
-                        </p>
-                     
-                    </ng-container>
+                    <p>
+                        <mat-form-field>
+                            <input matInput type="text" placeholder="Enter Area" formControlName="area">
+                        </mat-form-field>
+                    </p>
+                    <p>
+                        <mat-form-field>
+                            <input matInput type="text" placeholder="Enter Landmark" formControlName="landmark">
+                        </mat-form-field>
+                    </p>
+                    <p>
+                        <mat-form-field>
+                            <input matInput type="text" placeholder="Enter City" formControlName="city">
+                        </mat-form-field>
+                    </p>
+                    <p>
+                        <mat-form-field>
+                            <input matInput type="text" placeholder="Enter PinCode" formControlName="pincode">
+                        </mat-form-field>
+                    </p>
+                    <p class="btn-center">
+                            <button mat-raised-button color="accent">Edit</button>&nbsp;
+                            <button mat-raised-button color="warn">Remove</button>
+                    </p>
                 </mat-card>
-                
+                <br>
+                <div class="content">
+                <div fxLayout="row wrap" fxLayoutGap="20px grid">
+                 <div  formArrayName="address" *ngFor="let addresses of address.controls; let i=index;">
+                    <h4> Address {{i+1}}</h4>
+                        <mat-card class="mat-elevation-z4"> 
+                                <ng-container [formGroup]="addresses">
+                                        <mat-form-field >
+                                            <input matInput type="text"
+                                                   formControlName="area"
+                                                   placeholder="Enter Area">
+                                        </mat-form-field>
+                                <p>
+                                    <mat-form-field>
+                                        <input type="text" matInput placeholder="Enter Landmark" formControlName="landmark">
+                                    </mat-form-field>
+                                </p>
+                                <p>
+                                    <mat-form-field>
+                                        <input type="text" matInput placeholder="Enter City" formControlName="city">
+                                    </mat-form-field>
+                                </p>
+                                <p>
+                                    <mat-form-field>
+                                        <input type="text" matInput placeholder="Enter PinCode" formControlName="pincode">
+                                    </mat-form-field>
+                                </p>
+                                <p class="btn-center">
+                                    <button mat-raised-button color="accent">Edit</button>&nbsp;
+                                    <button mat-raised-button color="warn">Remove</button>
+                            </p>
+                            </ng-container>
+                        </mat-card>
+                        
+                        </div>
                 </div>
-       
-  </form>
+                </div>
+               
+          </form>
+        </div>
+    
 </div>
         

@@ -21,6 +21,8 @@ export class AuthService {
   inactiveEmail: any;
   inActiveMembers:any[]=[];
   inactiveEmails: any;
+  UserDetail: any;
+  userData:any=new BehaviorSubject({});
   
 
   constructor(private afStorage:AngularFireStorage,private locationStrategy:LocationStrategy,private fieauth : AngularFireAuth, private router:Router,private _snackbar:MatSnackBar,private db:AngularFireDatabase) {
@@ -69,7 +71,11 @@ export class AuthService {
     this.adminEmailId.next(this.adminEmail);
     this.afStorage.ref('/images/' + email).getDownloadURL().subscribe((res:any)=>{
       this.setdownloadurl(res);
-    })
+    });
+
+    this.UserDetail=this.users.find((r:any)=>r.email==email);
+    // this.UserDetail.next(this.UserDetail);
+    this.setUserDetail(this.UserDetail);
   }
 
   register(email:string,password:string)
@@ -153,6 +159,14 @@ export class AuthService {
   setdownloadurl(data:any)
   {
     this.downloadurl.next(data);
+  }
+  setUserDetail(data:any)
+  {
+    this.userData.next(data);
+  }
+  getuserDetail()
+  {
+    return this.userData;
   }
   getdownloadurl()
   {
