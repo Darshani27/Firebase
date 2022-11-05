@@ -56,7 +56,6 @@ export class DashboardComponent implements OnInit {
      },(err)=>{
       alert(err.message);
      });
-    
   }
 
   retrieveProducts() : any {

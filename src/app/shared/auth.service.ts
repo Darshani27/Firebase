@@ -23,6 +23,7 @@ export class AuthService {
   inactiveEmails: any;
   UserDetail: any;
   userData:any=new BehaviorSubject({});
+  isError:any=new Subject();
   
 
   constructor(private afStorage:AngularFireStorage,private locationStrategy:LocationStrategy,private fieauth : AngularFireAuth, private router:Router,private _snackbar:MatSnackBar,private db:AngularFireDatabase) {
@@ -38,6 +39,7 @@ export class AuthService {
     this.fieauth.signInWithEmailAndPassword(email,password).then((res)=>
     {
       sessionStorage.setItem('token','true');
+      this.setisError(false);
       this.adminEmail=this.users.find((r)=>r.role=="admin")?.email;
       this.inActiveMembers=this.users.filter((r:any)=>r.isActive==false);
       this.inactiveEmails=this.inActiveMembers.map((r:any)=>{
@@ -48,15 +50,19 @@ export class AuthService {
         if(this.adminEmail == email)
         {
           sessionStorage.setItem("role", "admin");
+          this.setisError(false);
           this.router.navigate(['/product-list']);
         }
         else if(this.adminEmail!=undefined && !(this.inactiveEmails.includes(email)))
         {
+          this.setisError(false);
           this.router.navigate(['/user-dashboard']);
+
         }
         else if(this.inactiveEmails && this.inactiveEmails.includes(email))
         {
           this._snackbar.open('You have been blocked by the admin','OK');
+          this.setisError(true);
         }
       }
       else{
@@ -65,6 +71,7 @@ export class AuthService {
     },
     (err)=>{
       this._snackbar.open('Invalid Username/Password','OK');
+      this.setisError(true);
       this.router.navigate(['/login']);
     });
     this.currentUser.next(email);
@@ -76,6 +83,7 @@ export class AuthService {
     this.UserDetail=this.users.find((r:any)=>r.email==email);
     // this.UserDetail.next(this.UserDetail);
     this.setUserDetail(this.UserDetail);
+
   }
 
   register(email:string,password:string)
@@ -171,6 +179,14 @@ export class AuthService {
   getdownloadurl()
   {
     return this.downloadurl;
+  }
+  setisError(data:any)
+  {
+    this.isError.next(data);
+  }
+  getisError()
+  {
+    return this.isError;
   }
 }
 // vuriwe@cyclelove.cc

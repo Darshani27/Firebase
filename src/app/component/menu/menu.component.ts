@@ -38,6 +38,8 @@ export class MenuComponent implements OnInit {
   products:any[]=[];
   items:any[]=[];
   ProdData: any;
+  categories: any[]=[];
+  hasError: any;
   constructor(private afStorage:AngularFireStorage,private dataService:DataService,private cartService:CartServiceService,private bootomsheet:MatBottomSheet,private dialog:MatDialog,private auth:AuthService,private route:Router,private url:LocationStrategy,private db:AngularFireDatabase){
     const ref=this.db.list('users');
     ref.valueChanges().subscribe((res)=>{
@@ -45,8 +47,7 @@ export class MenuComponent implements OnInit {
     });
     this.auth.getdownloadurl().subscribe((res:any)=>{
       this.downloadURL=res;
-    })
- 
+    });
   }
   hasRoute(route: string) {
     return this.route.url.includes(route);
@@ -55,7 +56,9 @@ export class MenuComponent implements OnInit {
     this.dataService.getprodData().subscribe((res:any)=>{
       this.ProdData=res;
     });
-    
+    this.auth.getisError().subscribe((res:any)=>{
+      this.hasError=res;
+    })
     this.cartService.getItemInCart().subscribe((res:any)=>{
       this.itemInCart=res;
     });
@@ -76,6 +79,22 @@ export class MenuComponent implements OnInit {
      }
    }
     );
+    this.retrieveCategories();
+  }
+  retrieveCategories() {
+    this.dataService.getCategories().snapshotChanges().pipe(
+      map((changes: any[])=>{
+        return changes.map(c=>{
+          return {key:c.key,...c.payload.val()};
+        })   
+      })
+     ).subscribe((data : any)=>{
+      this.categories=data.map((r:any)=>{ return r.category});
+     },(err)=>{
+      alert(err.message);
+     });
+     console.log(this.categories);
+     
   }
   getUsers() {
     this.dataService.getAllUsers().snapshotChanges().pipe(map((changes: any) => {
@@ -122,6 +141,7 @@ export class MenuComponent implements OnInit {
     switch (event.target.value) {
       case "Low":
         {
+
           this.ProdData = this.ProdData.sort((low: { price: number; }, high: { price: number; }) => low.price - high.price);
           break;
         }
@@ -132,29 +152,53 @@ export class MenuComponent implements OnInit {
           break;
         }
 
-      case "Category":
-        {
-          this.ProdData = this.ProdData.sort(function (low: {
-            category
-            : string  }, high: {
-            category
-            : string; }) {
-            if (low.category
-              < high.category) {
-              return -1;
-            }
-            else if (low.category> high.category) {
-              return 1;
-            }
-            else {
-              return 0;
-            }
-          })
-          break;
-        }
+      // case "":
+      //   {
+      //     this.ProdData = this.ProdData.sort(function (low: {
+      //       category
+      //       : string  }, high: {
+      //       category
+      //       : string; }) {
+      //       if (low.category
+      //         < high.category) {
+      //         return -1;
+      //       }
+      //       else if (low.category> high.category) {
+      //         return 1;
+      //       }
+      //       else {
+      //         return 0;
+      //       }
+      //     })
+      //     break;
+      //   }
 
       default: {
+        if(this.categories.includes(event.target.value))
+          {
+            this.ProdData = this.ProdData.sort(function (low: {
+                    category
+                    : string  }, high: {
+                    category
+                    : string; }) {
+                    if (low.category
+                      < high.category) {
+                      return -1;
+                    }
+                    else if (low.category> high.category) {
+                      return 1;
+                    }
+                    else {
+                      return 0;
+                    }
+                  });
+          //  this.ProdData = this.ProdData.sort((low: { price: number; }, high: { price: number; }) => low.price - high.price); 
+            // console.log(this.ProdData);
+          }
+          else
+          {
         this.ProdData = this.ProdData.sort((low: { price: number; }, high: { price: number; }) => low.price - high.price);
+          }
         break;
       }
     }

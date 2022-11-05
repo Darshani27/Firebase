@@ -33,22 +33,30 @@ export class ManageAddressComponent implements OnInit {
     this.UserDetail=res;
   })
   this.manageAddressForm=this.fb.group({
-    area:[this.UserDetail?.defaultAddrees.area,Validators.required],
-    landmark:[this.UserDetail?.defaultAddrees.landmark,Validators.required],
-    city:[this.UserDetail?.defaultAddrees.city,Validators.required],
-    pincode:[this.UserDetail?.defaultAddrees.pincode,[Validators.required,Validators.pattern('[0-9]*')]],
+    area:[this.UserDetail?.defaultAddrees?.area,Validators.required],
+    landmark:[this.UserDetail?.defaultAddrees?.landmark,Validators.required],
+    city:[this.UserDetail?.defaultAddrees?.city,Validators.required],
+    pincode:[this.UserDetail?.defaultAddrees?.pincode,[Validators.required,Validators.pattern('[0-9]*')]],
     address:this.fb.array([])
   });
-  this.UserDetail.defaultAddrees.otheraddress.map((r:any)=>{
-    this.otherAddress={
-      area:r.area,
-      landmark:r.landmark,
-      city:r.city,
-      pincode:r.pincode
-    }
-    console.log(this.otherAddress);
-    
-  })
+  this.UserDetail.defaultAddrees?.otheraddress?.map((r:any,index:any)=>{
+    // this.otherAddress={
+    //   area:r[index].area,
+    //   landmark:r[index].landmark,
+    //   city:r[index].city,
+    //   pincode:r[index].pincode
+    // } 
+    const addresses=this.fb.group({
+      area: [ this.UserDetail.defaultAddrees?.otheraddress[index]?.area, Validators.required],
+      landmark: [this.UserDetail.defaultAddrees?.otheraddress[index]?.landmark, Validators.required],
+      city:[this.UserDetail.defaultAddrees?.otheraddress[index]?.city,Validators.required],
+      pincode:[this.UserDetail.defaultAddrees?.otheraddress[index]?.pincode,Validators.required]
+    });
+    this.address.push(addresses);
+  });
+  // console.log(this.otherAddress);
+
+
   }
   retrieveUsers() {
     this.dataService.getAllUsers().snapshotChanges().pipe(map((changes: any) => {
@@ -78,15 +86,18 @@ export class ManageAddressComponent implements OnInit {
       otheraddress:this.manageAddressForm.value.address
     }
     this.dataService.updateUser(this.keyOfuser,{defaultAddrees:data}).then((res:any)=>{
-      this._snackBar.open('Address Added Succesffully','OK');
+      // this._snackBar.open('Address Added Succesffully','OK');
     });
-   
-    const addresses = this.fb.group({
-      area: ['', Validators.required],
-      landmark: ['', Validators.required],
-      city:['',Validators.required],
-      pincode:['',Validators.required]
-    });
-    this.address.push(addresses);
+      const addresses = this.fb.group({
+        area: ['', Validators.required],
+        landmark: ['', Validators.required],
+        city:['',Validators.required],
+        pincode:['',Validators.required]
+      });
+     this.address.push(addresses);
   }
+  // editAddress()
+  // {
+
+  // }
 }

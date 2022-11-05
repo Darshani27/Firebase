@@ -9,13 +9,14 @@
     <span *ngIf="!(hasRoute('login') || hasRoute('register') || hasRoute('home'))">
     <button mat-raised-button color="accent" (click)="signOut()">Logout </button>
     </span>
+    &nbsp;
     <span *ngIf="hasRoute('home') && !currentUser">
       <button mat-raised-button color="primary" routerLink="/login">
         Login
       </button>
     </span> 
       &nbsp;
-    <span *ngIf="currentUser && !hasRoute('order-history') && !isInactive">
+    <span *ngIf="hasError==false &&currentUser && !hasRoute('order-history') && !isInactive ">
       <button mat-raised-button color="accent" routerLink="/order-history">
         Order History
       </button>
@@ -24,17 +25,21 @@
     <span *ngIf="currentUser && hasRoute('user-dashboard')  && !isInactive && currentUser!=adminKey">
       <select style="height: 20px; width:120px;" id="sort-by" (change)="sort($event)">
         <option value="" selected disabled hidden>Sort By</option>
-        <option value="Category">Category</option>
         <option value="Low"> Price Low to High</option>
         <option value="High">Price High to Low </option>
-    </select>
+       </select>
+       &nbsp;
+       <select style="height: 20px; width:120px;" id="sort-by" (change)="sort($event)">
+        <option value="" selected disabled hidden>Category</option>
+        <option *ngFor="let category of categories" [value]="category">{{category}}</option>
+       </select>
     </span>
-    <span *ngIf="currentUser && currentUser==adminKey">
+    <span *ngIf="currentUser && currentUser==adminKey && hasError==false">
       <button mat-button routerLink="/users-list">
         Users List
       </button>
     </span>
-    <span *ngIf="currentUser">
+    <span *ngIf="currentUser && hasError==false">
       <button routerLink="/shopping-cart" mat-icon-button style="color:black">
           <mat-icon matBadge="{{itemInCart}}" matBadgeColor="warn">shopping_cart</mat-icon>
       </button>
@@ -53,7 +58,7 @@
       <span>Via WhatsApp</span>
     </button>
    </mat-menu>
-   <span *ngIf="currentUser" >
+   <span *ngIf="currentUser && hasError==false" >
     <button mat-icon-button class="example-icon" [matMenuTriggerFor]="menu" aria-label="Example icon-button with share icon">
         <img width="40" height="40" style="border-radius: 100%;" [src]="downloadURL" alt="assets/image-placeholder" onError="this.src='assets/image-placeholder.jpg'">
     </button>
