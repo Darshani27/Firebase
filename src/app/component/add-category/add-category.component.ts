@@ -47,9 +47,6 @@ export class AddCategoryComponent implements OnInit {
 
   onConfirm()
   {
-    // this.data=this.categoryForm.value.productcategory;
-    
-    // this.dialogRef.close(this.data);  
     this.router.navigate(['/dashboard']);
     this.onDismiss();
   }

@@ -151,28 +151,7 @@ export class MenuComponent implements OnInit {
           this.ProdData = this.ProdData.sort((low: { price: number; }, high: { price: number; }) => high.price - low.price);
           break;
         }
-
-      // case "":
-      //   {
-      //     this.ProdData = this.ProdData.sort(function (low: {
-      //       category
-      //       : string  }, high: {
-      //       category
-      //       : string; }) {
-      //       if (low.category
-      //         < high.category) {
-      //         return -1;
-      //       }
-      //       else if (low.category> high.category) {
-      //         return 1;
-      //       }
-      //       else {
-      //         return 0;
-      //       }
-      //     })
-      //     break;
-      //   }
-
+        
       default: {
         if(this.categories.includes(event.target.value))
           {
