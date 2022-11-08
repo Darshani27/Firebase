@@ -39,13 +39,7 @@ export class ManageAddressComponent implements OnInit {
     pincode:[this.UserDetail?.defaultAddrees?.pincode,[Validators.required,Validators.pattern('[0-9]*')]],
     address:this.fb.array([])
   });
-  this.UserDetail.defaultAddrees?.otheraddress?.map((r:any,index:any)=>{
-    // this.otherAddress={
-    //   area:r[index].area,
-    //   landmark:r[index].landmark,
-    //   city:r[index].city,
-    //   pincode:r[index].pincode
-    // } 
+  this.UserDetail.defaultAddrees?.otheraddress?.map((r:any,index:any)=>{ 
     const addresses=this.fb.group({
       area: [ this.UserDetail.defaultAddrees?.otheraddress[index]?.area, Validators.required],
       landmark: [this.UserDetail.defaultAddrees?.otheraddress[index]?.landmark, Validators.required],

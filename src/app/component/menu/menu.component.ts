@@ -40,6 +40,7 @@ export class MenuComponent implements OnInit {
   ProdData: any;
   categories: any[]=[];
   hasError: any;
+  categoryOfProduct: any[]=[];
   constructor(private afStorage:AngularFireStorage,private dataService:DataService,private cartService:CartServiceService,private bootomsheet:MatBottomSheet,private dialog:MatDialog,private auth:AuthService,private route:Router,private url:LocationStrategy,private db:AngularFireDatabase){
     const ref=this.db.list('users');
     ref.valueChanges().subscribe((res)=>{
@@ -55,6 +56,9 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
     this.dataService.getprodData().subscribe((res:any)=>{
       this.ProdData=res;
+      this.categoryOfProduct=this.ProdData.map((r:any)=>{
+        return r.category
+      })
     });
     this.auth.getisError().subscribe((res:any)=>{
       this.hasError=res;
@@ -138,7 +142,7 @@ export class MenuComponent implements OnInit {
   }
 
   sort(event: any) {
-    switch (event.target.value) {
+    switch (event.value) {
       case "Low":
         {
 
@@ -153,7 +157,7 @@ export class MenuComponent implements OnInit {
         }
         
       default: {
-        if(this.categories.includes(event.target.value))
+        if(this.categories.includes(event.value) && this.categoryOfProduct.includes(event.value))
           {
             this.ProdData = this.ProdData.sort(function (low: {
                     category
@@ -171,8 +175,6 @@ export class MenuComponent implements OnInit {
                       return 0;
                     }
                   });
-          //  this.ProdData = this.ProdData.sort((low: { price: number; }, high: { price: number; }) => low.price - high.price); 
-            // console.log(this.ProdData);
           }
           else
           {

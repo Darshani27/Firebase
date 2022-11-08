@@ -23,16 +23,14 @@
     </span>
     &nbsp;
     <span *ngIf="currentUser && hasRoute('user-dashboard')  && !isInactive && currentUser!=adminKey">
-      <select style="height: 20px; width:120px;" id="sort-by" (change)="sort($event)">
-        <option value="" selected disabled hidden>Sort By</option>
-        <option value="Low"> Price Low to High</option>
-        <option value="High">Price High to Low</option>
-       </select>
+      <mat-select matNativeControl style="height: 20px; width:120px;" id="sort-by"  placeholder="Price"(selectionChange)="sort($event)">
+        <mat-option value="Low"> Price Low to High</mat-option>
+        <mat-option value="High">Price High to Low</mat-option>
+       </mat-select>
        &nbsp;
-       <select style="height: 20px; width:120px;" id="sort-by" (change)="sort($event)">
-        <option value="" selected disabled hidden>Category</option>
-        <option *ngFor="let category of categories" [value]="category">{{category}}</option>
-       </select>
+       <mat-select style="height: 20px; width:120px;" id="sort-by" (selectionChange)="sort($event)" placeholder="Category">
+        <mat-option *ngFor="let category of categories" [value]="category">{{category}}</mat-option>
+       </mat-select>
     </span>
     <span *ngIf="currentUser && currentUser==adminKey && hasError==false">
       <button mat-button routerLink="/users-list">

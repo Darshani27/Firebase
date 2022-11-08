@@ -75,8 +75,6 @@ export class UsersListComponent implements OnInit {
           else{
             item.isActive=true;
             event.source.checked=true;
-            // this.btnDisable=event.checked;
-            // event.checked=true;
             this.btnDisable=true;
 
           }

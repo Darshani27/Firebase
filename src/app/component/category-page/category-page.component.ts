@@ -63,7 +63,6 @@ export class CategoryPageComponent implements OnInit {
       });
     dialogRef.afterClosed().subscribe((res:any)=>
     {
-      // console.log(res);
       if(res)
       {
         const element=this.items.indexOf(ele);
