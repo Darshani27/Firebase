@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -36,6 +35,7 @@ import { ChangePasswordComponent } from './component/change-password/change-pass
 import { CategoryPageComponent } from './component/category-page/category-page.component';
 import { AddCategoryComponent } from './component/add-category/add-category.component';
 import { ManageAddressComponent } from './component/manage-address/manage-address.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,7 +73,11 @@ import { ManageAddressComponent } from './component/manage-address/manage-addres
     MatmoduleModule,
     FlexLayoutModule,
     GooglePlaceModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [{
     provide:HTTP_INTERCEPTORS,
