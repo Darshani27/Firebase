@@ -9,8 +9,6 @@ export class CartServiceService {
   items:any[]=[];
   quantity:number=0;
   itemInCart=new BehaviorSubject(0);
-
-  
   constructor() { }
   addToCart(product: any) {
     let found=false;
@@ -26,9 +24,13 @@ export class CartServiceService {
     {
     this.items.push(product);
     }
-    this.itemInCart.next(this.items.length);
+    // this.itemInCart.next(this.items.length);
+    this.setItemInCart(this.items.length);
   }
-
+setItemInCart(data:any)
+{
+  this.itemInCart.next(data)
+}
   getItems() {
     return this.items;
   }
@@ -40,10 +42,15 @@ export class CartServiceService {
       this.items.splice(element,1);
     }
     this.items=[...this.items];
+    if(this.items.length==0)
+    {
+      this.clearCart();
+    }
   }
 
   clearCart() {
     this.items = [];
+    this.setItemInCart(this.items.length)
     return this.items;
   }
   removeItem(item:any):any
@@ -65,6 +72,10 @@ export class CartServiceService {
     this.removeItemFromCart(item);
     }
     this.items=[...this.items];
+    if(this.items.length==0)
+    {
+      this.clearCart();
+    }
   }
   getItemInCart()
   {

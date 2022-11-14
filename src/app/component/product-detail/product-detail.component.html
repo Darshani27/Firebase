@@ -1,1 +1,32 @@
-<p>product-detail works!</p>
+
+<mat-card>
+    <mat-card-title>
+        Product Detail
+    </mat-card-title>
+    &nbsp;
+    <mat-card-content>
+        <div class="row">
+            <div class="column">
+                <ng-container *ngIf="category=='Electronics'">
+                    <img mat-card-image [src]="downloadURL" alt="image" style=" width:fit-content;height:350px;">
+                </ng-container>
+                <ng-container *ngIf="category=='Fashion'">
+                    <img mat-card-image [src]="fashionDownloadURL" alt="image" style="width:454px;height:370px;">
+                </ng-container>
+            </div>
+            <div class="vl"></div>
+            <div class="column">
+                <div style="margin-top:90px;">
+                    <p style="text-align:center">{{productName | titlecase}}</p>
+                    <p style="text-align:center">{{category |titlecase}}</p>
+                    <p style="text-align:center">{{productPrice | currency}}</p>
+                    <p class="btn-center"*ngIf="currentUser">
+                      <button mat-raised-button color="primary" (click)="addToCart()">Add To Cart</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>
+
+

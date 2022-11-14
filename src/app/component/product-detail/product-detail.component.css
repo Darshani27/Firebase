@@ -1,0 +1,32 @@
+.row {
+    display: flex;
+  }
+  
+  .column {
+    flex: 50%;
+    padding: 10px;
+    height: 345px;
+  }
+  :host {
+    display: flex;
+    justify-content: center;
+    margin: 100px 0px;
+  }
+  mat-card
+  {
+    width:900px;
+    height:400px;
+  }
+  mat-card-title
+  {
+    display:flex;
+    justify-content: center;
+  }
+  .btn-center {
+    display: flex;
+    justify-content: center;
+  }
+  .vl {
+    border-left: 3px solid green;
+    height: 350px;
+  }

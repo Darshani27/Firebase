@@ -22,11 +22,18 @@
       </button>
     </span>
     &nbsp;
-    <span *ngIf="currentUser && hasError==false && !hasRoute('login')   && !isInactive">
-      <mat-form-field>
-        <input type="search" matInput placeholder="search product...">
-        <button type="submit" matPrefix mat-icon-button><mat-icon>search</mat-icon></button>
-      </mat-form-field>
+    <span *ngIf="currentUser && hasError==false && !(hasRoute('login') || hasRoute('product-detail'))   && !isInactive">
+      <form [formGroup]="searchForm">
+        <mat-form-field>
+          <input formControlName="searchproduct" [matAutocomplete]="auto" type="search" matInput placeholder="search product...">
+          <mat-autocomplete #auto="matAutocomplete" >
+            <mat-option *ngFor="let option of options" [value]="option" (onSelectionChange)="updateSelection($event)">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+          <button type="submit" matPrefix mat-icon-button><mat-icon>search</mat-icon></button>
+        </mat-form-field>
+      </form>
     </span>
     &nbsp;
     &nbsp;

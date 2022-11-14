@@ -24,7 +24,7 @@ export class AuthService {
   UserDetail: any;
   userData:any=new BehaviorSubject({});
   isError:any=new Subject();
-  
+  searchOption:any=new BehaviorSubject('');
 
   constructor(private afStorage:AngularFireStorage,private locationStrategy:LocationStrategy,private fieauth : AngularFireAuth, private router:Router,private _snackbar:MatSnackBar,private db:AngularFireDatabase) {
      const ref=this.db.list('users');
@@ -187,6 +187,14 @@ export class AuthService {
   getisError()
   {
     return this.isError;
+  }
+  setsearchOption(data:any)
+  {
+    this.searchOption.next(data);
+  }
+  getsearchOption()
+  {
+    return this.searchOption;
   }
 }
 // vuriwe@cyclelove.cc

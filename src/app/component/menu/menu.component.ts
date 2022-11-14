@@ -2,6 +2,7 @@ import { LocationStrategy } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from '@angular/fire/compat/storage';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -41,6 +42,8 @@ export class MenuComponent implements OnInit {
   categories: any[]=[];
   hasError: any;
   categoryOfProduct: any[]=[];
+  searchForm:FormGroup={} as any;
+  options: any[]=[];
   constructor(private afStorage:AngularFireStorage,private dataService:DataService,private cartService:CartServiceService,private bootomsheet:MatBottomSheet,private dialog:MatDialog,private auth:AuthService,private route:Router,private url:LocationStrategy,private db:AngularFireDatabase){
     const ref=this.db.list('users');
     ref.valueChanges().subscribe((res)=>{
@@ -54,8 +57,14 @@ export class MenuComponent implements OnInit {
     return this.route.url.includes(route);
   }
   ngOnInit(): void {
+    this.searchForm=new FormGroup({
+      'searchproduct':new FormControl('')
+    })
     this.dataService.getprodData().subscribe((res:any)=>{
       this.ProdData=res;
+      this.options=this.ProdData.map((r:any)=>{
+        return r.name;
+      });
       this.categoryOfProduct=this.ProdData.map((r:any)=>{
         return r.category
       })
@@ -139,6 +148,12 @@ export class MenuComponent implements OnInit {
   homeRedirect()
   {
     this.route.navigate(['/home']);
+  }
+  updateSelection(event:any)
+  {
+    console.log(event.source.value);
+    this.auth.setsearchOption(event.source.value);
+    this.route.navigate(['/product-detail']); 
   }
 
   sort(event: any) {

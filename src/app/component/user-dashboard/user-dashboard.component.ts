@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from '@angular/fire/compat/storage';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Product } from 'src/app/models/product.model';
 import { AuthService } from 'src/app/shared/auth.service';
@@ -29,7 +30,7 @@ export class UserDashboardComponent implements OnInit {
   fashionDownloadURL!: Observable<String>;
 
 
-  constructor(private afStorage:AngularFireStorage,private dataService:DataService,private dialog:MatDialog,private auth:AuthService,private _snackbar:MatSnackBar,private cartService:CartServiceService) { }
+  constructor(private route:Router,private afStorage:AngularFireStorage,private dataService:DataService,private dialog:MatDialog,private auth:AuthService,private _snackbar:MatSnackBar,private cartService:CartServiceService) { }
 
   ngOnInit(): void {
     this.retrieveProducts();
@@ -61,5 +62,15 @@ export class UserDashboardComponent implements OnInit {
     this.cartQty=this.cartService.getItems();
     this.itemInCart=this.cartQty.length;   
   }
+  reDirect(item:any)
+  {
+    this.auth.setsearchOption(item.name);
+    this.route.navigate(['/product-detail']);
+  }
   // https://javascript.plainenglish.io/develop-an-online-shop-with-angular-11-and-net-core-5-f0ed1ac0aeeb
 }
+
+
+
+
+
