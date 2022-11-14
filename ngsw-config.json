@@ -26,5 +26,17 @@
         ]
       }
     }
+  ],
+  "dataGroups": [
+   {
+    "name":"api-call",
+    "urls":["https://angular-firebase-4eff8-default-rtdb.firebaseio.com/"],
+    "cacheConfig": {
+      "maxAge": "12h",
+      "maxSize":10,
+      "strategy": "performance",
+      "timeout": "10s"
+    }
+   }
   ]
 }

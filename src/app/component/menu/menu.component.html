@@ -22,6 +22,14 @@
       </button>
     </span>
     &nbsp;
+    <span *ngIf="currentUser && hasError==false && !hasRoute('login')   && !isInactive">
+      <mat-form-field>
+        <input type="search" matInput placeholder="search product...">
+        <button type="submit" matPrefix mat-icon-button><mat-icon>search</mat-icon></button>
+      </mat-form-field>
+    </span>
+    &nbsp;
+    &nbsp;
     <span *ngIf="currentUser && hasRoute('user-dashboard')  && !isInactive && currentUser!=adminKey">
       <mat-select matNativeControl style="height: 20px; width:120px;" id="sort-by"  placeholder="Price"(selectionChange)="sort($event)">
         <mat-option value="Low"> Price Low to High</mat-option>

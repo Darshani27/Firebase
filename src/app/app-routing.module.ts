@@ -11,6 +11,7 @@ import { LoginComponent } from './component/login/login.component';
 import { ManageAddressComponent } from './component/manage-address/manage-address.component';
 import { OrderHistoryComponent } from './component/order-history/order-history.component';
 import { PageNotFoundComponent } from './component/page-not-found/page-not-found.component';
+import { ProductDetailComponent } from './component/product-detail/product-detail.component';
 import { ProductListComponent } from './component/product-list/product-list.component';
 import { RegisterComponent } from './component/register/register.component';
 import { ShoppingCartComponent } from './component/shopping-cart/shopping-cart.component';
@@ -39,6 +40,7 @@ const routes: Routes = [
   {path:'change-password',component:ChangePasswordComponent},
   {path:'category-page',component:CategoryPageComponent},
   {path:'manage-address',component:ManageAddressComponent},
+  {path:'product-detail',component:ProductDetailComponent},
   {path:'**',component:PageNotFoundComponent},
 ];
 

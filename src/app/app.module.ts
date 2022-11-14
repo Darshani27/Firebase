@@ -36,6 +36,7 @@ import { CategoryPageComponent } from './component/category-page/category-page.c
 import { AddCategoryComponent } from './component/add-category/add-category.component';
 import { ManageAddressComponent } from './component/manage-address/manage-address.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { ProductDetailComponent } from './component/product-detail/product-detail.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +61,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     ChangePasswordComponent,
     CategoryPageComponent,
     AddCategoryComponent,
-    ManageAddressComponent
+    ManageAddressComponent,
+    ProductDetailComponent
   ],
   imports: [
     BrowserModule,
