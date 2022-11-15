@@ -24,7 +24,9 @@ const routes: Routes = [
   {path:'',redirectTo:'login',pathMatch:'full'},
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent},
-  {path:'dashboard',component:DashboardComponent},
+  {path:'dashboard',component:DashboardComponent,canActivate:[AdminguardGuard],  data: {
+    role: 'role_admin'
+  }},
   {path:'product-list',component:ProductListComponent ,canActivate:[AdminguardGuard],  data: {
     role: 'role_admin'
   }},
@@ -36,7 +38,9 @@ const routes: Routes = [
   {path:'user-profile',component:UserProfileComponent},
   {path:'home',component:HomeComponent},
   {path:'order-history',component:OrderHistoryComponent},
-  {path:'users-list',component:UsersListComponent},
+  {path:'users-list',component:UsersListComponent,canActivate:[AdminguardGuard],  data: {
+    role: 'role_admin'
+  }},
   {path:'change-password',component:ChangePasswordComponent},
   {path:'category-page',component:CategoryPageComponent},
   {path:'manage-address',component:ManageAddressComponent},

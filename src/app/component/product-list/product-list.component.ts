@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { map } from 'rxjs';
 import { Product } from 'src/app/models/product.model';
 import { DataService } from 'src/app/shared/data.service';
@@ -20,7 +23,7 @@ export interface DialogData
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit{
   result:string='';
   products: Product[]=[];
   displayedColumns: string[] = ['name', 'price', 'category','units','action'];
@@ -35,13 +38,23 @@ export class ProductListComponent implements OnInit {
   deleteMsg:string='Record Deleted !'
   action:string='OK';
   data:Product={};
-
+  sortedData: Product[]=[];
+  dataSource:any;
   
-  constructor(private dataService:DataService,public dialog: MatDialog,private _snackBar: MatSnackBar) { }
+  constructor(private _liveAnnouncer: LiveAnnouncer,private dataService:DataService,public dialog: MatDialog,private _snackBar: MatSnackBar) { }
 
+  @ViewChild(MatSort)
+  sort!: MatSort;
+  
   ngOnInit(): void {
     this.retrieveProducts();
+
   }
+
+  // ngAfterViewInit() {
+  //   this.dataSource.sort = this.sort;
+  // }
+
 
   retrieveProducts() : any {
    this.dataService.getAll().snapshotChanges().pipe(
@@ -127,4 +140,35 @@ export class ProductListComponent implements OnInit {
       console.log(res);   
     })
   }
+  
+  sortData(sort: Sort) {
+    const data = this.products.slice();
+    if (!sort.active || sort.direction === '') {
+      this.products = data;
+      return;
+    }
+
+    this.products= data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'name':
+          return this.compare(a.name?.toLowerCase(), b.name?.toLowerCase(), isAsc);
+        case 'price':
+          return this.compare(parseInt(a.price as any), parseInt(b.price as any), isAsc);
+        case 'category':
+          return this.compare(a.category, b.category, isAsc);
+        case 'units':
+          return this.compare(a.units, b.units, isAsc);
+        default:
+          return 0;
+      }
+      
+    });
+    console.log(this.products);
+
+  }
+  compare(a: any, b: any, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  
+}
 }

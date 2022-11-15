@@ -5,9 +5,9 @@
     <mat-card-content>
         <table mat-table
        [dataSource]="mylist" multiTemplateDataRows
-       class="mat-elevation-z8">
+       class="mat-elevation-z8" matSort (matSortChange)="sortData($event)" >
   <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
-    <th mat-header-cell *matHeaderCellDef> &nbsp;{{column | titlecase}} &nbsp; &nbsp;</th>
+    <th mat-sort-header mat-header-cell *matHeaderCellDef> &nbsp;{{column | titlecase}} &nbsp; &nbsp;</th>
     <td mat-cell *matCellDef="let element"> &nbsp;{{element[column]}} &nbsp; &nbsp;</td>
   </ng-container>
   <ng-container matColumnDef="expand">

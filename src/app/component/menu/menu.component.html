@@ -22,7 +22,7 @@
       </button>
     </span>
     &nbsp;
-    <span *ngIf="currentUser && hasError==false && !(hasRoute('login') || hasRoute('product-detail'))   && !isInactive">
+    <span *ngIf="currentUser && hasError==false && !(hasRoute('login') || hasRoute('product-detail') || hasRoute('order-history'))   && !isInactive">
       <form [formGroup]="searchForm">
         <mat-form-field>
           <input formControlName="searchproduct" [matAutocomplete]="auto" type="search" matInput placeholder="search product...">

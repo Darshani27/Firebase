@@ -20,12 +20,13 @@ import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatSortModule} from '@angular/material/sort';
 
 
 
 
 const modules=[
-  MatAutocompleteModule,MatButtonModule,MatBottomSheetModule,MatMenuModule,MatSlideToggleModule
+  MatSortModule,MatAutocompleteModule,MatButtonModule,MatBottomSheetModule,MatMenuModule,MatSlideToggleModule
   ,MatCardModule,MatChipsModule,
   MatFormFieldModule,MatInputModule,MatDividerModule,
   MatIconModule,MatListModule,

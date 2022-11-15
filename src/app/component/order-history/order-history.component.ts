@@ -1,6 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { map } from 'rxjs';
 import { AuthService } from 'src/app/shared/auth.service';
@@ -88,7 +89,7 @@ export class OrderHistoryComponent implements OnInit {
   {
     const ref=this.dialog.open(ConfirmDialogComponent,{
       width:"400px",
-      height:"400px",
+      height:"200px",
       data:{title:this.title,message:this.message}
     });
     ref.afterClosed().subscribe((res:any)=>{
@@ -106,4 +107,34 @@ export class OrderHistoryComponent implements OnInit {
       }).reduce((acc:any,value:any)=>acc+value,0);
     });
   }
+  sortData(sort: Sort) {
+    const data = this.mylist.slice();
+    if (!sort.active || sort.direction === '') {
+      this.mylist = data;
+      return;
+    }
+
+    this.mylist= data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'key':
+          return this.compare(a.key?.toLowerCase(), b.key?.toLowerCase(), isAsc);
+        case 'date':
+          return this.compare(parseInt(a.date as any), parseInt(b.date as any), isAsc);
+        case 'address':
+          return this.compare(a.address.toLowerCase(), b.address.toLowerCase(), isAsc);
+        case 'totalAmount':
+          return this.compare(parseInt(a.totalAmount), parseInt(b.totalAmount), isAsc);
+        default:
+          return 0;
+      }
+      
+    });
+    // console.log(this.mylist);
+
+  }
+  compare(a: any, b: any, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  
+}
 }

@@ -106,7 +106,7 @@ export class MenuComponent implements OnInit {
      },(err)=>{
       alert(err.message);
      });
-     console.log(this.categories);
+    //  console.log(this.categories);
      
   }
   getUsers() {
