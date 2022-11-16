@@ -48,8 +48,6 @@ export class ManageAddressComponent implements OnInit {
     });
     this.address.push(addresses);
   });
-  // console.log(this.otherAddress);
-
 
   }
   retrieveUsers() {
@@ -80,7 +78,6 @@ export class ManageAddressComponent implements OnInit {
       otheraddress:this.manageAddressForm.value.address
     }
     this.dataService.updateUser(this.keyOfuser,{defaultAddrees:data}).then((res:any)=>{
-      // this._snackBar.open('Address Added Succesffully','OK');
     });
       const addresses = this.fb.group({
         area: ['', Validators.required],
@@ -90,8 +87,5 @@ export class ManageAddressComponent implements OnInit {
       });
      this.address.push(addresses);
   }
-  // editAddress()
-  // {
 
-  // }
 }

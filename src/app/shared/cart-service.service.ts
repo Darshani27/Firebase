@@ -24,7 +24,6 @@ export class CartServiceService {
     {
     this.items.push(product);
     }
-    // this.itemInCart.next(this.items.length);
     this.setItemInCart(this.items.length);
   }
 setItemInCart(data:any)

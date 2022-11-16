@@ -22,7 +22,6 @@ export class UsersListComponent implements OnInit {
   message:string="Are you sure you want to disable ?";
   result: boolean=false;
   btnDisable: boolean=false;
-  // checked:boolean=true;
 
   constructor(private dataService:DataService,private dialog:MatDialog,private _snackBar:MatSnackBar) { }
 
@@ -41,9 +40,6 @@ export class UsersListComponent implements OnInit {
      this.users = res || [];
      this.keyOfuser=this.users.find((r :any)=>{return r.email==this.currentUser})?.key;
      this.adminKey= this.users.find((r:any)=>r.role=="admin")?.key;
-    //  this.users.filter((r:any)=>{
-    //   r.isActive==false
-    //  });
    },
      (err) => {
        console.log(err);

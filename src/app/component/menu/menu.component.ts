@@ -105,9 +105,7 @@ export class MenuComponent implements OnInit {
       this.categories=data.map((r:any)=>{ return r.category});
      },(err)=>{
       alert(err.message);
-     });
-    //  console.log(this.categories);
-     
+     });     
   }
   getUsers() {
     this.dataService.getAllUsers().snapshotChanges().pipe(map((changes: any) => {

@@ -1,9 +1,8 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import {  Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort, Sort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { map } from 'rxjs';
 import { Product } from 'src/app/models/product.model';
 import { DataService } from 'src/app/shared/data.service';
@@ -11,7 +10,6 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { UpdateDetailComponent } from '../update-detail/update-detail.component';
 
-type NewType = Product[];
 
 export interface DialogData
 {
@@ -50,11 +48,6 @@ export class ProductListComponent implements OnInit{
     this.retrieveProducts();
 
   }
-
-  // ngAfterViewInit() {
-  //   this.dataSource.sort = this.sort;
-  // }
-
 
   retrieveProducts() : any {
    this.dataService.getAll().snapshotChanges().pipe(

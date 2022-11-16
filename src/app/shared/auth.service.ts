@@ -81,7 +81,6 @@ export class AuthService {
     });
 
     this.UserDetail=this.users.find((r:any)=>r.email==email);
-    // this.UserDetail.next(this.UserDetail);
     this.setUserDetail(this.UserDetail);
 
   }
@@ -197,4 +196,3 @@ export class AuthService {
     return this.searchOption;
   }
 }
-// vuriwe@cyclelove.cc

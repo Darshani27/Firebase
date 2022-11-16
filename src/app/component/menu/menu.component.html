@@ -22,13 +22,13 @@
       </button>
     </span>
     &nbsp;
-    <span *ngIf="currentUser && hasError==false && !(hasRoute('login') || hasRoute('product-detail') || hasRoute('order-history'))   && !isInactive">
+    <span *ngIf="currentUser && hasError==false && !(hasRoute('login') || hasRoute('product-detail') || hasRoute('order-history') || hasRoute('product-list'))   && !isInactive">
       <form [formGroup]="searchForm">
         <mat-form-field>
           <input formControlName="searchproduct" [matAutocomplete]="auto" type="search" matInput placeholder="search product...">
           <mat-autocomplete #auto="matAutocomplete" >
             <mat-option *ngFor="let option of options" [value]="option" (onSelectionChange)="updateSelection($event)">
-              {{option}}
+              {{option | titlecase}}
             </mat-option>
           </mat-autocomplete>
           <button type="submit" matPrefix mat-icon-button><mat-icon>search</mat-icon></button>
