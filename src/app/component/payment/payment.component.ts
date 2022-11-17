@@ -80,7 +80,8 @@ export class PaymentComponent implements OnInit {
       token: function(token :any)
       {
         console.log(token);
-        this._snackbar.open('Order Placed SuccessFully','OK');
+        this.router?.navigate(['/user-dashboard']);
+        this._snackbar?.open('Order Placed SuccessFully','OK');
         
       }
     });

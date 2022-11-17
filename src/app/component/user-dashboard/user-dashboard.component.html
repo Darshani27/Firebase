@@ -12,10 +12,12 @@
                     </ng-container>
                     <mat-card-content style="font-weight:bold;">
                         {{item.category | titlecase}}
+                        <br>
+                        {{item.price|currency}}
                     </mat-card-content>
                     <mat-card-actions>
                         <button mat-button style="color:blue;" (click)="addToCart(item)">Add To Cart</button>
-                        <button mat-raised-button color="accent" (click)="reDirect(item)">View Product</button>
+                        <button mat-raised-button color="accent" (click)="reDirect(item)">View</button>
                     </mat-card-actions>
                 </mat-card>
             </div>

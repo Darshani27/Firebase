@@ -6,11 +6,8 @@
     </button>
     <span>My App</span>
     <span class="example-spacer"></span>
-    <span *ngIf="!(hasRoute('login') || hasRoute('register') || hasRoute('home'))">
-    <button mat-raised-button color="accent" (click)="signOut()">Logout </button>
-    </span>
     &nbsp;
-    <span *ngIf="hasRoute('home') && !currentUser">
+    <span *ngIf="(hasRoute('home') || hasRoute('user-dashboard'))&& !currentUser">
       <button mat-raised-button color="primary" routerLink="/login">
         Login
       </button>
@@ -22,7 +19,7 @@
       </button>
     </span>
     &nbsp;
-    <span *ngIf="currentUser && hasError==false && !(hasRoute('login') || hasRoute('product-detail') || hasRoute('order-history') || hasRoute('product-list'))   && !isInactive">
+    <span *ngIf="currentUser && hasError==false && !(hasRoute('login') || hasRoute('product-detail') || hasRoute('order-history') || hasRoute('product-list') || hasRoute('home'))   && !isInactive">
       <form [formGroup]="searchForm">
         <mat-form-field>
           <input formControlName="searchproduct" [matAutocomplete]="auto" type="search" matInput placeholder="search product...">
@@ -52,7 +49,7 @@
         Users List
       </button>
     </span>
-    <span *ngIf="currentUser && hasError==false">
+    <span *ngIf="!hasRoute('login')">
       <button routerLink="/shopping-cart" mat-icon-button style="color:black">
           <mat-icon matBadge="{{itemInCart}}" matBadgeColor="warn">shopping_cart</mat-icon>
       </button>
@@ -100,7 +97,12 @@
           <a routerLink="/change-password" style="text-decoration:none;color:blue">Change Password</a>
         </p>
         <mat-divider></mat-divider>
-       
+        <p style="text-align:center;;font-size:medium">
+          <span *ngIf="currentUser && !(hasRoute('login') || hasRoute('register') || hasRoute('home'))">
+            <a  style="text-decoration:none;color:black;"color="accent" (click)="signOut()">Logout </a>
+            </span>
+        </p>
+          <mat-divider></mat-divider>
         <p style="font-size:medium;text-align:center;color:darkslategray">
             Privacy Policy
         </p>

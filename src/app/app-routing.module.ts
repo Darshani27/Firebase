@@ -21,7 +21,7 @@ import { UsersListComponent } from './component/users-list/users-list.component'
 import { VerifyEmailComponent } from './component/verify-email/verify-email.component';
 
 const routes: Routes = [
-  {path:'',redirectTo:'login',pathMatch:'full'},
+  {path:'',redirectTo:'user-dashboard',pathMatch:'full'},
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent},
   {path:'dashboard',component:DashboardComponent,canActivate:[AdminguardGuard],  data: {

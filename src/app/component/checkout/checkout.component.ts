@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Address } from 'ngx-google-places-autocomplete/objects/address';
 import { PaymentComponent } from '../payment/payment.component';
 
@@ -15,7 +16,7 @@ export class CheckoutComponent implements OnInit ,  AfterViewInit{
     console.log(address);
 }
   checkoutForm:FormGroup={} as any;
-  constructor(private dialog:MatDialog) { }
+  constructor(private dialog:MatDialog,private route:Router) { }
 
   ngAfterViewInit(): void {
     
@@ -60,6 +61,7 @@ export class CheckoutComponent implements OnInit ,  AfterViewInit{
       );
       dialogRef.afterClosed().subscribe((res)=>{
         console.log(res);  
+        this.route.navigate(['/user-dashboard']);
       });
     }
   }

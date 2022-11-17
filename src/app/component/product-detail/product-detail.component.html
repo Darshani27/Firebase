@@ -20,7 +20,7 @@
                     <p style="text-align:center">{{productName | titlecase}}</p>
                     <p style="text-align:center">{{category |titlecase}}</p>
                     <p style="text-align:center">{{productPrice | currency}}</p>
-                    <p class="btn-center"*ngIf="currentUser">
+                    <p class="btn-center">
                       <button mat-raised-button color="primary" (click)="addToCart()">Add To Cart</button>
                     </p>
                 </div>
