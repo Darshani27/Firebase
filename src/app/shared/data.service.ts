@@ -14,10 +14,12 @@ export class DataService {
   private userPath='/users';
   private ordersPath='/orders';
   private categoriesPath='/categories';
+  private settingsOfOrder='/settings';
   productRef: AngularFireList<Product>={} as any;
   ref:AngularFireList<User>={} as any;
   categoryRef:AngularFireList<any>={} as any;
   orderRef:AngularFireList<any>={} as any;
+  settingRef:AngularFireList<any>={} as any;
   users: any[]=[];
   prodData:any=new BehaviorSubject([]);
   categoryData:any= new BehaviorSubject('');
@@ -27,6 +29,7 @@ export class DataService {
     this.ref=db.list(this.userPath);   
     this.orderRef=db.list(this.ordersPath);
     this.categoryRef=db.list(this.categoriesPath);
+    this.settingRef=db.list(this.settingsOfOrder);
    }
 
   create(user: User): any {
@@ -37,6 +40,17 @@ export class DataService {
     });
   }
   
+  createSetting(setting: any) {
+    return this.settingRef.push(setting);
+  }
+
+  getSetting(): AngularFireList<any> {
+    return this.settingRef;
+  }
+   updateSetting(key: any,item:any)
+   {
+    return this.settingRef.update(key,item);
+   }
   createCategory(category:any)
   {
     return this.categoryRef.push(category);

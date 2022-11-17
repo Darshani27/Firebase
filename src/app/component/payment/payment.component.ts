@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, NgZone, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -24,8 +24,11 @@ export class PaymentComponent implements OnInit {
   users: any;
   keyOfUser: any;
   currentUser: any;
+  settingCounter: any;
+  setting: any;
+  keyOfSetting: any;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public incomingData:any,private auth:AuthService,private dataService:DataService,private _snackbar:MatSnackBar,public dialogRef: MatDialogRef<PaymentComponent>,private router:Router,private cartService:CartServiceService,private authService:AuthService) { }
+  constructor(private zone: NgZone,@Inject(MAT_DIALOG_DATA) public incomingData:any,private auth:AuthService,private dataService:DataService,private _snackbar:MatSnackBar,public dialogRef: MatDialogRef<PaymentComponent>,private router:Router,private cartService:CartServiceService,private authService:AuthService) { }
 
   ngOnInit(): void {
     this.items=this.cartService.getItems();
@@ -33,7 +36,37 @@ export class PaymentComponent implements OnInit {
     this.getUsers();
     this.auth.getCurrentUser().subscribe((res :any)=>{
       this.currentUser=res;
-    });    
+    });  
+    this.getSettings();  
+  }
+  getSettings() {
+    this.dataService.getSetting().snapshotChanges().pipe(map((changes: any) => {
+      return changes.map((c: any) => {
+        return { key: c.key, ...c.payload.val() };
+      });
+    }
+    )).subscribe((res: any) => {
+      this.setting = res;
+      if(res.length>0)
+      {
+        this.keyOfSetting=res.find((r:any)=>{
+          return r.useId==this.currentUser;
+       })?.key;
+       this.settingCounter=res.find((r:any)=>{
+         return r.key==this.keyOfSetting
+       })?.counter;
+       this.settingCounter++;
+      }
+      else
+      {
+        this.settingCounter=0;
+      }
+     
+    },
+      (err) => {
+        console.log(err);
+      }
+    )
   }
   getUsers() {
     this.dataService.getAllUsers().snapshotChanges().pipe(map((changes: any) => {
@@ -80,19 +113,34 @@ export class PaymentComponent implements OnInit {
       token: function(token :any)
       {
         console.log(token);
-        this.router?.navigate(['/user-dashboard']);
-        this._snackbar?.open('Order Placed SuccessFully','OK');
-        
       }
     });
     handler.open({
       name:'MyApp',
       description:'Pay',
       amount:this.getTotalCost() *100,
+      token:()=>{
+        this.zone.run(() => {
+          this.router.navigate(['/user-dashboard']);
+          this._snackbar?.open('Order Placed SuccessFully','OK');
+          this.dialogRef.close(true);
+        });
+      }
     });
+    // const orderId='OR'+'_';
+    const orderId='OR'+'_'+this.settingCounter;
     const currentDate=new Date();
     const dateOfOrder=currentDate.getDate() + "/" +(currentDate.getMonth() +1) + "/" +currentDate.getFullYear();
-    const data={products:this.items,useId:this.keyOfUser,totalAmount:this.getTotalCost(),address:this.incomingData,date:dateOfOrder};
-    this.dataService.createOrders(data);
+    const data={products:this.items,useId:this.keyOfUser,totalAmount:this.getTotalCost(),address:this.incomingData,date:dateOfOrder,orderId:orderId};
+    this.dataService.createOrders(data).then((res:any)=>{
+      if(this.settingCounter==0)
+      {
+        this.dataService.createSetting({orderId:orderId,counter:this.settingCounter,useId:this.currentUser});
+      }
+      else
+      {
+        this.dataService.updateSetting(this.keyOfSetting,{counter:this.settingCounter,orderId:orderId});
+      }
+    });
   }
 }

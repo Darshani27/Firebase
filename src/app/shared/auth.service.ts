@@ -47,6 +47,11 @@ export class AuthService {
       })
       if(res.user?.emailVerified==true)
       {
+        this.currentUser.next(email);
+        this.adminEmailId.next(this.adminEmail);
+       this.afStorage.ref('/images/' + email).getDownloadURL().subscribe((res:any)=>{
+      this.setdownloadurl(res);
+    });
         if(this.adminEmail == email)
         {
           sessionStorage.setItem("role", "admin");
@@ -74,11 +79,7 @@ export class AuthService {
       this.setisError(true);
       this.router.navigate(['/login']);
     });
-    this.currentUser.next(email);
-    this.adminEmailId.next(this.adminEmail);
-    this.afStorage.ref('/images/' + email).getDownloadURL().subscribe((res:any)=>{
-      this.setdownloadurl(res);
-    });
+    
 
     this.UserDetail=this.users.find((r:any)=>r.email==email);
     this.setUserDetail(this.UserDetail);
@@ -88,9 +89,16 @@ export class AuthService {
   register(email:string,password:string)
   {
     this.fieauth.createUserWithEmailAndPassword(email,password).then((res)=>{
-      this._snackbar.open('User Registered SuccessFully','OK');
-      this.router.navigate(['/login']);
       this.sendEmailForVerification(res.user);
+      if(res.user?.emailVerified==true)
+      {
+        this._snackbar.open('User Registered SuccessFully','OK');
+        this.router.navigate(['/login']);
+      }
+      else
+      {
+        this.router.navigate(['/verify-email']);
+      }
     },
     (err)=>{
       alert(err.message);

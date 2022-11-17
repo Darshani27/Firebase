@@ -30,23 +30,10 @@ export class CheckoutComponent implements OnInit ,  AfterViewInit{
       'city':new FormControl('',Validators.required),
       'postalPin':new FormControl('',[Validators.required,Validators.pattern('[0-9]*')]),
     });
-    }
-  getErrorMessage()
-  {
-    if(this.checkoutForm.value.email==''||this.checkoutForm.value.fullName==''||this.checkoutForm.value.address==''||this.checkoutForm.value.city==''||this.checkoutForm.value.postalPin=='')
-    {
-      return 'Please enter Value'
-    }
-    if(this.checkoutForm.controls['email'].hasError('email'))
-    {
-      return 'Not a Valid Email';
-    }
-    if(this.checkoutForm.controls['postalPin'].hasError('pattern'))
-    {
-      return 'Not a Valid Pin';
-    }
-    return '';
   }
+
+  get f() { return this.checkoutForm.controls; }
+
  
   OnCheckout()
   {

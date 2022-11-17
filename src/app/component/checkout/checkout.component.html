@@ -7,32 +7,35 @@
             <p>
                 <mat-form-field>
                   <input  formControlName="email" type="text" matInput placeholder="Email" required>
-                  <mat-error *ngIf="checkoutForm.invalid">{{getErrorMessage()}}</mat-error>
+                  <mat-error *ngIf="f.email.errors?.['required']">Email is required</mat-error>
+                  <mat-error *ngIf="f.email.errors?.['email']">Email must be a valid email address</mat-error>
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field>
                   <input  formControlName="fullName" type="text" matInput placeholder="FullName" required>
-                  <mat-error *ngIf="checkoutForm.invalid">{{getErrorMessage()}}</mat-error>
+                  <mat-error *ngIf="f.fullName.errors?.['required']">Full Name is required</mat-error>
+    
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field>
                   <input  formControlName="address" type="text" matInput placeholder="Address" required>
-                  <mat-error *ngIf="checkoutForm.invalid">{{getErrorMessage()}}</mat-error>
+                  <mat-error *ngIf="f.address.errors?.['required']">Address is required</mat-error>
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field>
                   <input  formControlName="city" type="text" matInput placeholder="City" required>
-                  <mat-error *ngIf="checkoutForm.invalid">{{getErrorMessage()}}</mat-error>
+                  <mat-error *ngIf="f.city.errors?.['required']">City is required</mat-error>
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field>
                   <input  formControlName="postalPin" type="text" matInput placeholder="PinCode" required>
                   <mat-hint>Must not contain alphabets</mat-hint>
-                  <mat-error *ngIf="checkoutForm.invalid">{{getErrorMessage()}}</mat-error>
+                  <mat-error *ngIf="f.postalPin.errors?.['required']">Postal Pin is required</mat-error>
+                  <mat-error *ngIf="f.postalPin.errors?.['pattern']">Postal Pin must be a valid</mat-error>
                 </mat-form-field>
             </p>
             <div class="btn-center">

@@ -26,7 +26,7 @@ export class OrderHistoryComponent implements OnInit {
   result: boolean=false;
   list:any[]=[];
 
-  columnsToDisplay=['key','totalAmount','address','date'];
+  columnsToDisplay=['orderId','totalAmount','address','date'];
   displayedColumns=['name','category','quantity','price']
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   modifiedList: any;

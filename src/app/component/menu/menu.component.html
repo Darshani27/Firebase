@@ -7,19 +7,19 @@
     <span>My App</span>
     <span class="example-spacer"></span>
     &nbsp;
-    <span *ngIf="(hasRoute('home') || hasRoute('user-dashboard'))&& !currentUser">
+    <span *ngIf="(hasRoute('home') || hasRoute('user-dashboard') || hasRoute('shopping-cart') || hasRoute('verify-email'))&& !currentUser">
       <button mat-raised-button color="primary" routerLink="/login">
         Login
       </button>
     </span> 
       &nbsp;
-    <span *ngIf="hasError==false &&currentUser && !hasRoute('order-history') && !isInactive ">
+    <span *ngIf="hasError==false &&currentUser && !(hasRoute('order-history') || hasRoute('verify-email')) && !isInactive ">
       <button mat-raised-button color="accent" routerLink="/order-history">
         Order History
       </button>
     </span>
     &nbsp;
-    <span *ngIf="currentUser && hasError==false && !(hasRoute('login') || hasRoute('product-detail') || hasRoute('order-history') || hasRoute('product-list') || hasRoute('home'))   && !isInactive">
+    <span *ngIf="currentUser && hasError==false && !(hasRoute('verify-email')||hasRoute('shopping-cart')||hasRoute('login') || hasRoute('product-detail') || hasRoute('order-history') || hasRoute('product-list') || hasRoute('home') ||hasRoute('checkout'))   && !isInactive">
       <form [formGroup]="searchForm">
         <mat-form-field>
           <input formControlName="searchproduct" [matAutocomplete]="auto" type="search" matInput placeholder="search product...">
@@ -49,7 +49,7 @@
         Users List
       </button>
     </span>
-    <span *ngIf="!hasRoute('login')">
+    <span *ngIf="!(hasRoute('login') || hasRoute('page-not-found') || hasRoute('register') ||hasRoute('verify-email'))">
       <button routerLink="/shopping-cart" mat-icon-button style="color:black">
           <mat-icon matBadge="{{itemInCart}}" matBadgeColor="warn">shopping_cart</mat-icon>
       </button>
@@ -68,7 +68,7 @@
       <span>Via WhatsApp</span>
     </button>
    </mat-menu>
-   <span *ngIf="currentUser && hasError==false" >
+   <span *ngIf="currentUser && hasError==false &&!hasRoute('verify-email')" >
     <button mat-icon-button class="example-icon" [matMenuTriggerFor]="menu" aria-label="Example icon-button with share icon">
         <img width="40" height="40" style="border-radius: 100%;" [src]="downloadURL" alt="assets/image-placeholder" onError="this.src='assets/image-placeholder.jpg'">
     </button>
