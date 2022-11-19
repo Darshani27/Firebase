@@ -14,6 +14,7 @@ import { PageNotFoundComponent } from './component/page-not-found/page-not-found
 import { ProductDetailComponent } from './component/product-detail/product-detail.component';
 import { ProductListComponent } from './component/product-list/product-list.component';
 import { RegisterComponent } from './component/register/register.component';
+import { SellerPageComponent } from './component/seller-page/seller-page.component';
 import { ShoppingCartComponent } from './component/shopping-cart/shopping-cart.component';
 import { UserDashboardComponent } from './component/user-dashboard/user-dashboard.component';
 import { UserProfileComponent } from './component/user-profile/user-profile.component';
@@ -45,6 +46,7 @@ const routes: Routes = [
   {path:'category-page',component:CategoryPageComponent},
   {path:'manage-address',component:ManageAddressComponent},
   {path:'product-detail',component:ProductDetailComponent},
+  {path:'seller-page',component:SellerPageComponent},
   {path:'**',component:PageNotFoundComponent},
 ];
 

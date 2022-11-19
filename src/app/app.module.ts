@@ -37,6 +37,7 @@ import { AddCategoryComponent } from './component/add-category/add-category.comp
 import { ManageAddressComponent } from './component/manage-address/manage-address.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { ProductDetailComponent } from './component/product-detail/product-detail.component';
+import { SellerPageComponent } from './component/seller-page/seller-page.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,7 +63,8 @@ import { ProductDetailComponent } from './component/product-detail/product-detai
     CategoryPageComponent,
     AddCategoryComponent,
     ManageAddressComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
+    SellerPageComponent
   ],
   imports: [
     BrowserModule,

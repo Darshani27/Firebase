@@ -1,0 +1,10 @@
+mat-card-title,
+mat-card-content,mat-card-actions {
+  display: flex;
+  justify-content: center;
+}
+:host {
+    display: flex;
+    justify-content: center;
+    margin: 100px 0px;
+  }

@@ -25,6 +25,7 @@ export class AuthService {
   userData:any=new BehaviorSubject({});
   isError:any=new Subject();
   searchOption:any=new BehaviorSubject('');
+  sellerEmail: any;
 
   constructor(private afStorage:AngularFireStorage,private locationStrategy:LocationStrategy,private fieauth : AngularFireAuth, private router:Router,private _snackbar:MatSnackBar,private db:AngularFireDatabase) {
      const ref=this.db.list('users');
@@ -41,6 +42,7 @@ export class AuthService {
       sessionStorage.setItem('token','true');
       this.setisError(false);
       this.adminEmail=this.users.find((r)=>r.role=="admin")?.email;
+      this.sellerEmail=this.users.find((r)=>r.role=="seller")?.email;
       this.inActiveMembers=this.users.filter((r:any)=>r.isActive==false);
       this.inactiveEmails=this.inActiveMembers.map((r:any)=>{
         return r.email;
@@ -49,14 +51,25 @@ export class AuthService {
       {
         this.currentUser.next(email);
         this.adminEmailId.next(this.adminEmail);
-       this.afStorage.ref('/images/' + email).getDownloadURL().subscribe((res:any)=>{
-      this.setdownloadurl(res);
+        this.afStorage.ref('/images/' + email).getDownloadURL().subscribe((res:any)=>{
+        this.setdownloadurl(res);
+    },
+    (err)=>{
+      this.afStorage.ref('/images').getDownloadURL().subscribe((res:any)=>{
+        this.setdownloadurl(res);
+      })
     });
         if(this.adminEmail == email)
         {
           sessionStorage.setItem("role", "admin");
           this.setisError(false);
           this.router.navigate(['/product-list']);
+        }
+        else if(this.sellerEmail==email)
+        {
+          sessionStorage.setItem("role", "seller");
+          this.setisError(false);
+          this.router.navigate(['/seller-page']);
         }
         else if(this.adminEmail!=undefined && !(this.inactiveEmails.includes(email)))
         {

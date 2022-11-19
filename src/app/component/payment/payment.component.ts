@@ -27,6 +27,7 @@ export class PaymentComponent implements OnInit {
   settingCounter: any;
   setting: any;
   keyOfSetting: any;
+  settingUsers: any;
 
   constructor(private zone: NgZone,@Inject(MAT_DIALOG_DATA) public incomingData:any,private auth:AuthService,private dataService:DataService,private _snackbar:MatSnackBar,public dialogRef: MatDialogRef<PaymentComponent>,private router:Router,private cartService:CartServiceService,private authService:AuthService) { }
 
@@ -55,7 +56,17 @@ export class PaymentComponent implements OnInit {
        this.settingCounter=res.find((r:any)=>{
          return r.key==this.keyOfSetting
        })?.counter;
-       this.settingCounter++;
+       this.settingUsers=this.setting.map((r:any)=>{
+        return r.useId;
+       });
+       if(this.settingUsers.includes(this.currentUser))
+       {
+          this.settingCounter++;
+       }
+       else
+       {
+        this.settingCounter=0;
+       }
       }
       else
       {
