@@ -3,7 +3,7 @@ import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask 
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Product } from 'src/app/models/product.model';
 import { AuthService } from 'src/app/shared/auth.service';
 import { CartServiceService } from 'src/app/shared/cart-service.service';
@@ -28,14 +28,37 @@ export class UserDashboardComponent implements OnInit {
   uploadProgress: Observable<number>|undefined;
   downloadURL!: Observable<String>;
   fashionDownloadURL!: Observable<String>;
+  categories: any[]=[];
+  currentUser: any;
+  itemsofCategory: any;
 
 
   constructor(private route:Router,private afStorage:AngularFireStorage,private dataService:DataService,private dialog:MatDialog,private auth:AuthService,private _snackbar:MatSnackBar,private cartService:CartServiceService) { }
 
   ngOnInit(): void {
+    this.retrieveCategories();
     this.retrieveProducts();
     this.auth.preventBackButton();
     this.getProductImage();
+  }
+  retrieveCategories() {
+    this.dataService.getCategories().snapshotChanges().pipe(
+      map((changes: any[])=>{
+        return changes.map(c=>{
+          return {key:c.key,...c.payload.val()};
+        })   
+      })
+     ).subscribe((data : any)=>{
+      this.itemsofCategory=data;
+      this.itemsofCategory=this.itemsofCategory.filter((r:any)=>{
+         return r.isActive==true
+      }
+      )
+      this.categories=[...this.itemsofCategory];
+      this.categories=this.categories.map((x:any)=>{ return x.category});
+     },(err)=>{
+      alert(err.message);
+     }); 
   }
   getProductImage() {
    this.afStorage.ref('/products/electronics.jpg').getDownloadURL().subscribe((res:any)=>{
@@ -47,9 +70,21 @@ export class UserDashboardComponent implements OnInit {
   }
   retrieveProducts() {
     this.dataService.getAll().valueChanges().subscribe((res)=>{
-      this.products=res;
-      this.dataService.setprodData(this.products);
-      this.items=res.map(r=>({...r,quantity:1}));
+      const responseCategories=res.map((r:any)=>{
+        return r.category;
+      });
+      const category=[... new Set(responseCategories)];
+      const deActiveCategory=category.find((r)=>{if(this.categories.indexOf(r)==-1) return r;}) 
+       this.products=res;
+       this.items=res.map(r=>({...r,quantity:1}));
+       this.items=this.items.filter((r:any)=>{
+        if(r.category!=deActiveCategory)
+        {
+          return r;
+        }
+       });
+       this.dataService.setprodData(this.items);
+
     });
     this.dataService.getprodData().subscribe((res:any)=>{
       this.items=res;

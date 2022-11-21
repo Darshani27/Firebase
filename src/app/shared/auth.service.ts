@@ -42,7 +42,13 @@ export class AuthService {
       sessionStorage.setItem('token','true');
       this.setisError(false);
       this.adminEmail=this.users.find((r)=>r.role=="admin")?.email;
-      this.sellerEmail=this.users.find((r)=>r.role=="seller")?.email;
+      this.sellerEmail=this.users.map((r)=>
+      {
+        if(r.role && r.role=="seller")
+        {
+          return r.email
+        }
+      });
       this.inActiveMembers=this.users.filter((r:any)=>r.isActive==false);
       this.inactiveEmails=this.inActiveMembers.map((r:any)=>{
         return r.email;
@@ -65,7 +71,7 @@ export class AuthService {
           this.setisError(false);
           this.router.navigate(['/product-list']);
         }
-        else if(this.sellerEmail==email)
+        else if(this.sellerEmail.includes(email))
         {
           sessionStorage.setItem("role", "seller");
           this.setisError(false);
