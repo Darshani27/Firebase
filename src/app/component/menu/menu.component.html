@@ -19,7 +19,7 @@
       </button>
     </span>
     &nbsp;
-    <span *ngIf="currentUser && hasError==false && !(hasRoute('verify-email')||hasRoute('shopping-cart')||hasRoute('login') || hasRoute('product-detail') || hasRoute('order-history') || hasRoute('product-list') || hasRoute('home') ||hasRoute('checkout') || hasRoute('seller-page'))   && !isInactive">
+    <span *ngIf="currentUser && hasError==false && !(hasRoute('category-page')||hasRoute('verify-email')||hasRoute('shopping-cart')||hasRoute('login') || hasRoute('product-detail') || hasRoute('order-history') || hasRoute('product-list') || hasRoute('home') ||hasRoute('checkout') || hasRoute('seller-page'))   && !isInactive">
       <form [formGroup]="searchForm">
         <mat-form-field>
           <input formControlName="searchproduct" [matAutocomplete]="auto" type="search" matInput placeholder="search product...">
