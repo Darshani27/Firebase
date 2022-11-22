@@ -13,6 +13,7 @@ import { OrderHistoryComponent } from './component/order-history/order-history.c
 import { PageNotFoundComponent } from './component/page-not-found/page-not-found.component';
 import { ProductDetailComponent } from './component/product-detail/product-detail.component';
 import { ProductListComponent } from './component/product-list/product-list.component';
+import { QuestionMappingComponent } from './component/question-mapping/question-mapping.component';
 import { RegisterComponent } from './component/register/register.component';
 import { SellerPageComponent } from './component/seller-page/seller-page.component';
 import { ShoppingCartComponent } from './component/shopping-cart/shopping-cart.component';
@@ -47,6 +48,7 @@ const routes: Routes = [
   {path:'manage-address',component:ManageAddressComponent},
   {path:'product-detail',component:ProductDetailComponent},
   {path:'seller-page',component:SellerPageComponent},
+  {path:'question-mapping',component:QuestionMappingComponent},
   {path:'**',component:PageNotFoundComponent},
 ];
 

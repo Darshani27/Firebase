@@ -1,0 +1,40 @@
+td , th {
+    white-space: normal;
+    word-wrap: break-word;
+    max-width: 400px;
+}
+th{
+    background-color:rgba(229, 245, 250, 0.979);
+    color:black;
+}
+.example-table td {
+    padding: 20px;
+}
+.example-table th{
+    padding: 20px;
+}
+mat-form-field
+{
+    width:100%;
+    color: rgb(209, 204, 204);
+    
+}
+:host {
+    display: flex;
+    justify-content: center;
+    margin: 50px 0px;
+  }
+  textarea 
+  {
+    border-color: rgb(209, 204, 204);
+  }
+  mat-card-title
+  {
+    display: flex;
+    justify-content: center;
+  }
+  table
+  {
+     
+    border: 1px solid rgb(209, 204, 204);
+  }

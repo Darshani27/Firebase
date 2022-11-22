@@ -1,7 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from '@angular/fire/compat/database';
-import { BehaviorSubject, from, Observable, switchMap } from 'rxjs';
+import { BehaviorSubject, from, map, Observable, switchMap } from 'rxjs';
 import { Product } from '../models/product.model';
 import { User } from '../models/user.model';
 
@@ -24,7 +25,7 @@ export class DataService {
   prodData:any=new BehaviorSubject([]);
   categoryData:any= new BehaviorSubject('');
 
-  constructor(private db :AngularFireDatabase,private fieauth:AngularFireAuth) {
+  constructor(private db :AngularFireDatabase,private fieauth:AngularFireAuth,private http:HttpClient) {
     this.productRef=db.list(this.dbPath); 
     this.ref=db.list(this.userPath);   
     this.orderRef=db.list(this.ordersPath);
@@ -132,5 +133,11 @@ setcategoryData(data:any)
 getcategoryData()
 {
   return this.categoryData;
+}
+getData() :Observable<any>
+{
+  return this.http.get('assets/smaple.json').pipe(map((res:any)=>{
+    return res;
+  }));
 }
 }

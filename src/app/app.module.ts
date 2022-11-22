@@ -14,7 +14,7 @@ import { ProductListComponent } from './component/product-list/product-list.comp
 import { ConfirmDialogComponent } from './component/confirm-dialog/confirm-dialog.component';
 import { UpdateDetailComponent } from './component/update-detail/update-detail.component';
 import { PageNotFoundComponent } from './component/page-not-found/page-not-found.component';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorInterceptor } from './interceptor/token-interceptor.interceptor';
 import { ForgotPaswordComponent } from './component/forgot-pasword/forgot-pasword.component';
 import { VerifyEmailComponent } from './component/verify-email/verify-email.component';
@@ -80,6 +80,7 @@ import { QuestionMappingComponent } from './component/question-mapping/question-
     FlexLayoutModule,
     GooglePlaceModule,
     AngularFireStorageModule,
+    HttpClientModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       registrationStrategy: 'registerWhenStable:30000'

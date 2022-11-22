@@ -1,0 +1,724 @@
+{
+  "code": "R200",
+  "success": true,
+  "message": "success",
+  "result": [
+    {
+      "id": 4,
+      "name": "Provide the rationale for the country of incorporation",
+      "responseTypeId": 2,
+      "responseObjectType": "",
+      "description": null,
+      "responseType": {
+        "id": 2,
+        "name": "LONG_TEXT",
+        "description": null
+      },
+      "mappingId": 44,
+      "followUp": [],
+      "section": {
+        "id": 1,
+        "name": "Entity Profile",
+        "description": null
+      },
+      "answer": {
+        "id": 519,
+        "createdAt": "2022-11-22T07:32:24.134Z",
+        "updatedAt": "2022-11-22T07:32:24.134Z",
+        "caseId": 14,
+        "questionId": 4,
+        "parentId": null,
+        "originalName": "test",
+        "name": null,
+        "bool": null,
+        "date": null,
+        "userId": 45,
+        "user": {
+          "id": 45,
+          "email": "amit.h+30@techalchemy.co",
+          "firstName": "amit",
+          "lastName": "hinduja",
+          "countryId": 103,
+          "phoneCountryId": 103,
+          "phoneNumber": "7000582515",
+          "dateOfBirth": null,
+          "lastSignedIn": "2022-11-22T08:25:39.140Z",
+          "roles": []
+        }
+      }
+    },
+    {
+      "id": 5,
+      "name": "Describe the nature and purpose of the business' relationship with Mercore. Please outline the products/services required; the countries where the related product/service counterparties are located; the goods and services that are to be exchanged; and expected annual transaction volumes and values",
+      "responseTypeId": 2,
+      "responseObjectType": "",
+      "description": null,
+      "responseType": {
+        "id": 2,
+        "name": "LONG_TEXT",
+        "description": null
+      },
+      "mappingId": 45,
+      "followUp": [],
+      "section": {
+        "id": 1,
+        "name": "Entity Profile",
+        "description": null
+      },
+      "answer": {
+        "id": 520,
+        "createdAt": "2022-11-22T07:32:24.134Z",
+        "updatedAt": "2022-11-22T07:32:24.134Z",
+        "caseId": 14,
+        "questionId": 5,
+        "parentId": null,
+        "originalName": null,
+        "name": null,
+        "bool": null,
+        "date": null,
+        "userId": 45,
+        "user": {
+          "id": 45,
+          "email": "amit.h+30@techalchemy.co",
+          "firstName": "amit",
+          "lastName": "hinduja",
+          "countryId": 103,
+          "phoneCountryId": 103,
+          "phoneNumber": "7000582515",
+          "dateOfBirth": null,
+          "lastSignedIn": "2022-11-22T08:25:39.140Z",
+          "roles": []
+        }
+      }
+    },
+    {
+      "id": 6,
+      "name": "Describe the type of business the entity undertakes and in particular, the industrial sectors in which it operates. Please provide an outline of business' activities",
+      "responseTypeId": 2,
+      "responseObjectType": "",
+      "description": null,
+      "responseType": {
+        "id": 2,
+        "name": "LONG_TEXT",
+        "description": null
+      },
+      "mappingId": 46,
+      "followUp": [],
+      "section": {
+        "id": 1,
+        "name": "Entity Profile",
+        "description": null
+      },
+      "answer": {
+        "id": 521,
+        "createdAt": "2022-11-22T07:32:24.134Z",
+        "updatedAt": "2022-11-22T07:32:24.134Z",
+        "caseId": 14,
+        "questionId": 6,
+        "parentId": null,
+        "originalName": null,
+        "name": null,
+        "bool": null,
+        "date": null,
+        "userId": 45,
+        "user": {
+          "id": 45,
+          "email": "amit.h+30@techalchemy.co",
+          "firstName": "amit",
+          "lastName": "hinduja",
+          "countryId": 103,
+          "phoneCountryId": 103,
+          "phoneNumber": "7000582515",
+          "dateOfBirth": null,
+          "lastSignedIn": "2022-11-22T08:25:39.140Z",
+          "roles": []
+        }
+      }
+    },
+    {
+      "id": 25,
+      "name": "Is your organization's stock publicly traded, or is it a consolidated subsidiary of a listed company or greater than 50% owned by a publicly traded organisation?",
+      "responseTypeId": 5,
+      "responseObjectType": "COMPANY_LISTING",
+      "description": null,
+      "responseType": {
+        "id": 5,
+        "name": "SINGLE_SELECT",
+        "description": null
+      },
+      "mappingId": 52,
+      "followUp": [],
+      "section": {
+        "id": 1,
+        "name": "Entity Profile",
+        "description": null
+      },
+      "answer": {
+        "id": 522,
+        "createdAt": "2022-11-22T07:32:24.134Z",
+        "updatedAt": "2022-11-22T07:32:24.134Z",
+        "caseId": 14,
+        "questionId": 25,
+        "parentId": null,
+        "originalName": null,
+        "name": null,
+        "bool": null,
+        "date": null,
+        "userId": 45,
+        "user": {
+          "id": 45,
+          "email": "amit.h+30@techalchemy.co",
+          "firstName": "amit",
+          "lastName": "hinduja",
+          "countryId": 103,
+          "phoneCountryId": 103,
+          "phoneNumber": "7000582515",
+          "dateOfBirth": null,
+          "lastSignedIn": "2022-11-22T08:25:39.140Z",
+          "roles": []
+        },
+        "responses": []
+      }
+    },
+    {
+      "id": 16,
+      "name": "Provide stock exchange listing information",
+      "responseTypeId": 6,
+      "responseObjectType": "GLOBAL_STOCK_EXCHANGES",
+      "description": null,
+      "responseType": {
+        "id": 6,
+        "name": "MULTI_SELECT",
+        "description": null
+      },
+      "mappingId": 53,
+      "followUp": [],
+      "section": {
+        "id": 1,
+        "name": "Entity Profile",
+        "description": null
+      },
+      "answer": {
+        "id": 523,
+        "createdAt": "2022-11-22T07:32:24.134Z",
+        "updatedAt": "2022-11-22T07:32:24.134Z",
+        "caseId": 14,
+        "questionId": 16,
+        "parentId": null,
+        "originalName": null,
+        "name": null,
+        "bool": null,
+        "date": null,
+        "userId": 45,
+        "user": {
+          "id": 45,
+          "email": "amit.h+30@techalchemy.co",
+          "firstName": "amit",
+          "lastName": "hinduja",
+          "countryId": 103,
+          "phoneCountryId": 103,
+          "phoneNumber": "7000582515",
+          "dateOfBirth": null,
+          "lastSignedIn": "2022-11-22T08:25:39.140Z",
+          "roles": []
+        },
+        "responses": []
+      }
+    },
+    {
+      "id": 1,
+      "name": "Are your business activites regulated?",
+      "responseTypeId": 3,
+      "responseObjectType": "",
+      "description": null,
+      "responseType": {
+        "id": 3,
+        "name": "BOOL",
+        "description": null
+      },
+      "mappingId": 54,
+      "followUp": [],
+      "section": {
+        "id": 1,
+        "name": "Entity Profile",
+        "description": null
+      },
+      "answer": {
+        "id": 524,
+        "createdAt": "2022-11-22T07:32:24.134Z",
+        "updatedAt": "2022-11-22T07:32:24.134Z",
+        "caseId": 14,
+        "questionId": 1,
+        "parentId": null,
+        "originalName": null,
+        "name": null,
+        "bool": null,
+        "date": null,
+        "userId": 45,
+        "user": {
+          "id": 45,
+          "email": "amit.h+30@techalchemy.co",
+          "firstName": "amit",
+          "lastName": "hinduja",
+          "countryId": 103,
+          "phoneCountryId": 103,
+          "phoneNumber": "7000582515",
+          "dateOfBirth": null,
+          "lastSignedIn": "2022-11-22T08:25:39.140Z",
+          "roles": []
+        }
+      }
+    },
+    {
+      "id": 17,
+      "name": "Provide regulator name, where applicable",
+      "responseTypeId": 6,
+      "responseObjectType": "REGULATOR_BANK",
+      "description": null,
+      "responseType": {
+        "id": 6,
+        "name": "MULTI_SELECT",
+        "description": null
+      },
+      "mappingId": 55,
+      "followUp": [],
+      "section": {
+        "id": 1,
+        "name": "Entity Profile",
+        "description": null
+      },
+      "answer": {
+        "id": 525,
+        "createdAt": "2022-11-22T07:32:24.134Z",
+        "updatedAt": "2022-11-22T07:32:24.134Z",
+        "caseId": 14,
+        "questionId": 17,
+        "parentId": null,
+        "originalName": null,
+        "name": null,
+        "bool": null,
+        "date": null,
+        "userId": 45,
+        "user": {
+          "id": 45,
+          "email": "amit.h+30@techalchemy.co",
+          "firstName": "amit",
+          "lastName": "hinduja",
+          "countryId": 103,
+          "phoneCountryId": 103,
+          "phoneNumber": "7000582515",
+          "dateOfBirth": null,
+          "lastSignedIn": "2022-11-22T08:25:39.140Z",
+          "roles": []
+        },
+        "responses": []
+      }
+    },
+    {
+      "id": 23,
+      "name": "Identify principal counterparties for your business intended trade",
+      "responseTypeId": 1,
+      "responseObjectType": "",
+      "description": null,
+      "responseType": {
+        "id": 1,
+        "name": "SHORT_TEXT",
+        "description": null
+      },
+      "mappingId": 56,
+      "followUp": [],
+      "section": {
+        "id": 1,
+        "name": "Entity Profile",
+        "description": null
+      },
+      "answer": {
+        "id": 526,
+        "createdAt": "2022-11-22T07:32:24.134Z",
+        "updatedAt": "2022-11-22T07:32:24.134Z",
+        "caseId": 14,
+        "questionId": 23,
+        "parentId": null,
+        "originalName": null,
+        "name": null,
+        "bool": null,
+        "date": null,
+        "userId": 45,
+        "user": {
+          "id": 45,
+          "email": "amit.h+30@techalchemy.co",
+          "firstName": "amit",
+          "lastName": "hinduja",
+          "countryId": 103,
+          "phoneCountryId": 103,
+          "phoneNumber": "7000582515",
+          "dateOfBirth": null,
+          "lastSignedIn": "2022-11-22T08:25:39.140Z",
+          "roles": []
+        }
+      }
+    },
+    {
+      "id": 8,
+      "name": "Does the business or any entity(ies) within your corporate structure have the ability to issue bearer shares?",
+      "responseTypeId": 2,
+      "responseObjectType": "",
+      "description": null,
+      "responseType": {
+        "id": 2,
+        "name": "LONG_TEXT",
+        "description": null
+      },
+      "mappingId": 48,
+      "followUp": [],
+      "section": {
+        "id": 2,
+        "name": "Ownership Structure",
+        "description": null
+      },
+      "answer": {
+        "id": 527,
+        "createdAt": "2022-11-22T07:32:24.134Z",
+        "updatedAt": "2022-11-22T07:32:24.134Z",
+        "caseId": 14,
+        "questionId": 8,
+        "parentId": null,
+        "originalName": null,
+        "name": null,
+        "bool": null,
+        "date": null,
+        "userId": 45,
+        "user": {
+          "id": 45,
+          "email": "amit.h+30@techalchemy.co",
+          "firstName": "amit",
+          "lastName": "hinduja",
+          "countryId": 103,
+          "phoneCountryId": 103,
+          "phoneNumber": "7000582515",
+          "dateOfBirth": null,
+          "lastSignedIn": "2022-11-22T08:25:39.140Z",
+          "roles": []
+        }
+      }
+    },
+    {
+      "id": 11,
+      "name": "Provide the rationale for the corporate structure",
+      "responseTypeId": 2,
+      "responseObjectType": "",
+      "description": null,
+      "responseType": {
+        "id": 2,
+        "name": "LONG_TEXT",
+        "description": null
+      },
+      "mappingId": 51,
+      "followUp": [],
+      "section": {
+        "id": 2,
+        "name": "Ownership Structure",
+        "description": null
+      },
+      "answer": {
+        "id": 528,
+        "createdAt": "2022-11-22T07:32:24.134Z",
+        "updatedAt": "2022-11-22T07:32:24.134Z",
+        "caseId": 14,
+        "questionId": 11,
+        "parentId": null,
+        "originalName": null,
+        "name": null,
+        "bool": null,
+        "date": null,
+        "userId": 45,
+        "user": {
+          "id": 45,
+          "email": "amit.h+30@techalchemy.co",
+          "firstName": "amit",
+          "lastName": "hinduja",
+          "countryId": 103,
+          "phoneCountryId": 103,
+          "phoneNumber": "7000582515",
+          "dateOfBirth": null,
+          "lastSignedIn": "2022-11-22T08:25:39.140Z",
+          "roles": []
+        }
+      }
+    },
+    {
+      "id": 7,
+      "name": "Provide details of the business' initial source of funds. Source of funds refers to the origin and purpose of the funds used for initial activity with Mercore",
+      "responseTypeId": 2,
+      "responseObjectType": "",
+      "description": null,
+      "responseType": {
+        "id": 2,
+        "name": "LONG_TEXT",
+        "description": null
+      },
+      "mappingId": 47,
+      "followUp": [],
+      "section": {
+        "id": 4,
+        "name": "Source of Funds",
+        "description": null
+      },
+      "answer": {
+        "id": 529,
+        "createdAt": "2022-11-22T07:32:24.134Z",
+        "updatedAt": "2022-11-22T07:32:24.134Z",
+        "caseId": 14,
+        "questionId": 7,
+        "parentId": null,
+        "originalName": null,
+        "name": null,
+        "bool": null,
+        "date": null,
+        "userId": 45,
+        "user": {
+          "id": 45,
+          "email": "amit.h+30@techalchemy.co",
+          "firstName": "amit",
+          "lastName": "hinduja",
+          "countryId": 103,
+          "phoneCountryId": 103,
+          "phoneNumber": "7000582515",
+          "dateOfBirth": null,
+          "lastSignedIn": "2022-11-22T08:25:39.140Z",
+          "roles": []
+        }
+      }
+    },
+    {
+      "id": 10,
+      "name": "Provide details of the ongoing source of funds. Source of funds refers to the origin and purpose of the funds used for the ongoing activities that occur within the business relationship with Mercore",
+      "responseTypeId": 2,
+      "responseObjectType": "",
+      "description": null,
+      "responseType": {
+        "id": 2,
+        "name": "LONG_TEXT",
+        "description": null
+      },
+      "mappingId": 50,
+      "followUp": [],
+      "section": {
+        "id": 4,
+        "name": "Source of Funds",
+        "description": null
+      },
+      "answer": {
+        "id": 530,
+        "createdAt": "2022-11-22T07:32:24.134Z",
+        "updatedAt": "2022-11-22T07:32:24.134Z",
+        "caseId": 14,
+        "questionId": 10,
+        "parentId": null,
+        "originalName": null,
+        "name": null,
+        "bool": null,
+        "date": null,
+        "userId": 45,
+        "user": {
+          "id": 45,
+          "email": "amit.h+30@techalchemy.co",
+          "firstName": "amit",
+          "lastName": "hinduja",
+          "countryId": 103,
+          "phoneCountryId": 103,
+          "phoneNumber": "7000582515",
+          "dateOfBirth": null,
+          "lastSignedIn": "2022-11-22T08:25:39.140Z",
+          "roles": []
+        }
+      }
+    },
+    {
+      "id": 9,
+      "name": "Provide details of the source of wealth. Source of wealth refers to the activities that generated an entity’s overall net worth (assets minus liabilities), recognising that this may change over time. For entities, examples include profits generated from their activities (such as sales of goods or services), sales of shares or other investments, receivables, contracts, existing fixed assets and any periodic funding from existing or new beneficial owners",
+      "responseTypeId": 2,
+      "responseObjectType": "",
+      "description": null,
+      "responseType": {
+        "id": 2,
+        "name": "LONG_TEXT",
+        "description": null
+      },
+      "mappingId": 49,
+      "followUp": [],
+      "section": {
+        "id": 5,
+        "name": "Source of Wealth",
+        "description": null
+      },
+      "answer": {
+        "id": 531,
+        "createdAt": "2022-11-22T07:32:24.134Z",
+        "updatedAt": "2022-11-22T07:32:24.134Z",
+        "caseId": 14,
+        "questionId": 9,
+        "parentId": null,
+        "originalName": null,
+        "name": null,
+        "bool": null,
+        "date": null,
+        "userId": 45,
+        "user": {
+          "id": 45,
+          "email": "amit.h+30@techalchemy.co",
+          "firstName": "amit",
+          "lastName": "hinduja",
+          "countryId": 103,
+          "phoneCountryId": 103,
+          "phoneNumber": "7000582515",
+          "dateOfBirth": null,
+          "lastSignedIn": "2022-11-22T08:25:39.140Z",
+          "roles": []
+        }
+      }
+    },
+    {
+      "id": 22,
+      "name": "Identify the country(ies) where the business is 'tax resident' . This will usually be where you are liable to pay corporate income taxes",
+      "responseTypeId": 6,
+      "responseObjectType": "COUNTRY_RISK_RATING",
+      "description": null,
+      "responseType": {
+        "id": 6,
+        "name": "MULTI_SELECT",
+        "description": null
+      },
+      "mappingId": 57,
+      "followUp": [
+        {
+          "id": 18,
+          "name": "Provide the Tax ID number or reason if Tax ID number is not available",
+          "responseTypeId": 5,
+          "responseObjectType": "MANDATORY_TAX_STATUS",
+          "description": null,
+          "responseType": {
+            "id": 5,
+            "name": "SINGLE_SELECT",
+            "description": null
+          },
+          "responseId": null,
+          "followUp": [
+            {
+              "id": 19,
+              "name": "Insert Tax ID",
+              "responseTypeId": 1,
+              "responseObjectType": null,
+              "description": null,
+              "responseType": {
+                "id": 1,
+                "name": "SHORT_TEXT",
+                "description": null
+              },
+              "responseId": null,
+              "followUp": []
+            },
+            {
+              "id": 20,
+              "name": "Select reason",
+              "responseTypeId": 5,
+              "responseObjectType": "UNAVAILABLE_TAX_STATUS",
+              "description": null,
+              "responseType": {
+                "id": 5,
+                "name": "SINGLE_SELECT",
+                "description": null
+              },
+              "responseId": null,
+              "followUp": [
+                {
+                  "id": 21,
+                  "name": "Insert Reason",
+                  "responseTypeId": 1,
+                  "responseObjectType": null,
+                  "description": null,
+                  "responseType": {
+                    "id": 1,
+                    "name": "SHORT_TEXT",
+                    "description": null
+                  },
+                  "responseId": null,
+                  "followUp": []
+                }
+              ]
+            }
+          ],
+          "answer": {
+            "id": 533,
+            "createdAt": "2022-11-22T07:32:24.134Z",
+            "updatedAt": "2022-11-22T07:32:24.134Z",
+            "caseId": 14,
+            "questionId": 18,
+            "parentId": 532,
+            "originalName": null,
+            "name": null,
+            "bool": null,
+            "date": null,
+            "userId": 45,
+            "user": {
+              "id": 45,
+              "email": "amit.h+30@techalchemy.co",
+              "firstName": "amit",
+              "lastName": "hinduja",
+              "countryId": 103,
+              "phoneCountryId": 103,
+              "phoneNumber": "7000582515",
+              "dateOfBirth": null,
+              "lastSignedIn": "2022-11-22T08:25:39.140Z",
+              "roles": []
+            },
+            "responses": [
+              {
+                "id": 149,
+                "answerId": 533,
+                "responseId": 20
+              }
+            ]
+          }
+        }
+      ],
+      "section": {
+        "id": 6,
+        "name": "Tax Status",
+        "description": null
+      },
+      "answer": {
+        "id": 532,
+        "createdAt": "2022-11-22T07:32:24.134Z",
+        "updatedAt": "2022-11-22T07:32:24.134Z",
+        "caseId": 14,
+        "questionId": 22,
+        "parentId": null,
+        "originalName": null,
+        "name": null,
+        "bool": null,
+        "date": null,
+        "userId": 45,
+        "user": {
+          "id": 45,
+          "email": "amit.h+30@techalchemy.co",
+          "firstName": "amit",
+          "lastName": "hinduja",
+          "countryId": 103,
+          "phoneCountryId": 103,
+          "phoneNumber": "7000582515",
+          "dateOfBirth": null,
+          "lastSignedIn": "2022-11-22T08:25:39.140Z",
+          "roles": []
+        },
+        "responses": [
+          {
+            "id": 148,
+            "answerId": 532,
+            "responseId": 235
+          }
+        ]
+      }
+    }
+  ]
+}
