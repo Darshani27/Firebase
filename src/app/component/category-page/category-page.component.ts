@@ -20,6 +20,8 @@ export class CategoryPageComponent implements OnInit {
   title:string='Confirm Action';
   message:string='Are You Sure You Want to Delete ?';
   categories: any[]=[];
+  result: any;
+  btnDisable: boolean=false;
 
   constructor(private dataService:DataService,private dialog:MatDialog,private _snackBar:MatSnackBar) { }
 
@@ -131,6 +133,58 @@ export class CategoryPageComponent implements OnInit {
   }
   enableDisable(item:any,event:MatSlideToggleChange)
   {
-    
+    if(item.isActive==true)
+    {
+      const dialogRef=this.dialog.open(ConfirmDialogComponent,
+        {
+          maxWidth:'400px',
+          data:{title:'Confirm Action',message:'Are You Sure You Want To Disable ?'}
+        });
+      dialogRef.afterClosed().subscribe((res:any)=>{
+        this.result=res;
+        if(this.result)
+        {
+              item.isActive=false;
+              const data={...item,isActive:false};
+              this.dataService.updateCategory(item.key,data).then((res)=>{
+              this._snackBar.open(' Category Disabled Successfully','OK');
+              this.retrieveCategories();
+              }); 
+              this.btnDisable=false;
+        }
+        else{
+          item.isActive=true;
+          event.source.checked=true;
+          this.btnDisable=true;
+        }
+      });
+    }
+    else if(item.isActive==false)
+    {
+      const dialogRef=this.dialog.open(ConfirmDialogComponent,
+        {
+          maxWidth: "400px",
+          data:{title:'Confirm Action',message:'Are You Sure You Want to Enable ?'}
+        });
+        dialogRef.afterClosed().subscribe((res :any)=>
+        {
+          this.result=res;
+          if(this.result)
+          {
+                item.isActive=true;
+                const data={...item,isActive:true};
+                this.dataService.updateCategory(item.key,data).then((res)=>{
+                this._snackBar.open('Category Enabled Successfully','OK');
+                event.source.checked=true;
+                this.retrieveCategories();
+                });
+          }
+          else
+          {
+            item.isActive=false;
+            event.source.checked=false;
+          }
+        });
+    }
   }
 }
