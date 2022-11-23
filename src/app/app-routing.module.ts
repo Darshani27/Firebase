@@ -15,6 +15,7 @@ import { ProductDetailComponent } from './component/product-detail/product-detai
 import { ProductListComponent } from './component/product-list/product-list.component';
 import { QuestionMappingComponent } from './component/question-mapping/question-mapping.component';
 import { RegisterComponent } from './component/register/register.component';
+import { SellerDashboardComponent } from './component/seller-dashboard/seller-dashboard.component';
 import { SellerPageComponent } from './component/seller-page/seller-page.component';
 import { ShoppingCartComponent } from './component/shopping-cart/shopping-cart.component';
 import { UserDashboardComponent } from './component/user-dashboard/user-dashboard.component';
@@ -26,9 +27,8 @@ const routes: Routes = [
   {path:'',redirectTo:'user-dashboard',pathMatch:'full'},
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent},
-  {path:'dashboard',component:DashboardComponent,canActivate:[AdminguardGuard],  data: {
-    role: 'role_admin'
-  }},
+  {path:'dashboard',component:DashboardComponent
+  },
   {path:'product-list',component:ProductListComponent ,canActivate:[AdminguardGuard],  data: {
     role: 'role_admin'
   }},
@@ -48,6 +48,7 @@ const routes: Routes = [
   {path:'manage-address',component:ManageAddressComponent},
   {path:'product-detail',component:ProductDetailComponent},
   {path:'seller-page',component:SellerPageComponent},
+  {path:'seller-dashboard',component:SellerDashboardComponent},
   {path:'question-mapping',component:QuestionMappingComponent},
   {path:'**',component:PageNotFoundComponent},
 ];

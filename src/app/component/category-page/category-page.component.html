@@ -11,7 +11,7 @@
             </ng-container>
 
             <ng-container matColumnDef="action">
-                <th mat-header-cell *matHeaderCellDef> Actions (Edit/Delete) </th>   
+                <th mat-header-cell *matHeaderCellDef> Actions (Edit/Delete)  &nbsp;&nbsp;&nbsp;</th>   
                 <td mat-cell *matCellDef="let element"> 
                   <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" color="primary" (click)="updateCategory(element)">
                     <mat-icon aria-label="Edit">edit</mat-icon>
@@ -19,6 +19,13 @@
                     <button mat-icon-button color="warn" matTooltip="Click to Delete" (click)="deleteCategory(element)">
                     <mat-icon>delete</mat-icon>
                   </button> 
+                </td>
+              </ng-container >
+                
+              <ng-container matColumnDef="enable">
+                <th mat-header-cell *matHeaderCellDef>Enable/Disable</th>
+                <td mat-cell *matCellDef="let element">
+                  <mat-slide-toggle (change)="enableDisable(element,$event)" [checked]="element.isActive"></mat-slide-toggle>
                 </td>
               </ng-container>
             

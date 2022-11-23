@@ -1,0 +1,36 @@
+<mat-card>
+    <mat-card-title>
+        Add Product
+    </mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="sellerForm">
+            <p>
+                <mat-form-field>
+                    <input placeholder="Product Name" matInput type="text" formControlName="name">
+                    <mat-error *ngIf="sellerForm.invalid">{{getErrorMessage()}}</mat-error>
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field>
+                    <input placeholder="Product Price" matInput type="text" formControlName="price">
+                    <mat-error *ngIf="sellerForm.invalid">{{getErrorMessage()}}</mat-error>
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field>
+                    <mat-select matNativeControl formControlName="category" (change)="changeCategory($event)">
+                        <mat-option value="" disabled hidden>Choose Category
+                        </mat-option>
+                        <mat-option *ngFor="let category of categories" [value]="category">
+                            {{category}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="sellerForm.controls['category'].hasError('required')">You must make a selection</mat-error>
+                </mat-form-field>
+            </p>
+            <div class="btn-center">
+                <button mat-raised-button color="primary" (click)="saveProduct()">Submit</button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

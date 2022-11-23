@@ -78,10 +78,7 @@ export class UserDashboardComponent implements OnInit {
        this.products=res;
        this.items=res.map(r=>({...r,quantity:1}));
        this.items=this.items.filter((r:any)=>{
-        if(r.category!=deActiveCategory)
-        {
-          return r;
-        }
+         return r.isActive==true
        });
        this.dataService.setprodData(this.items);
 

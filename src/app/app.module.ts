@@ -39,6 +39,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { ProductDetailComponent } from './component/product-detail/product-detail.component';
 import { SellerPageComponent } from './component/seller-page/seller-page.component';
 import { QuestionMappingComponent } from './component/question-mapping/question-mapping.component';
+import { SellerDashboardComponent } from './component/seller-dashboard/seller-dashboard.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,7 +67,8 @@ import { QuestionMappingComponent } from './component/question-mapping/question-
     ManageAddressComponent,
     ProductDetailComponent,
     SellerPageComponent,
-    QuestionMappingComponent
+    QuestionMappingComponent,
+    SellerDashboardComponent
   ],
   imports: [
     BrowserModule,

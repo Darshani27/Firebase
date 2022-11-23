@@ -12,7 +12,7 @@
         Login
       </button>
     </span> 
-    <span *ngIf="currentUser && !(hasRoute('question-mapping'))">
+    <span *ngIf="currentUser && !(hasRoute('question-mapping') || hasRoute('seller-page'))">
       <button mat-raised-button color="accent" routerLink="/question-mapping">Question-Mapping</button>
     </span>
       &nbsp;
@@ -52,14 +52,13 @@
         Users List
       </button>
     </span>
-    <span *ngIf="!(hasRoute('question-mapping')||hasRoute('login') || hasRoute('page-not-found') || hasRoute('register') ||hasRoute('verify-email') || hasRoute('seller-page'))">
+    <span *ngIf="!(hasRoute('category-page')||hasRoute('question-mapping')||hasRoute('login') || hasRoute('page-not-found') || hasRoute('register') ||hasRoute('verify-email') || hasRoute('seller-page'))">
       <button routerLink="/shopping-cart" mat-icon-button style="color:black">
           <mat-icon matBadge="{{itemInCart}}" matBadgeColor="warn">shopping_cart</mat-icon>
       </button>
   </span> 
   <span *ngIf="currentUser && hasRoute('seller-page')">
-    <button mat-raised-button color="accent">Add Category</button> &nbsp;
-    <button mat-raised-button color="primary">Add Product</button>
+    <button mat-raised-button color="primary" (click)="addProduct()">Add Product</button>
   </span>
     <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" [matMenuTriggerFor]="share">
      <mat-icon>share</mat-icon>

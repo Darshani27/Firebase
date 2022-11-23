@@ -1,6 +1,7 @@
 import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { map } from 'rxjs';
 import { DataService } from 'src/app/shared/data.service';
@@ -14,7 +15,7 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 })
 export class CategoryPageComponent implements OnInit {
   products:any[]=[];
-  displayedColumns: string[] = ['category','action'];
+  displayedColumns: string[] = ['category','action','enable'];
   items: any;
   title:string='Confirm Action';
   message:string='Are You Sure You Want to Delete ?';
@@ -126,6 +127,10 @@ export class CategoryPageComponent implements OnInit {
       }
       
     })
+    
+  }
+  enableDisable(item:any,event:MatSlideToggleChange)
+  {
     
   }
 }

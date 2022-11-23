@@ -16,144 +16,131 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  product:Product={} as any;
-  submitted:boolean=false;
-  productForm:FormGroup={} as any;
-  result:boolean=false;
-  message: string="Are you sure you want to logout ?";
-  title: string="Confirm Action";
-  products: any[]=[];
-  productNames: any[]=[];
-  categories: any[]=[];
+  product: Product = {} as any;
+  submitted: boolean = false;
+  productForm: FormGroup = {} as any;
+  result: boolean = false;
+  message: string = "Are you sure you want to logout ?";
+  title: string = "Confirm Action";
+  products: any[] = [];
+  productNames: any[] = [];
+  categories: any[] = [];
 
 
-  constructor( @Optional()public dialogRef: MatDialogRef<DashboardComponent>,private dataService:DataService,private auth:AuthService,private dialog:MatDialog,private router:Router,private _snackbar:MatSnackBar) { }
+  constructor(@Optional() public dialogRef: MatDialogRef<DashboardComponent>, private dataService: DataService, private auth: AuthService, private dialog: MatDialog, private router: Router, private _snackbar: MatSnackBar) { }
 
   ngOnInit(): void {
-    this.productForm=new FormGroup({
-      'productname': new FormControl('',Validators.required),
-      'productprice': new FormControl('',[Validators.required,Validators.pattern('[0-9]*')]),
-      'productcategory':new FormControl('',Validators.required)
+    this.productForm = new FormGroup({
+      'productname': new FormControl('', Validators.required),
+      'productprice': new FormControl('', [Validators.required, Validators.pattern('[0-9]*')]),
+      'productcategory': new FormControl('', Validators.required)
     });
     this.retrieveProducts();
     this.retrieveCategories();
   }
-  changeCategory(event:any)
-  {
+  changeCategory(event: any) {
     console.log(event.target.value);
     this.productForm.controls['productcategory'].setValue(event.target.value);
-    
+
   }
   retrieveCategories() {
     this.dataService.getCategories().snapshotChanges().pipe(
-      map((changes: any[])=>{
-        return changes.map(c=>{
-          return {key:c.key,...c.payload.val()};
-        })   
+      map((changes: any[]) => {
+        return changes.map(c => {
+          return { key: c.key, ...c.payload.val() };
+        })
       })
-     ).subscribe((data : any)=>{
-      this.categories=data.map((r:any)=>{ return r.category});
-     },(err)=>{
+    ).subscribe((data: any) => {
+      this.categories = data.map((r: any) => { return r.category });
+    }, (err) => {
       alert(err.message);
-     });
-  }
-
-  retrieveProducts() : any {
-    this.dataService.getAll().snapshotChanges().pipe(
-     map((changes: any[])=>{
-       return changes.map(c=>{
-         return {key:c.key,...c.payload.val()};
-       })   
-     })
-    ).subscribe((data : any)=>{
-     this.products=data;
-    },(err)=>{
-     alert(err.message);
     });
-    
-   }
-  saveProduct()
-  {
-    this.product={
-    name:this.productForm.value.productname,
-    price:this.productForm.value.productprice,
-    category:this.productForm.value.productcategory,
-    units:1
-   } as any;
-   if((this.productForm.value.productprice==''||this.productForm.value.productcategory=='' || this.productForm.value.productname=='')&& !this.result)
-   {
-    this._snackbar.open('Please Enter Product Details','OK');
-    this.submitted=false;
-    this.router.navigate(['/dashboard']);
-   }
-   if((this.productForm.value.productprice!=''||this.productForm.value.productcategory!='' || this.productForm.value.productname!='') || this.result)
-   {
-    this.productNames=this.products.map((r:any)=>{return r.name});
-    if(!(this.productNames.includes(this.productForm.value.productname)))
-    {
-      this.dataService.createProduct(this.product).then((res: any)=>{
-        this.submitted=true;
-        this._snackbar.open('Product Added Successfully','OK');
-        this.dialogRef?.close(true);
-      });
-    }
-    else
-    {
-      this.products=this.products.map((r:any)=>{
-        if (r.name == this.productForm.value.productname) {
-          r.units++;
-          var temp = r;
-          const key = temp?.key;
-          const data = { units: r.units };
-          this.dataService.update(key, data).then((res: any) => {
-            this._snackbar.open('Products units has been inceased', 'OK');
-          });
-        }else
-        {
-          return;
-        }
-      });
-    }
-   }
   }
 
-  newProduct()
-  {
-     this.product={} as any;
-     this.submitted=false;
+  retrieveProducts(): any {
+    this.dataService.getAll().snapshotChanges().pipe(
+      map((changes: any[]) => {
+        return changes.map(c => {
+          return { key: c.key, ...c.payload.val() };
+        })
+      })
+    ).subscribe((data: any) => {
+      this.products = data;
+    }, (err) => {
+      alert(err.message);
+    });
+
+  }
+  saveProduct() {
+    this.product = {
+      name: this.productForm.value.productname,
+      price: this.productForm.value.productprice,
+      category: this.productForm.value.productcategory,
+      units: 1
+    } as any;
+    if ((this.productForm.value.productprice == '' || this.productForm.value.productcategory == '' || this.productForm.value.productname == '') && !this.result) {
+      this._snackbar.open('Please Enter Product Details', 'OK');
+      this.submitted = false;
+      this.router.navigate(['/dashboard']);
+    }
+    if ((this.productForm.value.productprice != '' || this.productForm.value.productcategory != '' || this.productForm.value.productname != '') || this.result) {
+      this.productNames = this.products.map((r: any) => { return r.name });
+      if (!(this.productNames.includes(this.productForm.value.productname))) {
+        this.dataService.createProduct(this.product).then((res: any) => {
+          this.submitted = true;
+          this._snackbar.open('Product Added Successfully', 'OK');
+          this.dialogRef?.close(true);
+        });
+      }
+      else {
+        this.products = this.products.map((r: any) => {
+          if (r.name == this.productForm.value.productname) {
+            r.units++;
+            var temp = r;
+            const key = temp?.key;
+            const data = { units: r.units };
+            this.dataService.update(key, data).then((res: any) => {
+              this._snackbar.open('Products units has been inceased', 'OK');
+            });
+          } else {
+            return;
+          }
+        });
+      }
+    }
   }
 
-  submittedMessage()
-  {
+  newProduct() {
+    this.product = {} as any;
+    this.submitted = false;
+  }
+
+  submittedMessage() {
     return 'You have submitted successfully !'
   }
-  getErrorMessage()
-  {
-    if(this.productForm.value.productprice==''||this.productForm.value.productcategory=='' || this.productForm.value.productname=='')
-    {
+  getErrorMessage() {
+    if (this.productForm.value.productprice == '' || this.productForm.value.productcategory == '' || this.productForm.value.productname == '') {
       return 'Please enter value';
     }
-    if(this.productForm.value.productprice != ""&& this.productForm.controls['productprice'].hasError('pattern'))
-    {
+    if (this.productForm.value.productprice != "" && this.productForm.controls['productprice'].hasError('pattern')) {
       return 'Invalid Price';
     }
-    return'';
+    return '';
   }
-  signOut()
-  {
-    const dialogRef=this.dialog.open(ConfirmDialogComponent,
+  signOut() {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent,
       {
         maxWidth: "400px",
-        data:{title:this.title,message:this.message}
+        data: { title: this.title, message: this.message }
       });
-      dialogRef.afterClosed().subscribe((res : any)=>{
-        this.result=res;
-        console.log(this.result);
-        if (this.result) {
-          this.auth.logout();
-        }
-      });
-    
+    dialogRef.afterClosed().subscribe((res: any) => {
+      this.result = res;
+      console.log(this.result);
+      if (this.result) {
+        this.auth.logout();
+      }
+    });
+
   }
- 
+
 }

@@ -1,3 +1,4 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
@@ -10,16 +11,28 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 @Component({
   selector: 'app-seller-page',
   templateUrl: './seller-page.component.html',
-  styleUrls: ['./seller-page.component.css']
+  styleUrls: ['./seller-page.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class SellerPageComponent implements OnInit {
 
   displayedColumns: string[] = [ 'category','action'];
+  columnsToDisplay:string[]=['name','category','action']
+
   items: any;
   categories: any;
   result: any;
   btnDisable: boolean=false;
   currentUser: any;
+  products: any;
+  myList: any[]=[];
+  productOfCategory: any;
 
   constructor(private dataService:DataService,private dialog:MatDialog,private _snackBar:MatSnackBar,private auth:AuthService) { }
 
@@ -28,6 +41,23 @@ export class SellerPageComponent implements OnInit {
       this.currentUser=res;
     })
     this.retrieveCategories();
+    this.retrieveProducts();
+  }
+  retrieveProducts() {
+    this.dataService.getAll().snapshotChanges().pipe(
+      map((changes: any[]) => {
+        return changes.map(c => {
+          return { key: c.key, ...c.payload.val() };
+        })
+      })
+    ).subscribe((data: any) => {
+      this.products = data;
+      this.productOfCategory=this.products.filter((r:any)=>{
+        return r.addedBy==this.currentUser;
+      })
+    }, (err) => {
+      alert(err.message);
+    });
   }
   retrieveCategories() {
     this.dataService.getCategories().snapshotChanges().pipe(
@@ -47,7 +77,7 @@ export class SellerPageComponent implements OnInit {
       alert(err.message);
      }); 
   }
-  enableDisable(item:any,event:MatSlideToggleChange)
+  enableDisableProduct(item:any,event:MatSlideToggleChange)
   {
     if(item.isActive==true)
     {
@@ -62,9 +92,9 @@ export class SellerPageComponent implements OnInit {
         {
               item.isActive=false;
               const data={...item,isActive:false};
-              this.dataService.updateCategory(item.key,data).then((res)=>{
-              this._snackBar.open('Category Disabled Successfully','OK');
-              this.retrieveCategories();
+              this.dataService.update(item.key,data).then((res)=>{
+              this._snackBar.open(' Product Disabled Successfully','OK');
+              this.retrieveProducts();
               }); 
               this.btnDisable=false;
         }
@@ -89,10 +119,10 @@ export class SellerPageComponent implements OnInit {
           {
                 item.isActive=true;
                 const data={...item,isActive:true};
-                this.dataService.updateCategory(item.key,data).then((res)=>{
-                this._snackBar.open('Category Enabled Successfully','OK');
+                this.dataService.update(item.key,data).then((res)=>{
+                this._snackBar.open('Product Enabled Successfully','OK');
                 event.source.checked=true;
-                this.retrieveCategories();
+                this.retrieveProducts();
                 });
           }
           else

@@ -12,6 +12,8 @@ import { AuthService } from 'src/app/shared/auth.service';
 import { CartServiceService } from 'src/app/shared/cart-service.service';
 import { DataService } from 'src/app/shared/data.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { DashboardComponent } from '../dashboard/dashboard.component';
+import { SellerDashboardComponent } from '../seller-dashboard/seller-dashboard.component';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
 
 @Component({
@@ -200,6 +202,14 @@ export class MenuComponent implements OnInit {
     return this.ProdData;
 
 
+  }
+
+  addProduct()
+  {
+    const dialogRef=this.dialog.open(SellerDashboardComponent,
+      {
+        width:'500px'
+      })
   }
 
 }
