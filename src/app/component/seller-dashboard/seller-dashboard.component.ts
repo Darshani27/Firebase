@@ -67,7 +67,7 @@ export class SellerDashboardComponent implements OnInit {
      ).subscribe((data : any)=>{
       this.itemsofCategory=data;
       this.itemsofCategory=this.itemsofCategory.filter((r:any)=>{
-         return (r.isActive==true && r.addedBy==this.currentUser)
+         return r.isActive==true 
       }
       )
       this.categories=[...this.itemsofCategory];
