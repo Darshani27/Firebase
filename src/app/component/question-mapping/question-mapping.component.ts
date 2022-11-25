@@ -26,9 +26,7 @@ export class QuestionMappingComponent implements OnInit {
       'radio':new FormControl(),
       'shortText':new FormControl()
     });
-    // this.questionForm.patchValue({
-    //   'text':this.result.
-    // });
+   
   }
   retrieveData() {
     this.dataService.getData().subscribe((res:any)=>{
@@ -36,9 +34,18 @@ export class QuestionMappingComponent implements OnInit {
       if(this.data)
       {
         this.result=this.data.result;
+        console.log(this.result);
+        
+        const answerVal = this.result.map((result: any) => {
+          return result.answer.originalName;
+        })
+
+         this.questionForm.patchValue({
+         'text': answerVal
+    }); 
       }
     });
-    console.log(this.result);
+    // console.log(this.result);
     
   }
 
