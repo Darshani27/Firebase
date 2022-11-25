@@ -138,7 +138,6 @@ export class PaymentComponent implements OnInit {
         });
       }
     });
-    // const orderId='OR'+'_';
     const orderId='OR'+'_'+this.settingCounter;
     const currentDate=new Date();
     const dateOfOrder=currentDate.getDate() + "/" +(currentDate.getMonth() +1) + "/" +currentDate.getFullYear();

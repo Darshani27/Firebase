@@ -69,7 +69,7 @@ export class SellerPageComponent implements OnInit {
      ).subscribe((data : any)=>{
       this.items=data;
       this.items=this.items.filter((r:any)=>{
-         return r.addedBy==this.currentUser
+         return (r.addedBy==this.currentUser && r.isActive==true)
       }
       )
       this.categories=[...this.items];

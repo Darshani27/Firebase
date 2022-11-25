@@ -74,11 +74,11 @@ export class UserDashboardComponent implements OnInit {
         return r.category;
       });
       const category=[... new Set(responseCategories)];
-      const deActiveCategory=category.find((r)=>{if(this.categories.indexOf(r)==-1) return r;}) 
+      const deActiveCategory=category.filter((r)=>{if(this.categories.indexOf(r)==-1) return r;}) 
        this.products=res;
        this.items=res.map(r=>({...r,quantity:1}));
        this.items=this.items.filter((r:any)=>{
-         return (r.isActive==true && r.category!=deActiveCategory)
+         return (r.isActive==true && !(deActiveCategory.includes(r.category)))
        });
        this.dataService.setprodData(this.items);
 
@@ -99,7 +99,6 @@ export class UserDashboardComponent implements OnInit {
     this.auth.setsearchOption(item.name);
     this.route.navigate(['/product-detail']);
   }
-  // https://javascript.plainenglish.io/develop-an-online-shop-with-angular-11-and-net-core-5-f0ed1ac0aeeb
 }
 
 

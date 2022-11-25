@@ -60,16 +60,4 @@ export class RegisterComponent implements OnInit {
 
     }
   }
-  // getErrorMessage()
-  // {
-  //   if(this.registerForm.get('email')?.value=='' && this.registerForm.get('password')?.value=='')
-  //   {
-  //     return 'Please Enter Value';
-  //   }
-  //   if(!this.registerForm.get('email')?.value?.includes('@'))
-  //   {
-  //     return 'Not a Valid Email';
-  //   }
-  //   return '';
-  // }
 }

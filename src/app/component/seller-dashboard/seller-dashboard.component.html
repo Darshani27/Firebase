@@ -7,13 +7,14 @@
             <p>
                 <mat-form-field>
                     <input placeholder="Product Name" matInput type="text" formControlName="name">
-                    <mat-error *ngIf="sellerForm.invalid">{{getErrorMessage()}}</mat-error>
+                    <mat-error *ngIf="f.name.errors?.['required']">Name is Required</mat-error>
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field>
                     <input placeholder="Product Price" matInput type="text" formControlName="price">
-                    <mat-error *ngIf="sellerForm.invalid">{{getErrorMessage()}}</mat-error>
+                    <mat-error *ngIf="f.price.errors?.['required']">Price is required</mat-error>
+                    <mat-error *ngIf="f.price.errors?.['pattern']">Price must be a number</mat-error>
                 </mat-form-field>
             </p>
             <p>
@@ -29,7 +30,7 @@
                 </mat-form-field>
             </p>
             <div class="btn-center">
-                <button mat-raised-button color="primary" (click)="saveProduct()">Submit</button>
+                <button mat-raised-button color="primary" (click)="saveProduct()" [disabled]="sellerForm.invalid && sellerForm.touched">Submit</button>
             </div>
         </form>
     </mat-card-content>

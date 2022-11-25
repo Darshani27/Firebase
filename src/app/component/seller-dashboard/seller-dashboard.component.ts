@@ -77,18 +77,8 @@ export class SellerDashboardComponent implements OnInit {
      }); 
    
   }
-  getErrorMessage()
-  {
-    if(this.sellerForm.value.price==''||this.sellerForm.value.category=='' || this.sellerForm.value.name=='')
-    {
-      return 'Please enter value';
-    }
-    if(this.sellerForm.value.price != ""&& this.sellerForm.controls['price'].hasError('pattern'))
-    {
-      return 'Invalid Price';
-    }
-    return'';
-  }
+  
+  get f() { return this.sellerForm.controls; }
   saveProduct()
   {
     this.product={
