@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DataService } from 'src/app/shared/data.service';
 
 @Component({
@@ -14,35 +14,67 @@ export class QuestionMappingComponent implements OnInit {
   section: any;
   questionForm:FormGroup={} as any;
   answers: any;
+  texts!: FormGroup<{ text: FormControl<any>; }>;
 
 
-  constructor(private dataService:DataService) { }
+  constructor(private dataService:DataService,private fb:FormBuilder) { }
 
   ngOnInit(): void {
     this.retrieveData();
-    this.questionForm=new FormGroup({
-      'text':new FormControl(),
-      'select':new FormControl(),
-      'radio':new FormControl(),
-      'shortText':new FormControl()
+    this.questionForm=this.fb.group({
+      text:[],
+      radio:[],
+      select:[],
+      shortText:[]
+     
     });
    
   }
+  det(): any {
+    this.answers.map((r:any,index:any)=>{
+     
+    })
+  }
+  // get ansques()
+  // {
+  //   return this.questionForm?.controls["ansques"] as FormArray;
+  // }
   retrieveData() {
-    this.dataService.getData().subscribe((res:any)=>{
-      this.data=res||[];
-      if(this.data)
-      {
-        this.result=this.data.result;
-        console.log(this.result);
-        
-        const answerVal = this.result.map((result: any) => {
-          return result.answer.originalName;
-        })
+    this.dataService.getData().subscribe((res: any) => {
+      this.data = res || [];
+      if (this.data) {
+        this.result = this.data.result;
+        this.answers = this.result.map((r: any) => {
+          return r.answer
+        });
+        this.answers.map((r: any, index: any) => {
+          // this.texts = this.fb.group({
+          //   text: [this.answers[index]?.originalName]
+          // });
+          // this.text.push(this.texts)
+          // this.questionForm.patchValue({
+          //   text:[this.answers[index]?.originalName]
+          // })
+          this.dataService.getSingleData(this.answers[index].questionId).subscribe((x:any)=>{
+            console.log(x);
+            this.questionForm.patchValue([
+              {
+              text:x.answer.originalName
+                
+              }
 
-         this.questionForm.patchValue({
-         'text': answerVal
-    }); 
+            ]
+            );
+          });
+        //   const a=this.fb.group({
+        //     text:[this.answers[index].originalName],
+        //     select:[],
+        //     radio:[],
+        //     shortText:[]
+        //   });
+        //   this.ansques.push(a)
+        });
+       
       }
     });
     // console.log(this.result);
@@ -51,7 +83,24 @@ export class QuestionMappingComponent implements OnInit {
 
   saveFormData()
   {
-
+  
+    const data=[{
+      questionId:'',
+      answer:''
+    },{
+      questionId:'',
+      bool:false,
+    },
+  {
+    questionId:'',
+    multi:[{id:1},{id:2}]
+  }]
+     
+    
+ 
+    // this.questionForm.value
+    console.log(this.questionForm.value.text);
+    
   }
 
 }

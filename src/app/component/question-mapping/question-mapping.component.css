@@ -38,3 +38,8 @@ mat-form-field
      
     border: 1px solid rgb(209, 204, 204);
   }
+  .btn-center
+  {
+    display:flex;
+    justify-content:center
+  }

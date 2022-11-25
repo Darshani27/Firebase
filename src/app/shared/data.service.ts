@@ -143,7 +143,7 @@ getData() :Observable<any>
 getSingleData(id:number) :Observable<any>
 {
   return this.http.get('assets/smaple.json').pipe(map((res:any)=>{
-    return res.result.filter((x:any) => x.id === id);
+    return res.result.find((x:any) => x.id === id);
   }));
 }
 }
