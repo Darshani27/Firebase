@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DataService } from 'src/app/shared/data.service';
 
@@ -7,38 +7,37 @@ import { DataService } from 'src/app/shared/data.service';
   templateUrl: './question-mapping.component.html',
   styleUrls: ['./question-mapping.component.css']
 })
-export class QuestionMappingComponent implements OnInit {
+export class QuestionMappingComponent implements OnInit{
   displayedColumns: string[] = ['section','name','answer'];
   data:any;
   result: any[]=[];
   section: any;
   questionForm:FormGroup={} as any;
   answers: any;
-  texts!: FormGroup<{ text: FormControl<any>; }>;
-
+  texts!: FormGroup<{ longtext: FormControl<any>; }>;
+  @ViewChild('text')
+  textRef!: ElementRef;
 
   constructor(private dataService:DataService,private fb:FormBuilder) { }
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   const a=this.questionForm.get('text') as FormArray;
+  //   console.log(this.questionForm.get('text') as FormArray );
+  //    console.log(a.statusChanges.subscribe(x=>x));
+  // }
 
   ngOnInit(): void {
     this.retrieveData();
     this.questionForm=this.fb.group({
-      text:[],
-      radio:[],
-      select:[],
-      shortText:[]
-     
+      text:this.fb.array([]),
+      'select':new FormControl(),
+      'radio':new FormControl(),
+      'shortText':new FormControl()
     });
+    const a=this.questionForm.get('text') as FormArray;
+    console.log(this.questionForm.get('text') as FormArray );
+     console.log(a.statusChanges.subscribe(x=>x));
    
   }
-  det(): any {
-    this.answers.map((r:any,index:any)=>{
-     
-    })
-  }
-  // get ansques()
-  // {
-  //   return this.questionForm?.controls["ansques"] as FormArray;
-  // }
   retrieveData() {
     this.dataService.getData().subscribe((res: any) => {
       this.data = res || [];
@@ -48,40 +47,23 @@ export class QuestionMappingComponent implements OnInit {
           return r.answer
         });
         this.answers.map((r: any, index: any) => {
-          // this.texts = this.fb.group({
-          //   text: [this.answers[index]?.originalName]
-          // });
-          // this.text.push(this.texts)
-          // this.questionForm.patchValue({
-          //   text:[this.answers[index]?.originalName]
-          // })
-          this.dataService.getSingleData(this.answers[index].questionId).subscribe((x:any)=>{
-            console.log(x);
-            this.questionForm.patchValue([
-              {
-              text:x.answer.originalName
-                
-              }
-
-            ]
-            );
+          const texts=this.fb.group({
+            longtext:[this.answers[index].originalName]
           });
-        //   const a=this.fb.group({
-        //     text:[this.answers[index].originalName],
-        //     select:[],
-        //     radio:[],
-        //     shortText:[]
-        //   });
-        //   this.ansques.push(a)
+         this.text.push(texts);
         });
-       
+    
+        
       }
     });
     // console.log(this.result);
-    
+  }
+  get text()
+  {
+    return this.questionForm.controls['text'] as FormArray;
   }
 
-  saveFormData()
+  saveFormData(item:any)
   {
   
     const data=[{
@@ -95,11 +77,14 @@ export class QuestionMappingComponent implements OnInit {
     questionId:'',
     multi:[{id:1},{id:2}]
   }]
+     console.log(item);
      
     
  
     // this.questionForm.value
-    console.log(this.questionForm.value.text);
+    // console.log(questionForm.value);
+    console.log(this.textRef.nativeElement.value);
+    
     
   }
 
