@@ -5,6 +5,7 @@ import { CategoryPageComponent } from './component/category-page/category-page.c
 import { ChangePasswordComponent } from './component/change-password/change-password.component';
 import { CheckoutComponent } from './component/checkout/checkout.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
+import { DummyComponent } from './component/dummy/dummy.component';
 import { ForgotPaswordComponent } from './component/forgot-pasword/forgot-pasword.component';
 import { HomeComponent } from './component/home/home.component';
 import { LoginComponent } from './component/login/login.component';
@@ -48,6 +49,7 @@ const routes: Routes = [
   {path:'manage-address',component:ManageAddressComponent},
   {path:'product-detail',component:ProductDetailComponent},
   {path:'seller-page',component:SellerPageComponent},
+  {path:'dummy',component:DummyComponent},
   {path:'seller-dashboard',component:SellerDashboardComponent},
   {path:'question-mapping',component:QuestionMappingComponent},
   {path:'**',component:PageNotFoundComponent},

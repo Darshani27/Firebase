@@ -17,6 +17,7 @@ export class QuestionMappingComponent implements OnInit{
   texts!: FormGroup<{ longtext: FormControl<any>; }>;
   @ViewChild('text')
   textRef!: ElementRef;
+  savedData: ({ questionId: string; answer: string; bool?: undefined; multi?: undefined; } | { questionId: string; bool: boolean; answer?: undefined; multi?: undefined; } | { questionId: string; multi: { id: number; }[]; answer?: undefined; bool?: undefined; })[] = [];
 
   constructor(private dataService:DataService,private fb:FormBuilder) { }
   // ngOnChanges(changes: SimpleChanges): void {
@@ -29,44 +30,88 @@ export class QuestionMappingComponent implements OnInit{
     this.retrieveData();
     this.questionForm=this.fb.group({
       text:this.fb.array([]),
-      'select':new FormControl(),
-      'radio':new FormControl(),
-      'shortText':new FormControl()
+      select:this.fb.array([]),
+      radio:this.fb.array([]),
+      shortText:this.fb.array([])
     });
-    const a=this.questionForm.get('text') as FormArray;
-    console.log(this.questionForm.get('text') as FormArray );
-     console.log(a.statusChanges.subscribe(x=>x));
-   
+  }
+  onInputChanges(event:any,i:number) : any{
+   this.questionForm.value.text[i]={text:event.target.value};
+    console.log(event.target.value,i);
   }
   retrieveData() {
     this.dataService.getData().subscribe((res: any) => {
       this.data = res || [];
       if (this.data) {
+        
         this.result = this.data.result;
+        console.log(this.result.filter((r:any)=>r.responseType.name=='LONG_TEXT'));
+
         this.answers = this.result.map((r: any) => {
           return r.answer
         });
-        this.answers.map((r: any, index: any) => {
-          const texts=this.fb.group({
-            longtext:[this.answers[index].originalName]
+          this.answers.map((r: any, index: any) => {
+            const texts=this.fb.group({
+              text:[this.answers[index].originalName]
+            });
+            if(r.originalName!=null && this.result.filter((r:any)=>r.responseType.name=='LONG_TEXT'))
+            {
+            this.text.push(texts);
+            }
+            else if(r.bool !=null  && this.result.filter((r:any)=>r.responseType.name=='BOOL') )
+            {
+              const radios=this.fb.group({
+                bool:[this.answers[index].bool]
+              });
+              this.radio.push(radios);
+            }
+            else if(r.bool !=null  && this.result.filter((r:any)=>r.responseType.name=='MULTI_SELECT') )
+            {
+              const selects=this.fb.group({
+                selectid:[this.answers[index].name]
+              });
+              this.select.push(selects);
+            }
           });
-         this.text.push(texts);
-        });
-    
         
       }
     });
-    // console.log(this.result);
+    // this.questionForm.patchValue({
+    //   'select':this.questionForm.value.select
+    // })
+        // console.log(this.result);
   }
   get text()
   {
     return this.questionForm.controls['text'] as FormArray;
   }
+  get select()
+  {
+    return this.questionForm.controls['select'] as FormArray;
+  }
+  get radio()
+  {
+    return this.questionForm.controls['radio'] as FormArray;
+  }
+  get shortText()
+  {
+    return this.questionForm.controls['shortText'] as FormArray;
+  }
+  change(event:any,index:number)
+  {
+   this.questionForm.value.select[index]=event.value;
+    console.log(event.value);
+    
+  }
+  radioChange(event:any,index:number)
+  {
+    this.questionForm.value.radio[index]=event.value;
+  }
 
   saveFormData(item:any)
   {
   
-    const data=[{
+    this.savedData=[{
       questionId:'',
       answer:''
     },{
@@ -79,11 +124,8 @@ export class QuestionMappingComponent implements OnInit{
   }]
      console.log(item);
      
-    
  
-    // this.questionForm.value
-    // console.log(questionForm.value);
-    console.log(this.textRef.nativeElement.value);
+    console.log(this.questionForm.value);
     
     
   }

@@ -40,6 +40,7 @@ import { ProductDetailComponent } from './component/product-detail/product-detai
 import { SellerPageComponent } from './component/seller-page/seller-page.component';
 import { QuestionMappingComponent } from './component/question-mapping/question-mapping.component';
 import { SellerDashboardComponent } from './component/seller-dashboard/seller-dashboard.component';
+import { DummyComponent } from './component/dummy/dummy.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,7 +69,8 @@ import { SellerDashboardComponent } from './component/seller-dashboard/seller-da
     ProductDetailComponent,
     SellerPageComponent,
     QuestionMappingComponent,
-    SellerDashboardComponent
+    SellerDashboardComponent,
+    DummyComponent
   ],
   imports: [
     BrowserModule,
