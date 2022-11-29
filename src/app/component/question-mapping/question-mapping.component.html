@@ -43,8 +43,8 @@
                             <mat-label>Select :</mat-label>
                             <br>
                             <mat-radio-group aria-label="Select an option"  formArrayName="radio"   (change)="radioChange($event,i)">
-                                <mat-radio-button value="1">Yes</mat-radio-button>&nbsp; &nbsp;
-                                <mat-radio-button value="2">No</mat-radio-button>
+                                <mat-radio-button value="true">Yes</mat-radio-button>&nbsp; &nbsp;
+                                <mat-radio-button value="false">No</mat-radio-button>
                               </mat-radio-group>
                         </div>
                         <div *ngIf="row.responseType.name=='SHORT_TEXT'">

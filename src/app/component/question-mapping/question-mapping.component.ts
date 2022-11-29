@@ -36,8 +36,7 @@ export class QuestionMappingComponent implements OnInit{
     });
   }
   onInputChanges(event:any,i:number) : any{
-   this.questionForm.value.text[i]={text:event.target.value};
-    console.log(event.target.value,i);
+   this.questionForm.value.text[i]={answer:event.target.value};
   }
   retrieveData() {
     this.dataService.getData().subscribe((res: any) => {
@@ -51,11 +50,12 @@ export class QuestionMappingComponent implements OnInit{
           return r.answer
         });
           this.answers.map((r: any, index: any) => {
-            const texts=this.fb.group({
-              text:[this.answers[index].originalName]
-            });
+            
             if(r.originalName!=null && this.result.filter((r:any)=>r.responseType.name=='LONG_TEXT'))
             {
+              const texts=this.fb.group({
+                answer:[this.answers[index].originalName]
+              });
             this.text.push(texts);
             }
             else if(r.bool !=null  && this.result.filter((r:any)=>r.responseType.name=='BOOL') )
@@ -68,7 +68,7 @@ export class QuestionMappingComponent implements OnInit{
             else if(r.bool !=null  && this.result.filter((r:any)=>r.responseType.name=='MULTI_SELECT') )
             {
               const selects=this.fb.group({
-                selectid:[this.answers[index].name]
+                select:[this.answers[index].name]
               });
               this.select.push(selects);
             }
@@ -99,31 +99,41 @@ export class QuestionMappingComponent implements OnInit{
   }
   change(event:any,index:number)
   {
-   this.questionForm.value.select[index]=event.value;
-    console.log(event.value);
+   this.questionForm.value.select[index]={id:event.value};
     
   }
   radioChange(event:any,index:number)
   {
-    this.questionForm.value.radio[index]=event.value;
+    this.questionForm.value.radio[index]={bool:event.value};
   }
 
   saveFormData(item:any)
   {
   
-    this.savedData=[{
-      questionId:'',
-      answer:''
-    },{
-      questionId:'',
-      bool:false,
-    },
-  {
-    questionId:'',
-    multi:[{id:1},{id:2}]
-  }]
+  //   this.savedData=[{
+  //     questionId:'',
+  //     answer:''
+  //   },{
+  //     questionId:'',
+  //     bool:false,
+  //   },
+  // {
+  //   questionId:'',
+  //   multi:[{id:1},{id:2}]
+  // }]
+  this.savedData=[]
      console.log(item);
      
+     this.answers.map((r:any,index:any)=>{
+      const data={
+        questionId:this.answers[index].questionId
+      }
+      console.log(data);
+      this.savedData.push(data as any);
+      console.log(this.savedData);
+      
+      
+     });
  
     console.log(this.questionForm.value);
     
