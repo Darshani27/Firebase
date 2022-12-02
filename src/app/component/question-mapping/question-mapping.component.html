@@ -33,7 +33,7 @@
                         <div  *ngIf="row.responseType.name=='SINGLE_SELECT' || row.responseType.name=='MULTI_SELECT' " >
                             <mat-form-field appearance="outline" >
                                 <mat-label>Select</mat-label>
-                                <mat-select formArrayName="select" (selectionChange)="change($event,i)">
+                                <mat-select formArrayName="select" (selectionChange)="change($event,row.id)">
                                     <mat-option value="1">1</mat-option>
                                     <mat-option value="2">2</mat-option>
                                 </mat-select>
@@ -48,16 +48,14 @@
                               </mat-radio-group>
                         </div>
                         <div *ngIf="row.responseType.name=='SHORT_TEXT'">
-                            <textarea formArrayName="shortText"  rows="5" cols="40" type="text" placeholder="Enter Answer" value="{{row.answer.originalName}}"></textarea>
+                            <textarea (input)="onInputChanges($event,i)" formArrayName="shortText"  rows="5" cols="40" type="text" placeholder="Enter Answer" value="{{row.answer.originalName}}"></textarea>
                         </div>
                     </td>
                   <!-- </div> -->
                  
                 <!-- </div> -->
                 <td mat-footer-cell *matFooterCellDef>
-                  <div class="btn-center">
-                    <button type="submit" mat-raised-button color="primary" (click)="saveFormData(questionForm.value)">Submit</button>
-                  </div>
+                 
                 </td>
               </ng-container>
               
@@ -81,7 +79,9 @@
           </div>
 
           <br>
-        
+          <div class="btn-center">
+            <button type="submit" mat-raised-button color="primary" (click)="saveFormData()">Submit</button>
+          </div>
           
     </mat-card-content>
 </mat-card>
