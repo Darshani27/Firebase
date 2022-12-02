@@ -105,10 +105,10 @@ export class QuestionMappingComponent implements OnInit{
     const multiQuestionIds=multiQuestion.map((r:any)=>{
       return r.id;
     });
-    this.savedData.push({
-      questionId:i,
-      multi:this.questionForm.value.select[i]
-    } as any)
+    // this.savedData.push({
+    //   questionId:i,
+    //   multi:this.questionForm.value.select[i]
+    // } as any)
 
     console.log(this.questionForm.value.select);
     console.log(this.savedData);
@@ -170,15 +170,16 @@ export class QuestionMappingComponent implements OnInit{
           bool:this.questionForm.value.radio[index]?.bool
         } as any)
       }
-      if(multiQuestionIds.includes(this.answers[index].questionId))
-      {
-        this.savedData.push({
-          questionId:this.answers[index].questionId,
-          multi:this.questionForm.value.select[index]
-        } as any);
-        console.log(this.savedData);
+      // if(multiQuestionIds.includes(this.answers[index].questionId))
+      // {
+      //   // this.savedData.push({
+      //   //   questionId:this.answers[index].questionId,
+      //   //   multi:this.questionForm.value.select[index]
+      //   // } as any);
+      //   // this.savedData.push({...this.savedData as any})
+      //   console.log(this.savedData);
         
-      }
+      // }
       if(shortTextQuestionIds.includes(this.answers[index].questionId))
       {
         this.savedData.push({
@@ -186,6 +187,7 @@ export class QuestionMappingComponent implements OnInit{
           answer:this.questionForm.value.shortText[index]?.answer
         } as any);
       }
+        this.savedData=[...this.savedData]
       
       
       console.log(this.savedData);
