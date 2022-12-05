@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { AnonymousSubject } from 'rxjs/internal/Subject';
+import { CONSTANTS } from 'src/app/constants';
 import { DataService } from 'src/app/shared/data.service';
 
 @Component({
@@ -15,9 +16,6 @@ export class QuestionMappingComponent implements OnInit{
   section: any;
   questionForm:FormGroup={} as any;
   answers: any;
-  texts!: FormGroup<{ longtext: FormControl<any>; }>;
-  @ViewChild('text')
-  textRef!: ElementRef;
   savedData: ({ questionId: string; answer: string; bool?: undefined; multi?: undefined; } | { questionId: string; bool: boolean; answer?: undefined; multi?: undefined; } | { questionId: string; multi: { id: number; }[]; answer?: undefined; bool?: undefined; })[] = [];
 
   constructor(private dataService:DataService,private fb:FormBuilder) { }
@@ -48,28 +46,28 @@ export class QuestionMappingComponent implements OnInit{
         });
           this.answers.map((r: any, index: any) => {
             
-            if(r.originalName!=null && this.result.filter((r:any)=>r.responseType.name=='LONG_TEXT'))
+            if(r.originalName!=null && this.result.filter((r:any)=>r.responseType.name==CONSTANTS.LONG_TEXT))
             {
               const texts=this.fb.group({
                 answer:[this.answers[index].originalName]
               });
             this.text.push(texts);
             }
-            else if(r.bool !=null  && this.result.filter((r:any)=>r.responseType.name=='BOOL') )
+            else if(r.bool !=null  && this.result.filter((r:any)=>r.responseType.name==CONSTANTS.BOOL) )
             {
               const radios=this.fb.group({
                 bool:[this.answers[index].bool]
               });
               this.radio.push(radios);
             }
-            else if(r.bool !=null  && this.result.filter((r:any)=>r.responseType.name=='MULTI_SELECT') )
+            else if(r.bool !=null  && this.result.filter((r:any)=>r.responseType.name==CONSTANTS.MULTI_SELECT ))
             {
               const selects=this.fb.group({
                 select:[this.answers[index].name]
               });
               this.select.push(selects);
             }
-            else if(r.bool !=null  && this.result.filter((r:any)=>r.responseType.name=='SHORT_TEXT') )
+            else if(r.bool !=null  && this.result.filter((r:any)=>r.responseType.name==CONSTANTS.SHORT_TEXT) )
             {
               const shortTexts=this.fb.group({
                 answer:[this.answers[index].originalName]
@@ -100,16 +98,6 @@ export class QuestionMappingComponent implements OnInit{
   change(event:any,i:number)
   {
     this.questionForm.value.select[i]={id:event.value};
-
-    const multiQuestion=this.result.filter((r:any)=>r.responseType.name=='MULTI_SELECT');
-    const multiQuestionIds=multiQuestion.map((r:any)=>{
-      return r.id;
-    });
-    // this.savedData.push({
-    //   questionId:i,
-    //   multi:this.questionForm.value.select[i]
-    // } as any)
-
     console.log(this.questionForm.value.select);
     console.log(this.savedData);
     
@@ -123,33 +111,26 @@ export class QuestionMappingComponent implements OnInit{
   saveFormData()
   {
   
-  //   this.savedData=[{
-  //     questionId:'',
-  //     answer:''
-  //   },{
-  //     questionId:'',
-  //     bool:false,
-  //   },
-  // {
-  //   questionId:'',
-  //   multi:[{id:1},{id:2}]
-  // }]
-  this.savedData=[]
-    const longTextQuestion = this.result.filter((r: any) => r.responseType.name == 'LONG_TEXT');
+    this.savedData=[]
+    const longTextQuestion = this.result.filter((r: any) => r.responseType.name == CONSTANTS.LONG_TEXT);
     const longTextQuestionIds = longTextQuestion.map((r: any) => {
       return r.id;
     })
-    const boolQuestion = this.result.filter((r: any) => r.responseType.name == 'BOOL');
+    const boolQuestion = this.result.filter((r: any) => r.responseType.name == CONSTANTS.BOOL);
     const boolQuestionIds=boolQuestion.map((r:any)=>{
       return r.id;
     });
-    const multiQuestion=this.result.filter((r:any)=>r.responseType.name=='MULTI_SELECT');
+    const multiQuestion=this.result.filter((r:any)=>r.responseType.name==CONSTANTS.MULTI_SELECT);
     const multiQuestionIds=multiQuestion.map((r:any)=>{
       return r.id;
     })
     
+    const singleQuestion=this.result.filter((r:any)=>r.responseType.name==CONSTANTS.SINGLE_SELECT);
+    const singleQuestionIds=singleQuestion.map((r:any)=>{
+      return r.id;
+    })
     const shortTextQuestion=this.result.filter((r:any)=>{
-      return r.responseType.name=='SHORT_TEXT';
+      return r.responseType.name==CONSTANTS.SHORT_TEXT;
     });
     const shortTextQuestionIds=shortTextQuestion.map((r:any)=>{
       return r.id;
@@ -170,16 +151,16 @@ export class QuestionMappingComponent implements OnInit{
           bool:this.questionForm.value.radio[index]?.bool
         } as any)
       }
-      // if(multiQuestionIds.includes(this.answers[index].questionId))
-      // {
-      //   // this.savedData.push({
-      //   //   questionId:this.answers[index].questionId,
-      //   //   multi:this.questionForm.value.select[index]
-      //   // } as any);
-      //   // this.savedData.push({...this.savedData as any})
-      //   console.log(this.savedData);
+      if(multiQuestionIds.includes(this.answers[index].questionId) || singleQuestionIds.includes(this.answers[index].questionId) )
+      {
+        const questionId=this.answers[index].questionId;
+        this.savedData.push({
+          questionId:this.answers[index].questionId,
+          response:this.questionForm.value.select[questionId]
+        } as any);
+        console.log(this.savedData);
         
-      // }
+      }
       if(shortTextQuestionIds.includes(this.answers[index].questionId))
       {
         this.savedData.push({
@@ -187,14 +168,9 @@ export class QuestionMappingComponent implements OnInit{
           answer:this.questionForm.value.shortText[index]?.answer
         } as any);
       }
-        this.savedData=[...this.savedData]
-      
-      
-      console.log(this.savedData);
-      
-      
      });
  
+     console.log(this.savedData);
     
     
   }
