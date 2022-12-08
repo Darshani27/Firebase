@@ -2,7 +2,7 @@ export class CONSTANTS
 {
     public static readonly BOOL='BOOL';
     public static readonly SHORT_TEXT='SHORT_TEXT';
-    public static readonly LONG_TEXT='SHORT_TEXT';
+    public static readonly LONG_TEXT='LONG_TEXT';
     public static readonly MULTI_SELECT='MULTI_SELECT';
     public static readonly SINGLE_SELECT='SINGLE_SELECT';
 }

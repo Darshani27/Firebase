@@ -136,12 +136,13 @@ export class QuestionMappingComponent implements OnInit{
       return r.id;
     });
      this.answers.map((r:any,index:any)=>{
-      const data={
-        questionId:this.answers[index].questionId,
-        answer:this.questionForm.value.text[index]?.answer,
-      }
+      
       if(longTextQuestionIds.includes(this.answers[index].questionId))
       {
+        const data={
+          questionId:this.answers[index].questionId,
+          answer:this.questionForm.value.text[index]?.answer,
+        }
         this.savedData.push(data as any);
       }
 
@@ -170,6 +171,8 @@ export class QuestionMappingComponent implements OnInit{
       }
      });
  
+    console.log(this.questionForm.value.text);
+
      console.log(this.savedData);
     
     
