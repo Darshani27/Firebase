@@ -41,6 +41,7 @@ import { SellerPageComponent } from './component/seller-page/seller-page.compone
 import { QuestionMappingComponent } from './component/question-mapping/question-mapping.component';
 import { SellerDashboardComponent } from './component/seller-dashboard/seller-dashboard.component';
 import { DummyComponent } from './component/dummy/dummy.component';
+import { ChatDialogComponent } from './component/chat-dialog/chat-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,7 +71,8 @@ import { DummyComponent } from './component/dummy/dummy.component';
     SellerPageComponent,
     QuestionMappingComponent,
     SellerDashboardComponent,
-    DummyComponent
+    DummyComponent,
+    ChatDialogComponent
   ],
   imports: [
     BrowserModule,

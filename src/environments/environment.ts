@@ -18,6 +18,9 @@ export const environment = {
   
     appId: "1:137066344981:web:4ccfc30467cc823175141c"
   
+  },
+  dialogflow:{
+    angularBot:"39f436c5827c6cb1cd6fc38a19e1c999d7d3f684"
   }
 };
 
