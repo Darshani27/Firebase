@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminguardGuard } from './authGuard/adminguard.guard';
 import { CategoryPageComponent } from './component/category-page/category-page.component';
 import { ChangePasswordComponent } from './component/change-password/change-password.component';
+import { ChatDialogComponent } from './component/chat-dialog/chat-dialog.component';
 import { CheckoutComponent } from './component/checkout/checkout.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { DummyComponent } from './component/dummy/dummy.component';
@@ -52,6 +53,7 @@ const routes: Routes = [
   {path:'dummy',component:DummyComponent},
   {path:'seller-dashboard',component:SellerDashboardComponent},
   {path:'question-mapping',component:QuestionMappingComponent},
+  {path:'live-chat',component:ChatDialogComponent},
   {path:'**',component:PageNotFoundComponent},
 ];
 

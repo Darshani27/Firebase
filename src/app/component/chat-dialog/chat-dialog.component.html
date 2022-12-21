@@ -14,7 +14,13 @@
   <input [(ngModel)]="formValue" (keyup.enter)="sendMessage()" type="text"><br>
   
   <button (click)="sendMessage()">Send</button> -->
-  <ng-container *ngFor="let message of messages">
+  <df-messenger
+  intent="WELCOME"
+  chat-title="AngularBot"
+  agent-id="b9a4523c-3b8a-40e0-a5ad-e0af9393ebc3"
+  language-code="en"
+></df-messenger>
+  <!-- <ng-container *ngFor="let message of messages">
     <div class="message"
     [ngClass]="{ 'from': message.author === 'bot',
     'to': message.author === 'user' }">
@@ -23,7 +29,7 @@
     </ng-container>
     <label *ngIf="messages.length == 0; else dialogInfo" for="nameField">Your message</label>
     <input [(ngModel)]="value" (keyup.enter)="sendMessage()" type="text">
-    <button (click)="sendMessage()">Send</button>
+    <button  (click)="sendMessage()">Send</button>
     <ng-template #dialogInfo>
     <span [className]="'float-right'">Total messages: {{messages.length}}</span>
-    </ng-template>
+    </ng-template> -->

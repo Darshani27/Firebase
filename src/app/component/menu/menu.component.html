@@ -12,6 +12,12 @@
         Login
       </button>
     </span> 
+    &nbsp;
+    <!-- <span>
+      <button mat-raised-button color="primary" routerLink="/live-chat">
+        Live Chat
+      </button>
+    </span>  -->
     <span *ngIf="currentUser && !(hasRoute('question-mapping') || hasRoute('seller-page'))">
       <button mat-raised-button color="accent" routerLink="/question-mapping">Question-Mapping</button>
     </span>
