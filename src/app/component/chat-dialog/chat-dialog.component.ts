@@ -17,6 +17,7 @@ import { Observable, reduce } from 'rxjs';
  formValue:any;
   constructor(public chat:ChatServiceService) { }
 
+ 
   ngOnInit(): void {
     // this.chat.conversation.subscribe((val) => {
     //   this.messages = this.messages.concat(val);

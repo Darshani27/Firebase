@@ -14,12 +14,17 @@
   <input [(ngModel)]="formValue" (keyup.enter)="sendMessage()" type="text"><br>
   
   <button (click)="sendMessage()">Send</button> -->
-  <df-messenger
-  intent="WELCOME"
-  chat-title="AngularBot"
-  agent-id="b9a4523c-3b8a-40e0-a5ad-e0af9393ebc3"
-  language-code="en"
-></df-messenger>
+    <df-messenger
+    intent="WELCOME"
+    chat-title="AngularBot"
+    agent-id="b9a4523c-3b8a-40e0-a5ad-e0af9393ebc3"
+    language-code="en"
+  ></df-messenger>
+
+
+  
+  
+
   <!-- <ng-container *ngFor="let message of messages">
     <div class="message"
     [ngClass]="{ 'from': message.author === 'bot',
