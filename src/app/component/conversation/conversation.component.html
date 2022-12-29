@@ -1,0 +1,6 @@
+<div class="conversation">
+    <div *ngfor="let message of messages">
+        {{message}}
+        <app-message [msg]="message"></app-message>
+    </div>
+</div>

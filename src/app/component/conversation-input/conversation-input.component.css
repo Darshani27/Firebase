@@ -1,0 +1,10 @@
+.conversation-input {
+    width: 90%;
+    position: fixed;
+    bottom: 25px;
+    left: 5%;
+  }
+
+  input {
+    width: 100%;
+  }

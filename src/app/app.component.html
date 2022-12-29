@@ -1,4 +1,12 @@
 
-<app-menu></app-menu>
+<!-- <app-menu></app-menu>
 <router-outlet></router-outlet>
-<app-chat-dialog></app-chat-dialog>
+<app-chat-dialog></app-chat-dialog> -->
+<div *ngIf="!activeUser else myElseBlock">
+    <input type="text" placeholder="Enter your name" [value]="formValue"/>
+    <button (click)="getAccessToken()">Get Chatting</button>
+    </div>
+    <ng-template #myElseBlock>
+    <app-chat></app-chat>
+    </ng-template>
+    <router-outlet></router-outlet>
